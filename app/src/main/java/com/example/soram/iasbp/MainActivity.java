@@ -1,8 +1,13 @@
 package com.example.soram.iasbp;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.annotation.IntegerRes;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     Integer statusto;
     Integer status2;
     BarChart mBarChart;
+    ConstraintLayout constraintLayout;
+    ActionBar actionBar;
 
 
 
@@ -78,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
         textHumi = (TextView) findViewById(R.id.textHumi);
         textTemp = (TextView) findViewById(R.id.textTemp);
         mBarChart = (BarChart) findViewById(R.id.barchart);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
+        actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
+        final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
+        objectAnimator.setDuration(500);
+        objectAnimator.setStartDelay(50);
+
+
 
 
 
@@ -86,8 +101,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (cont == 0){
+                    objectAnimator.start();
+                }
 
                 new firstSession().execute();
+
 
 
 
@@ -238,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
             mBarChart.addBar(new BarModel(l, colors[randomColor]));
         }
         mBarChart.startAnimation();
+
 
 
 
