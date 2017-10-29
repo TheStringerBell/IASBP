@@ -202,26 +202,18 @@ public class MainActivity extends AppCompatActivity {
             j = jsonArrayTemp.length()-1;
             textHumi.setText(arrayDate.get(i) + " - " + arrayTime.get(i) + " - " + arrayValue.get(i) + "%");
             textTemp.setText(" " + arrayTempDate.get(j) + " - " + arrayTempTime.get(j) + " - " + arrayTempValue.get(j) + "°C");
-            Log.e("toto ", arrayMode.toString());
             mode = Integer.parseInt(arrayMode.get(0));
             statusto = Integer.parseInt(arrayMode.get(1));
-
-
             if (switchOn == false){
                 tstb.setToggleStatus(mode);
                 tstb2.setToggleStatus(statusto);
             }
-
             if (cont == 1){
                 status = mode;
                 status2 = statusto;
                 Colours(j, arrayTempValue);
             }
             switchOn = false;
-            Log.e("dsa  ", mode.toString() + " " + statusto.toString());
-            Log.e("Status  ", status.toString());
-
-
             arrayMode.clear();
 
 
@@ -288,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         for (int k = 0; k < j; k+=10){
             int randomColor = random.nextInt(colors.length);
             float l = Float.parseFloat(array.get(k));
-            mBarChart.addBar(new BarModel(l, colors[randomColor]));
+            mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }
         mBarChart.startAnimation();
 
