@@ -1,5 +1,6 @@
 package com.example.soram.iasbp;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.models.BarModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.view.LineChartView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -43,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
+    ArrayList<String> arrayColors = new ArrayList<String>();
     Integer cont = 0;
     TriStateToggleButton tstb;
     TriStateToggleButton tstb2;
@@ -53,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     Integer mode;
     Integer statusto;
     Integer status2;
+    BarChart mBarChart;
 
 
 
@@ -65,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
         textHumi = (TextView) findViewById(R.id.textHumi);
         textTemp = (TextView) findViewById(R.id.textTemp);
+        mBarChart = (BarChart) findViewById(R.id.barchart);
+
+
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 new firstSession().execute();
+
 
 
                 if (cont > 0){
@@ -147,8 +164,12 @@ public class MainActivity extends AppCompatActivity {
             Log.e("toto ", arrayMode.toString());
             mode = Integer.parseInt(arrayMode.get(0));
             statusto = Integer.parseInt(arrayMode.get(1));
+            status = mode;
+            status2 = statusto;
             tstb.setToggleStatus(mode);
             tstb2.setToggleStatus(statusto);
+            Colours(j);
+
             arrayMode.clear();
 
 
@@ -205,5 +226,20 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void Colours(int j){
+        Random random = new Random();
+        int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
+
+        for (int k = 0; k < j; k+=10){
+            int randomColor = random.nextInt(colors.length);
+            float l = Float.parseFloat(arrayTempValue.get(k));
+            mBarChart.addBar(new BarModel(l, colors[randomColor]));
+        }
+        mBarChart.startAnimation();
+
+
+
     }
 }

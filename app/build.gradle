@@ -29,6 +29,9 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     compile 'com.github.BeppiMenozzi:TriStateToggleButton:1.1.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
+    compile 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/okio-1.13.0.jar')
     compile files('libs/okhttp-3.9.0.jar')
