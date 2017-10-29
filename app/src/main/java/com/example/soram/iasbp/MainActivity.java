@@ -272,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
             float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }
-        mBarChart.setBarWidth(10);
-
+        mBarChart.setBarWidth(9);
         mBarChart.startAnimation();
 
     }

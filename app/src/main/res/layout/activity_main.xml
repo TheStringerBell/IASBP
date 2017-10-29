@@ -119,7 +119,7 @@
         android:padding="10dp"
         app:egFixedBarWidth="true"
         app:egBarWidth="20dp"
-        app:egLegendHeight="40dp"
+        app:egLegendHeight="45dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
