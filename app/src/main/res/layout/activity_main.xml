@@ -56,25 +56,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-
-        android:text="Refresh"
-        android:textSize="10sp"
-
-        app:layout_constraintTop_toBottomOf="@+id/textTemp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="33dp"
-        app:layout_constraintLeft_toRightOf="@+id/tstb_2"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="33dp" />
-
     <TextView
         style="@style/TextColor"
         android:id="@+id/textView"
@@ -132,5 +113,31 @@
         app:egLegendHeight="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        style="@style/TextColor"
+        android:id="@+id/textGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/barchart"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/refresh"
+        style="@style/TextColor"
+        android:layout_width="35dp"
+        android:layout_height="23dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="14dp"
+        android:text="SET"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/tstb_2"
+        app:layout_constraintTop_toBottomOf="@+id/textTemp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -38,9 +38,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Button button;
+
     TextView textHumi;
     TextView textTemp;
+    TextView refresh;
     Response response = null;
     Response responseMode = null;
     Response responseTemp = null;
@@ -81,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tstb = (TriStateToggleButton) findViewById(R.id.tstb_1);
         tstb2 = (TriStateToggleButton) findViewById(R.id.tstb_2);
-        button = (Button) findViewById(R.id.button);
+
         textHumi = (TextView) findViewById(R.id.textHumi);
         textTemp = (TextView) findViewById(R.id.textTemp);
         mBarChart = (BarChart) findViewById(R.id.barchart);
+        refresh = (TextView) findViewById(R.id.refresh);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
@@ -98,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cont == 0){
@@ -106,10 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 new firstSession().execute();
-
-
-
-
                 if (cont > 0){
                     if ((tstb.getToggleStatus().toString()).equals("off")){
                         ms = 0;
@@ -257,6 +257,8 @@ public class MainActivity extends AppCompatActivity {
             mBarChart.addBar(new BarModel(l, colors[randomColor]));
         }
         mBarChart.startAnimation();
+        Log.e("fasd", mBarChart.toString());
+
 
 
 
