@@ -14,9 +14,12 @@ import okhttp3.Response;
 
 public class Control extends AsyncTask<String, String, String> {
 
-    String url = "http://slm.uniza.sk/~sochor/tst.php?mode=";
+    String url = "http://slm.uniza.sk/~sochor/tempControl.php?mode=";
+    String url2= "http://slm.uniza.sk/~sochor/humiControl.php?mode=";
     int mode;
+    int status;
     Response response;
+    Response response2;
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -31,12 +34,17 @@ public class Control extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         mode = Integer.parseInt(params[0]);
+        status = Integer.parseInt(params[1]);
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url+mode)
                     .build();
+            Request request2 = new Request.Builder()
+                    .url(url2+status)
+                    .build();
             response = client.newCall(request).execute();
+            response = client.newCall(request2).execute();
         }catch (IOException e){
             e.printStackTrace();
         }

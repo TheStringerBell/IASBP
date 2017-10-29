@@ -66,20 +66,39 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="15dp"
-        android:text="Control"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:layout_marginStart="16dp" />
+
+        android:text="Temperature"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/tstb_1"
+        android:layout_marginLeft="97dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <it.beppi.tristatetogglebutton_library.TriStateToggleButton
         android:layout_width="71dp"
         android:layout_height="22dp"
         android:id="@+id/tstb_1"
-        app:layout_constraintLeft_toRightOf="@+id/textView"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintTop_toBottomOf="@+id/textTemp"
+        android:layout_marginLeft="104dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <it.beppi.tristatetogglebutton_library.TriStateToggleButton
+        android:layout_width="71dp"
+        android:layout_height="22dp"
+        android:id="@+id/tstb_2"
+        app:layout_constraintLeft_toRightOf="@+id/tstb_1"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="22dp"
         app:layout_constraintTop_toBottomOf="@+id/textTemp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/tstb_2" />
 
 </android.support.constraint.ConstraintLayout>
