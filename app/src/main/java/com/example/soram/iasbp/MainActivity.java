@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 new firstSession().execute();
 
+
                 if (cont > 0){
                     if ((tstb.getToggleStatus().toString()).equals("off")){
                         ms = 0;
@@ -131,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (!mode.equals(ms) || !statusto.equals(ms2)){
                         new Control().execute(status.toString(), status2.toString());
+                        mode = status;
+                        statusto = status2;
+
+
                     }
                 }
                 cont++;
@@ -200,17 +205,21 @@ public class MainActivity extends AppCompatActivity {
             Log.e("toto ", arrayMode.toString());
             mode = Integer.parseInt(arrayMode.get(0));
             statusto = Integer.parseInt(arrayMode.get(1));
-            status = mode;
-            status2 = statusto;
+
+
             if (switchOn == false){
                 tstb.setToggleStatus(mode);
                 tstb2.setToggleStatus(statusto);
             }
 
             if (cont == 1){
+                status = mode;
+                status2 = statusto;
                 Colours(j, arrayTempValue);
             }
             switchOn = false;
+            Log.e("dsa  ", mode.toString() + " " + statusto.toString());
+            Log.e("Status  ", status.toString());
 
 
             arrayMode.clear();

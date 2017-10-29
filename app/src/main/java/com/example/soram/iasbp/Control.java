@@ -36,7 +36,8 @@ public class Control extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         mode = Integer.parseInt(params[0]);
         status = Integer.parseInt(params[1]);
-        Log.e("Sending", " " + mode);
+        Log.e("Sending", " " + mode +" " +status);
+
 
         try {
             OkHttpClient client = new OkHttpClient();
