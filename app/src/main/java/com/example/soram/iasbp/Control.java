@@ -1,6 +1,7 @@
 package com.example.soram.iasbp;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -35,6 +36,8 @@ public class Control extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         mode = Integer.parseInt(params[0]);
         status = Integer.parseInt(params[1]);
+        Log.e("Sending", " " + mode);
+
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -44,7 +47,8 @@ public class Control extends AsyncTask<String, String, String> {
                     .url(url2+status)
                     .build();
             response = client.newCall(request).execute();
-            response = client.newCall(request2).execute();
+            response2 = client.newCall(request2).execute();
+
         }catch (IOException e){
             e.printStackTrace();
         }

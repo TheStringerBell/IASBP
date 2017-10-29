@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     BarChart mBarChart;
     ConstraintLayout constraintLayout;
     ActionBar actionBar;
+    Boolean switchOn = false;
 
 
 
@@ -104,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (cont == 0){
                     objectAnimator.start();
+
                 }
 
                 new firstSession().execute();
+
                 if (cont > 0){
                     if ((tstb.getToggleStatus().toString()).equals("off")){
                         ms = 0;
@@ -155,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onToggle(TriStateToggleButton.ToggleStatus toggleStatus, boolean booleanToggleStatus, int toggleIntValue) {
                 switch (toggleStatus) {
-                    case off: status  = 0; break;
-                    case mid: status  = 1; break;
-                    case on:  status  = 2; break;
+                    case off: status  = 0; switchOn = true; break;
+                    case mid: status  = 1; switchOn = true; break;
+                    case on:  status  = 2; switchOn = true; break;
                 }
             }
         });
@@ -165,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onToggle(TriStateToggleButton.ToggleStatus toggleStatus, boolean booleanToggleStatus, int toggleIntValue) {
                 switch (toggleStatus) {
-                    case off: status2  = 0; break;
-                    case mid: status2  = 1; break;
-                    case on:  status2  = 2; break;
+                    case off: status2  = 0; switchOn = true; break;
+                    case mid: status2  = 1; switchOn = true; break;
+                    case on:  status2  = 2; switchOn = true; break;
                 }
             }
         });
@@ -199,9 +202,16 @@ public class MainActivity extends AppCompatActivity {
             statusto = Integer.parseInt(arrayMode.get(1));
             status = mode;
             status2 = statusto;
-            tstb.setToggleStatus(mode);
-            tstb2.setToggleStatus(statusto);
-            Colours(j, arrayTempValue);
+            if (switchOn == false){
+                tstb.setToggleStatus(mode);
+                tstb2.setToggleStatus(statusto);
+            }
+
+            if (cont == 1){
+                Colours(j, arrayTempValue);
+            }
+            switchOn = false;
+
 
             arrayMode.clear();
 
@@ -272,11 +282,6 @@ public class MainActivity extends AppCompatActivity {
             mBarChart.addBar(new BarModel(l, colors[randomColor]));
         }
         mBarChart.startAnimation();
-        Log.e("fasd", mBarChart.toString());
-
-
-
-
 
 
     }
