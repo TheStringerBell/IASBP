@@ -124,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public class firstSession extends AsyncTask<String, String, String> {
-        private static final String username = "sochor";
-        private static final String password = "20sochor17";
+
         private static final String link = "http://slm.uniza.sk/~sochor/HumiData.php";
         private static final String urlMode = "http://slm.uniza.sk/~sochor/ModeValue.php";
         private static final String urlTemp = "http://slm.uniza.sk/~sochor/TempData.php";
