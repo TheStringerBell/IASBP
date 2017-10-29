@@ -113,6 +113,8 @@
         android:layout_width="0dp"
         app:egShowDecimal="true"
         app:egLegendColor="#e6e7ed"
+        app:egUseLeftFiller="false"
+        app:egShowValues="false"
         android:layout_height="256dp"
         android:padding="10dp"
         app:egFixedBarWidth="true"

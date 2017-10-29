@@ -268,10 +268,12 @@ public class MainActivity extends AppCompatActivity {
 //        Random random = new Random();//
 //        int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
 //        int randomColor = random.nextInt(colors.length);
-        for (int k = 0; k < j; k+=10){
+        for (int k = 0; k < j; k++){
             float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }
+        mBarChart.setBarWidth(10);
+
         mBarChart.startAnimation();
 
     }
