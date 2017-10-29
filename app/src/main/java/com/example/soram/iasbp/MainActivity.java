@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textHumi;
     TextView textTemp;
     TextView refresh;
+    TextView temperature;
     Response response = null;
     Response responseMode = null;
     Response responseTemp = null;
@@ -64,12 +65,15 @@ public class MainActivity extends AppCompatActivity {
     TriStateToggleButton tstb;
     TriStateToggleButton tstb2;
     Integer count = 0;
+    Integer graphCount = 1;
     Integer status;
     Integer ms;
     Integer ms2;
     Integer mode;
     Integer statusto;
     Integer status2;
+    Integer i;
+    Integer j;
     BarChart mBarChart;
     ConstraintLayout constraintLayout;
     ActionBar actionBar;
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tstb = (TriStateToggleButton) findViewById(R.id.tstb_1);
         tstb2 = (TriStateToggleButton) findViewById(R.id.tstb_2);
-
+        temperature = (TextView) findViewById(R.id.textGraph);
         textHumi = (TextView) findViewById(R.id.textHumi);
         textTemp = (TextView) findViewById(R.id.textTemp);
         mBarChart = (BarChart) findViewById(R.id.barchart);
@@ -93,13 +97,6 @@ public class MainActivity extends AppCompatActivity {
         final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
         objectAnimator.setDuration(500);
         objectAnimator.setStartDelay(50);
-
-
-
-
-
-
-
 
 
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +131,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 cont++;
+            }
+        });
+
+        temperature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (graphCount > 0 && graphCount%2 !=0 || graphCount == 1){
+                    temperature.setText("Humidity");
+                    graphCount++;
+
+                    Colours(i, arrayValue);
+                }
+                else{
+                    temperature.setText("Temperature");
+                    graphCount++;
+                    Colours(j, arrayTempValue);
+                }
             }
         });
 
@@ -176,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
 
             super.onPostExecute(s);
-            Integer i = jsonArray.length()-1;
-            Integer j = jsonArrayTemp.length()-1;
+            i = jsonArray.length()-1;
+            j = jsonArrayTemp.length()-1;
             textHumi.setText(arrayDate.get(i) + " - " + arrayTime.get(i) + " - " + arrayValue.get(i) + "%");
             textTemp.setText(" " + arrayTempDate.get(j) + " - " + arrayTempTime.get(j) + " - " + arrayTempValue.get(j) + "°C");
             Log.e("toto ", arrayMode.toString());
@@ -187,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             status2 = statusto;
             tstb.setToggleStatus(mode);
             tstb2.setToggleStatus(statusto);
-            Colours(j);
+            Colours(j, arrayTempValue);
 
             arrayMode.clear();
 
@@ -247,17 +261,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Colours(int j){
+    public void Colours(int j, ArrayList<String> array){
         Random random = new Random();
+
         int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
 
         for (int k = 0; k < j; k+=10){
             int randomColor = random.nextInt(colors.length);
-            float l = Float.parseFloat(arrayTempValue.get(k));
+            float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, colors[randomColor]));
         }
         mBarChart.startAnimation();
         Log.e("fasd", mBarChart.toString());
+
 
 
 
