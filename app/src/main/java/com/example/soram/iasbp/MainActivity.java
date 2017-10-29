@@ -31,10 +31,6 @@ import java.util.List;
 import java.util.Random;
 
 import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.view.LineChartView;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -81,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     Boolean switchOn = false;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 //        final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
 //        objectAnimator.setDuration(500);
 //        objectAnimator.setStartDelay(50);
-
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
                         new Control().execute(status.toString(), status2.toString());
                         mode = status;
                         statusto = status2;
-
-
                     }
                 }
                 cont++;
@@ -150,12 +141,13 @@ public class MainActivity extends AppCompatActivity {
                 if (graphCount > 0 && graphCount%2 !=0 || graphCount == 1){
                     temperature.setText("Humidity");
                     graphCount++;
-
+                    mBarChart.clearChart();
                     Colours(i, arrayValue);
                 }
                 else{
                     temperature.setText("Temperature");
                     graphCount++;
+                    mBarChart.clearChart();
                     Colours(j, arrayTempValue);
                 }
             }
@@ -192,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute();
         }
 
@@ -217,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
             }
             switchOn = false;
             arrayMode.clear();
-
 
         }
         @Override
@@ -275,18 +265,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Colours(int j, ArrayList<String> array){
-        Random random = new Random();
-
-        int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
+//        Random random = new Random();//
+//        int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
 //        int randomColor = random.nextInt(colors.length);
-
         for (int k = 0; k < j; k+=10){
-
             float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }
         mBarChart.startAnimation();
-
 
     }
     @Override
