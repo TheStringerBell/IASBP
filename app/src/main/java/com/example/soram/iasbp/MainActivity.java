@@ -95,18 +95,18 @@ public class MainActivity extends AppCompatActivity {
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
-        final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
-        objectAnimator.setDuration(500);
-        objectAnimator.setStartDelay(50);
+//        final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
+//        objectAnimator.setDuration(500);
+//        objectAnimator.setStartDelay(50);
 
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cont == 0){
-                    objectAnimator.start();
-
-                }
+//                if (cont == 0){
+//                    objectAnimator.start();
+//
+//                }
 
                 new firstSession().execute();
 
@@ -276,9 +276,10 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
 
         int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
+//        int randomColor = random.nextInt(colors.length);
 
         for (int k = 0; k < j; k+=10){
-            int randomColor = random.nextInt(colors.length);
+
             float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }

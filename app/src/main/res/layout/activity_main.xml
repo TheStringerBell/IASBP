@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cl"
+    android:background="@color/gray"
     tools:context="com.example.soram.iasbp.MainActivity">
 
     <TextView
@@ -112,7 +113,6 @@
         android:layout_width="0dp"
         app:egShowDecimal="true"
         app:egLegendColor="#e6e7ed"
-        app:egAnimationTime="600"
         android:layout_height="256dp"
         android:padding="10dp"
         app:egFixedBarWidth="true"
