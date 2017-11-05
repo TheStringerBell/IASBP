@@ -19,7 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.BarModel;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     Boolean switchOn = false;
     RetrofitClient retrofitClient;
+    ValueLineChart valueLineChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +95,16 @@ public class MainActivity extends AppCompatActivity {
         temperature = (TextView) findViewById(R.id.textGraph);
         textHumi = (TextView) findViewById(R.id.textHumi);
         textTemp = (TextView) findViewById(R.id.textTemp);
-        mBarChart = (BarChart) findViewById(R.id.barchart);
+//        mBarChart = (BarChart) findViewById(R.id.barchart);
         refresh = (TextView) findViewById(R.id.refresh);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
+        valueLineChart = (ValueLineChart) findViewById(R.id.cubiclinechart);
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
         progressBar.setVisibility(View.GONE);
         retrofitClient = new RetrofitClient();
+        valueLineChart.setVisibility(View.INVISIBLE);
 
 
 
@@ -112,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 new firstSession().execute();
                 progressBar.setMax(5);
                 progressBar.setVisibility(View.VISIBLE);
-                retrofitClient.Login("HumiData");
+//                retrofitClient.Login("HumiData");
 
 
                 if (cont > 0){
@@ -151,14 +157,14 @@ public class MainActivity extends AppCompatActivity {
                 if (graphCount > 0 && graphCount%2 !=0 || graphCount == 1){
                     temperature.setText("Humidity");
                     graphCount++;
-                    mBarChart.clearChart();
-                    Colours(i, arrayValue);
+                    valueLineChart.clearChart();
+                    Colours(i, arrayValue, arrayTime);
                 }
                 else{
                     temperature.setText("Temperature");
                     graphCount++;
-                    mBarChart.clearChart();
-                    Colours(j, arrayTempValue);
+                    valueLineChart.clearChart();
+                    Colours(j, arrayTempValue, arrayTempTime);
                 }
             }
         });
@@ -217,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             if (cont == 1){
                 status = mode;
                 status2 = statusto;
-                Colours(j, arrayTempValue);
+                Colours(j, arrayTempValue, arrayTempTime);
             }
             switchOn = false;
             arrayMode.clear();
@@ -239,9 +245,6 @@ public class MainActivity extends AppCompatActivity {
                 Request requestTemp = new Request.Builder()
                         .url(urlTemp)
                         .build();
-
-
-
 
                 responseMode = client.newCall(requestMode).execute();
                 response = client.newCall(request).execute();
@@ -267,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     publishProgress(Integer.toString(5), Integer.toString(0));
 
-
                     for (int i = 0; i < jsonArrayMode.length(); i++){
                         publishProgress(Integer.toString(jsonArrayMode.length()), Integer.toString(i));
                         JSONObject jsonObject2 = jsonArrayMode.getJSONObject(i);
@@ -287,10 +289,6 @@ public class MainActivity extends AppCompatActivity {
 //                    publishProgress(Integer.toString(5));
                     publishProgress(Integer.toString(5), Integer.toString(5));
 
-
-
-
-
                 }catch (JSONException js){
                     js.printStackTrace();
                 }
@@ -308,17 +306,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Colours(int j, ArrayList<String> array){
+    public void Colours(int j, ArrayList<String> array, ArrayList<String> array2){
 //        Random random = new Random();//
 //        int[] colors = new int[]{0xFF123456,0xFF343456,0xFF563456,0xFF873F56,0xFF56B7F1,0xFF343456,0xFF1FF4AC,0xFF1BA4E6};
 //        int randomColor = random.nextInt(colors.length);
+        ValueLineSeries series = new ValueLineSeries();
+        series.setColor(Color.parseColor("#f2f4f7"));
         for (int k = 0; k < j; k++){
             float l = Float.parseFloat(array.get(k));
-            mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
+//            valueLineChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
+            series.addPoint(new ValueLinePoint(array2.get(k), l));
         }
-
-        mBarChart.setBarWidth(1);
-        mBarChart.startAnimation();
+        valueLineChart.addSeries(series);
+        valueLineChart.setVisibility(View.VISIBLE);
+        valueLineChart.setLegendColor(Color.parseColor("#f2f4f7"));
+        valueLineChart.setUseDynamicScaling(true);
+        valueLineChart.startAnimation();
 
 
     }

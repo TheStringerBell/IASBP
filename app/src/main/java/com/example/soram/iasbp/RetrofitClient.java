@@ -1,28 +1,24 @@
 package com.example.soram.iasbp;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.MainThread;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.models.BarModel;
 
-import org.apache.http.client.params.HttpClientParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
+
 
 /**
  * Created by sOram on 5. 11. 2017.
@@ -30,12 +26,12 @@ import retrofit2.http.GET;
 
 public class RetrofitClient {
     String url = "http://slm.uniza.sk/~sochor/";
-    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     List<GetHumiData> listing;
     String humiTemp;
 
     public void Login(String humiTemp){
         this.humiTemp = humiTemp;
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -61,9 +57,11 @@ public class RetrofitClient {
 
 
 
+
             }
                 Log.e("succes ", " " + listing.get(listing.size()-1).getValue());
-                getHumiDatas(listing);
+//                getHumiDatas(listing);
+
 
             }
 
@@ -78,5 +76,23 @@ public class RetrofitClient {
         return list;
 
     }
+//    public static void displayGraph(List<GetHumiData> list){
+//        final BarChart mBarChart = (BarChart)
+//        final List<GetHumiData> list2 = list;
+//        activity.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                for (int k = 0; k < list2.size()-1; k++){
+//                    float l = Float.parseFloat(list2.get(k).getValue());
+//                    mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
+//                }
+//
+//                mBarChart.setBarWidth(1);
+//                mBarChart.startAnimation();
+//            }
+//        });
+//    }
+
+
 
 }

@@ -1,25 +1,12 @@
 package com.example.soram.iasbp;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * Created by sOram on 5. 11. 2017.
  */
 
 public class GetHumiData {
-//    @SerializedName("Date")
-//    @Expose
-//    private String date;
-//    @SerializedName("Time")
-//    @Expose
-//    private String time;
-//    @SerializedName("Value")
-//    @Expose
-//    private String value;
-////
+
     String Date;
     String Time;
     String Value;
