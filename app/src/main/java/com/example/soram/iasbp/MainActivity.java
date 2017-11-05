@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.eazegraph.lib.charts.BarChart;
@@ -41,12 +42,14 @@ public class MainActivity extends AppCompatActivity {
     TextView textTemp;
     TextView refresh;
     TextView temperature;
+    ProgressBar progressBar;
     Response response = null;
     Response responseMode = null;
     Response responseTemp = null;
     String jsonData;
     String jsonMode;
     String jsonTemp;
+    String test;
     JSONArray jsonArray;
     JSONArray jsonArrayMode;
     JSONArray jsonArrayTemp;
@@ -70,12 +73,14 @@ public class MainActivity extends AppCompatActivity {
     Integer mode;
     Integer statusto;
     Integer status2;
+    Integer progress = 0;
     Integer i;
     Integer j;
     BarChart mBarChart;
     ConstraintLayout constraintLayout;
     ActionBar actionBar;
     Boolean switchOn = false;
+    RetrofitClient retrofitClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +93,15 @@ public class MainActivity extends AppCompatActivity {
         textTemp = (TextView) findViewById(R.id.textTemp);
         mBarChart = (BarChart) findViewById(R.id.barchart);
         refresh = (TextView) findViewById(R.id.refresh);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
+        progressBar.setVisibility(View.GONE);
+        retrofitClient = new RetrofitClient();
+
+
+
 //        final ObjectAnimator objectAnimator = ObjectAnimator.ofObject(constraintLayout, "backgroundColor", new ArgbEvaluator(), Color.WHITE, Color.DKGRAY);
 //        objectAnimator.setDuration(500);
 //        objectAnimator.setStartDelay(50);
@@ -98,12 +109,10 @@ public class MainActivity extends AppCompatActivity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (cont == 0){
-//                    objectAnimator.start();
-//
-//                }
-
                 new firstSession().execute();
+                progressBar.setMax(5);
+                progressBar.setVisibility(View.VISIBLE);
+                retrofitClient.Login("HumiData");
 
 
                 if (cont > 0){
@@ -138,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         temperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (graphCount > 0 && graphCount%2 !=0 || graphCount == 1){
                     temperature.setText("Humidity");
                     graphCount++;
@@ -193,6 +203,9 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             i = jsonArray.length()-1;
             j = jsonArrayTemp.length()-1;
+            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setProgress(0);
+
             textHumi.setText(arrayDate.get(i) + " - " + arrayTime.get(i) + " - " + arrayValue.get(i) + "%");
             textTemp.setText(" " + arrayTempDate.get(j) + " - " + arrayTempTime.get(j) + " - " + arrayTempValue.get(j) + "°C");
             mode = Integer.parseInt(arrayMode.get(0));
@@ -212,9 +225,11 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected String doInBackground(String... params) {
+
             try {
 
                 OkHttpClient client = new OkHttpClient();
+//                publishProgress(Integer.toString(1));
                 Request request = new Request.Builder()
                         .url(link)
                         .build();
@@ -225,34 +240,56 @@ public class MainActivity extends AppCompatActivity {
                         .url(urlTemp)
                         .build();
 
+
+
+
                 responseMode = client.newCall(requestMode).execute();
                 response = client.newCall(request).execute();
                 responseTemp = client.newCall(requestTemp).execute();
                 jsonData = response.body().string();
                 jsonMode = responseMode.body().string();
                 jsonTemp = responseTemp.body().string();
+//                publishProgress(Integer.toString(2));
+
 
                 try {
                     jsonArrayMode = new JSONArray(jsonMode);
                     jsonArray = new JSONArray(jsonData);
                     jsonArrayTemp = new JSONArray(jsonTemp);
+
                     for (int i = 0; i < jsonArray.length(); i++){
+                        publishProgress(Integer.toString(jsonArray.length()), Integer.toString(i));
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         arrayValue.add(jsonObject1.optString("Value"));
                         arrayDate.add(jsonObject1.optString("Date"));
                         arrayTime.add(jsonObject1.optString("Time"));
+
                     }
+                    publishProgress(Integer.toString(5), Integer.toString(0));
+
+
                     for (int i = 0; i < jsonArrayMode.length(); i++){
+                        publishProgress(Integer.toString(jsonArrayMode.length()), Integer.toString(i));
                         JSONObject jsonObject2 = jsonArrayMode.getJSONObject(i);
                         arrayMode.add(jsonObject2.optString("Mode"));
 //                        arrayStatus.add(jsonObject2.optString("Status"));
                     }
+                    publishProgress(Integer.toString(5), Integer.toString(0));
+
+
                     for (int i = 0; i < jsonArrayTemp.length(); i++){
+                        publishProgress(Integer.toString(jsonArrayTemp.length()), Integer.toString(i));
                         JSONObject jsonObject3 = jsonArrayTemp.getJSONObject(i);
                         arrayTempDate.add(jsonObject3.optString("Date"));
                         arrayTempTime.add(jsonObject3.optString("Time"));
                         arrayTempValue.add(jsonObject3.optString("Value"));
                     }
+//                    publishProgress(Integer.toString(5));
+                    publishProgress(Integer.toString(5), Integer.toString(5));
+
+
+
+
 
                 }catch (JSONException js){
                     js.printStackTrace();
@@ -261,6 +298,13 @@ public class MainActivity extends AppCompatActivity {
                 e2.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            progressBar.setMax(Integer.parseInt(values[0]));
+            progressBar.setProgress(Integer.parseInt(values[1]));
         }
     }
 
@@ -272,8 +316,10 @@ public class MainActivity extends AppCompatActivity {
             float l = Float.parseFloat(array.get(k));
             mBarChart.addBar(new BarModel(l, Color.parseColor("#f2f4f7")));
         }
-        mBarChart.setBarWidth(9);
+
+        mBarChart.setBarWidth(1);
         mBarChart.startAnimation();
+
 
     }
     @Override
