@@ -52,11 +52,6 @@ public class GraphFragment extends Fragment {
     LineChart lineChart;
     LineChart lineChart2;
 
-
-
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -68,11 +63,6 @@ public class GraphFragment extends Fragment {
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
         TempTime = getArguments().getStringArrayList("TempTime");
-
-//        valueLineChart = (ValueLineChart) view.findViewById(R.id.cubiclinechart);
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-
-
         ArrayList<Entry> entries = new ArrayList<>();
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -138,38 +128,8 @@ public class GraphFragment extends Fragment {
         lineChart2.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         lineChart2.getLegend().setTextColor(Color.parseColor("#CC527A"));
 //        lineChart2.getLegend().setEnabled(false);
+
         lineChart2.animateX(1500);
-
-
-
-
-
-//        for (int i = 0; i < 15; i++) {
-//            float val = (float) (Math.random() * 2) + 3;
-//            entries.add(new Entry(i, val));
-
-
-
-
-//
-//        ValueLineSeries series = new ValueLineSeries();
-//        series.setColor(Color.parseColor("#E8175D"));
-//        for (int k = 0; k < HumiTime.size()-1; k++){
-//            float l = Float.parseFloat(HumiValues.get(k));
-//
-//            series.addPoint(new ValueLinePoint(HumiTime.get(k), l));
-//        }
-//        valueLineChart.addSeries(series);
-//        valueLineChart.setVisibility(View.VISIBLE);
-//        valueLineChart.setLegendColor(Color.parseColor("#f2f4f7"));
-//        valueLineChart.setAxisTextColor(Color.parseColor("#A8A7A7"));
-//        valueLineChart.setUseDynamicScaling(true);
-//        valueLineChart.startAnimation();
-
-
-
-
-
         return view;
     }
 

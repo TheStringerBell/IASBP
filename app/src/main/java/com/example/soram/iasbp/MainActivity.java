@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
 
@@ -60,8 +62,7 @@ import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textHumi;
-    TextView textTemp;
+
     ArrayList<String> arrayTime = new ArrayList<String>();
     ArrayList<String> arrayDate = new ArrayList<String>();
     ArrayList<String> arrayValue = new ArrayList<String>();
@@ -75,48 +76,45 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     Boolean humiOrTemp = false;
     List<GetHumiData> listing;
-    Button first;
-    Button second;
     Bundle bundle;
-    ViewPager viewPager;
     NavigationTabStrip tiles;
+    Timer timer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         tiles = (NavigationTabStrip) findViewById(R.id.tiles);
-//        first = (Button) findViewById(R.id.firstFragment);
-//        second = (Button) findViewById(R.id.secondFragment);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.newbg)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
+        actionBar.setElevation(0);
+        actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
+//        actionBar.setTitle("IAS BP");
         Login(new ApiKeys().getHumiData());
 
-//        first.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadFragment(new MainFragment(), bundle);
-//                cont =0;
-//            }
-//        });
-//        second.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadFragment(new GraphFragment(), bundle);
-//                cont=0;
-//            }
-//        });
         tiles.setTitles("Home", "Graphs", "Control");
+        tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
+        tiles.setActiveColor(Color.parseColor("#E8175D"));
+        tiles.setStripType(NavigationTabStrip.StripType.POINT);
+        tiles.setStripColor(Color.parseColor("#E8175D"));
+
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
                 switch (title){
-                    case "GRAPHS": loadFragment(new GraphFragment(), bundle); break;
-                    case "HOME": loadFragment(new MainFragment(), bundle); break;
+                    case "GRAPHS": loadFragment(new GraphFragment(), bundle);  break;
+                    case "HOME": arrayDate.clear();
+                        arrayTempTime.clear();
+                        arrayTempValue.clear();
+                        arrayTime.clear();
+                        arrayValue.clear();
+                        arrayTempDate.clear();
+                        cont = 0;
+                        humiOrTemp = false;
+                        Login(new ApiKeys().getHumiData()
+                        ); break;
                     case "CONTROL": loadFragment(new MainFragment(), bundle); break;
                 }
             }
@@ -172,16 +170,18 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("HumiTime", arrayTime);
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
+//                    deleyedLoop();
+
+
+                    if (cont == 0){
+                        loadFragment(new MainFragment(), bundle);
+                    }
                     cont++;
-                    loadFragment(new MainFragment(), bundle);
-                }
-                if (cont == 0){
-                    Login(new ApiKeys().getTempData());
+                }else {
                     humiOrTemp = true;
+                    Login(new ApiKeys().getTempData());
+
                 }
-
-
-
             }
 
             @Override
@@ -189,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Fail ", " " + t);
             }
         });
-
 
     }
     public void loadFragment(Fragment fragment, Bundle bundle){
@@ -214,6 +213,33 @@ public class MainActivity extends AppCompatActivity {
                 }).create().show();
 
     }
+//    public void deleyedLoop(){
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while (true){
+//                        Thread.sleep(5000);
+//                        Log.e("toto","deley");
+//                        arrayDate.clear();
+//                        arrayTempTime.clear();
+//                        arrayTempValue.clear();
+//                        arrayTime.clear();
+//                        arrayValue.clear();
+//                        arrayTempDate.clear();
+//                        cont = 0;
+//                        humiOrTemp = false;
+//                        Login(new ApiKeys().getHumiData());
+//
+//                    }
+//                }catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        });
+//
+//    }
 
 
 }
