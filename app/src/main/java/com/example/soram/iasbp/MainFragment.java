@@ -28,7 +28,9 @@ public class MainFragment extends Fragment{
     ArrayList<String> TempTime;
     ArrayList<String> TempValues;
     CircleProgressView circleProgressView;
+    CircleProgressView circleProgressView2;
     Float maxValue;
+    Float maxValue2;
 
     @Nullable
     @Override
@@ -37,10 +39,12 @@ public class MainFragment extends Fragment{
         view = inflater.inflate(R.layout.main_fragment, container, false);
 
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
+        circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
+        maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
         circleProgressView.setMaxValue(100);
         circleProgressView.setValue(0);
         circleProgressView.setBarColor(Color.parseColor("#E8175D"));
@@ -54,6 +58,20 @@ public class MainFragment extends Fragment{
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue);
+
+        circleProgressView2.setMaxValue(50);
+        circleProgressView2.setValue(0);
+        circleProgressView2.setBarColor(Color.parseColor("#E8175D"));
+        circleProgressView2.setRimColor(Color.parseColor("#474747"));
+        circleProgressView2.setTextSize(100);
+        circleProgressView2.setUnit("°C");
+        circleProgressView2.setUnitVisible(true);
+        circleProgressView2.setUnitSize(40);
+        circleProgressView2.setUnitColor(Color.parseColor("#CC527A"));
+        circleProgressView2.setTextColor(Color.parseColor("#E8175D"));
+        circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
+        circleProgressView2.setTextMode(TextMode.VALUE);
+        circleProgressView2.setValueAnimated(maxValue2);
 
 
         return view;
