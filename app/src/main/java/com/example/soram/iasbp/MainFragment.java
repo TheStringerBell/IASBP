@@ -43,9 +43,14 @@ public class MainFragment extends Fragment{
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
         circleProgressView.setMaxValue(100);
         circleProgressView.setValue(0);
-;
+        circleProgressView.setBarColor(Color.parseColor("#E8175D"));
+        circleProgressView.setRimColor(Color.parseColor("#474747"));
         circleProgressView.setTextSize(100);
-        circleProgressView.setTextColor(Color.parseColor("#e5e5e5"));
+        circleProgressView.setUnit("%");
+        circleProgressView.setUnitVisible(true);
+        circleProgressView.setUnitSize(40);
+        circleProgressView.setUnitColor(Color.parseColor("#CC527A"));
+        circleProgressView.setTextColor(Color.parseColor("#E8175D"));
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue);

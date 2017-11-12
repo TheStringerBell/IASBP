@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         second = (Button) findViewById(R.id.secondFragment);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.newbg)));
         Login(new ApiKeys().getHumiData());
 
         first.setOnClickListener(new View.OnClickListener() {
