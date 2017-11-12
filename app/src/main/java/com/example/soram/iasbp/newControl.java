@@ -8,6 +8,7 @@ import retrofit2.http.Url;
 
 public interface newControl{
 
+
     @GET
     retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
 

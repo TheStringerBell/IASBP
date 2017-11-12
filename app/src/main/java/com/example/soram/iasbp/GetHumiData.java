@@ -12,6 +12,8 @@ public class GetHumiData {
     String Value;
 
 
+
+
     public String getDate(){
         return Date;
     }
