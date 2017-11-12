@@ -11,6 +11,7 @@ import android.provider.BlockedNumberContract;
 import android.support.annotation.IntegerRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+
+import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.ValueLineChart;
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     Button first;
     Button second;
     Bundle bundle;
+    ViewPager viewPager;
+    NavigationTabStrip tiles;
 
 
     @Override
@@ -83,26 +88,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        first = (Button) findViewById(R.id.firstFragment);
-        second = (Button) findViewById(R.id.secondFragment);
+        tiles = (NavigationTabStrip) findViewById(R.id.tiles);
+//        first = (Button) findViewById(R.id.firstFragment);
+//        second = (Button) findViewById(R.id.secondFragment);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.newbg)));
         Login(new ApiKeys().getHumiData());
 
-        first.setOnClickListener(new View.OnClickListener() {
+//        first.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadFragment(new MainFragment(), bundle);
+//                cont =0;
+//            }
+//        });
+//        second.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadFragment(new GraphFragment(), bundle);
+//                cont=0;
+//            }
+//        });
+        tiles.setTitles("Home", "Graphs", "Control");
+        tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
-            public void onClick(View v) {
-                loadFragment(new MainFragment(), bundle);
+            public void onStartTabSelected(String title, int index) {
+                switch (title){
+                    case "GRAPHS": loadFragment(new GraphFragment(), bundle); break;
+                    case "HOME": loadFragment(new MainFragment(), bundle); break;
+                    case "CONTROL": loadFragment(new MainFragment(), bundle); break;
+                }
+            }
+
+            @Override
+            public void onEndTabSelected(String title, int index) {
+
             }
         });
-        second.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new GraphFragment(), bundle);
-            }
-        });
+
 
     }
 
@@ -148,9 +172,15 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("HumiTime", arrayTime);
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
+                    cont++;
+                    loadFragment(new MainFragment(), bundle);
                 }
-                Login(new ApiKeys().getTempData());
-                humiOrTemp = true;
+                if (cont == 0){
+                    Login(new ApiKeys().getTempData());
+                    humiOrTemp = true;
+                }
+
+
 
             }
 

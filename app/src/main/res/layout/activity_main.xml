@@ -8,32 +8,49 @@
     android:background="@color/gray"
     tools:context="com.example.soram.iasbp.MainActivity">
 
-    <Button
-        android:id="@+id/firstFragment"
-        android:layout_width="196dp"
-        android:layout_height="44dp"
-
-
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="First Fragment"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/secondFragment"
-        android:layout_width="153dp"
+    <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/tiles"
+
+        app:nts_size="15sp"
+        app:nts_weight="3dp"
+        app:nts_factor="2.5"
+        app:nts_type="point"
+        app:nts_gravity="top"
+        app:nts_typeface="fonts/typeface.otf"
+        app:nts_corners_radius="1.5dp"
+        app:nts_animation_duration="300"
+
+/>
 
 
-        android:layout_marginStart="20dp"
-        android:text="Second Fragment"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/firstFragment"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/firstFragment"-->
+        <!--android:layout_width="196dp"-->
+        <!--android:layout_height="44dp"-->
+
+
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="First Fragment"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="20sp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/secondFragment"-->
+        <!--android:layout_width="153dp"-->
+        <!--android:layout_height="50dp"-->
+
+
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:text="Second Fragment"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="20sp"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/firstFragment"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 
     <!--<it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
