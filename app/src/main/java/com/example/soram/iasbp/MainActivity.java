@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
-        tiles.setStripType(NavigationTabStrip.StripType.POINT);
+        tiles.setTabIndex(0, true);
         tiles.setStripColor(Color.parseColor("#E8175D"));
 
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
