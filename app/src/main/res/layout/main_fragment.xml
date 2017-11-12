@@ -1,39 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!--<TextView-->
-        <!--android:id="@+id/textHumi"-->
-        <!--style="@style/TextColor"-->
-        <!--android:layout_width="145dp"-->
-        <!--android:layout_height="86dp"-->
-
-        <!--android:layout_marginStart="120dp"-->
-        <!--android:layout_marginTop="112dp"-->
-        <!--android:text="0"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textSize="72sp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/textTemp"-->
-        <!--style="@style/TextColor"-->
-        <!--android:layout_width="145dp"-->
-        <!--android:layout_height="86dp"-->
-
-
-        <!--android:layout_marginStart="120dp"-->
-        <!--android:layout_marginTop="52dp"-->
-        <!--android:text="0"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textSize="72sp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textHumi" />-->
 
     <at.grabner.circleprogress.CircleProgressView
         android:id="@+id/circleView2"
@@ -52,5 +22,16 @@
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.romainpiel.shimmer.ShimmerTextView
+        android:id="@+id/typer"
+        android:layout_width="90dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="140dp"
+
+        app:layout_constraintStart_toStartOf="@+id/circleView"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

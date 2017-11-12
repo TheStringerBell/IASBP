@@ -1,63 +1,28 @@
 package com.example.soram.iasbp;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
+
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
-import android.provider.BlockedNumberContract;
-import android.support.annotation.IntegerRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
-//import android.app.Fragment;
-//import android.app.FragmentManager;
-//import android.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
-
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-
-import org.eazegraph.lib.charts.BarChart;
-import org.eazegraph.lib.charts.ValueLineChart;
-import org.eazegraph.lib.models.BarModel;
-import org.eazegraph.lib.models.ValueLinePoint;
-import org.eazegraph.lib.models.ValueLineSeries;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 import java.util.Timer;
-
-import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -91,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
         actionBar.setElevation(0);
         actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
-//        actionBar.setTitle("IAS BP");
         Login(new ApiKeys().getHumiData());
-
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
@@ -124,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public void Login(String url) {

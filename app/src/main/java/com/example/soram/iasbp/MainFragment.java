@@ -1,19 +1,26 @@
 package com.example.soram.iasbp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
+
+
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
+import lecho.lib.hellocharts.model.Line;
 
 /**
  * Created by sOram on 11. 11. 2017.
@@ -31,12 +38,14 @@ public class MainFragment extends Fragment{
     CircleProgressView circleProgressView2;
     Float maxValue;
     Float maxValue2;
+    ShimmerTextView typer;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.main_fragment, container, false);
+        typer = ( ShimmerTextView) view.findViewById(R.id.typer);
 
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
         circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
@@ -45,6 +54,26 @@ public class MainFragment extends Fragment{
         TempValues = getArguments().getStringArrayList("TempValues");
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
+
+        typer.setTextColor(Color.parseColor("#2d2e30"));
+        typer.setReflectionColor(Color.parseColor("#E8175D"));
+        typer.setTextSize(15);
+
+        Shimmer shimmer = new Shimmer();
+        shimmer.setDuration(3000);
+
+        shimmer.start(typer);
+        if (maxValue < 40){
+            typer.setText("Dry");
+        }
+        if (maxValue > 40 && maxValue < 60){
+            typer.setText("Comfort");
+        }
+        if (maxValue > 60){
+            typer.setText("Wet");
+        }
+
+
         circleProgressView.setMaxValue(100);
         circleProgressView.setValue(0);
         circleProgressView.setBarColor(Color.parseColor("#E8175D"));
@@ -58,6 +87,7 @@ public class MainFragment extends Fragment{
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue);
+
 
         circleProgressView2.setMaxValue(50);
         circleProgressView2.setValue(0);
