@@ -13,5 +13,16 @@
         android:layout_marginTop="216dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <org.eazegraph.lib.charts.ValueLineChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cubiclinechart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true"
+        app:egCurveSmoothness="0.4"
+
+        app:egLegendHeight="40dp"
+/>
 
 </android.support.constraint.ConstraintLayout>

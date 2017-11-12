@@ -59,19 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textHumi;
     TextView textTemp;
-    TextView refresh;
-    TextView temperature;
-
-    Response response = null;
-    Response responseMode = null;
-    Response responseTemp = null;
-    String jsonData;
-    String jsonMode;
-    String jsonTemp;
-    String test;
-    JSONArray jsonArray;
-    JSONArray jsonArrayMode;
-    JSONArray jsonArrayTemp;
     ArrayList<String> arrayTime = new ArrayList<String>();
     ArrayList<String> arrayDate = new ArrayList<String>();
     ArrayList<String> arrayValue = new ArrayList<String>();
@@ -80,24 +67,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
-    ArrayList<String> arrayColors = new ArrayList<String>();
     Integer cont = 0;
-    TriStateToggleButton tstb;
-    TriStateToggleButton tstb2;
-    Integer count = 0;
-    Integer graphCount = 1;
-    Integer status;
-    Integer ms;
-    Integer ms2;
-    Integer mode;
-    Integer statusto;
-    Integer status2;
-    Integer progress = 0;
-    Integer i;
-    Integer j;
     ConstraintLayout constraintLayout;
     ActionBar actionBar;
-    Boolean switchOn = false;
+    Boolean humiOrTemp = false;
     List<GetHumiData> listing;
     Button first;
     Button second;
@@ -110,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        textHumi = (TextView) findViewById(R.id.textHumi);
-        textTemp = (TextView) findViewById(R.id.textTemp);
+
         first = (Button) findViewById(R.id.firstFragment);
         second = (Button) findViewById(R.id.secondFragment);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
@@ -157,15 +129,28 @@ public class MainActivity extends AppCompatActivity {
                     getHumiData.setDate(date);
                     getHumiData.setTime(time);
                     getHumiData.setValue(value);
+                    if (!humiOrTemp){
+
+                        arrayValue.add(value);
+                        arrayTime.add(time);
+                        arrayDate.add(date);
+
+                    }else {
+                        arrayTempDate.add(date);
+                        arrayTempValue.add(value);
+                        arrayTempTime.add(time);
+                    }
                     listing.add(getHumiData);
-                    arrayValue.add(value);
-                    arrayTime.add(time);
-
                 }
-
-                bundle = new Bundle();
-                bundle.putStringArrayList("Values", arrayValue);
-                bundle.putStringArrayList("Time", arrayTime);
+                if (humiOrTemp){
+                    bundle = new Bundle();
+                    bundle.putStringArrayList("HumiValues", arrayValue);
+                    bundle.putStringArrayList("HumiTime", arrayTime);
+                    bundle.putStringArrayList("TempValues", arrayTempValue);
+                    bundle.putStringArrayList("TempTime", arrayTempTime);
+                }
+                Login(new ApiKeys().getTempData());
+                humiOrTemp = true;
 
             }
 
