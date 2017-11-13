@@ -21,7 +21,12 @@ import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.refresh.menuitem.RefreshMenuItemHelper;
+
 import java.util.Timer;
 
 
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle;
     NavigationTabStrip tiles;
     Timer timer;
+    RefreshMenuItemHelper refreshMenuItemHelper;
 
 
     @Override
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tiles = (NavigationTabStrip) findViewById(R.id.tiles);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
+        refreshMenuItemHelper = new RefreshMenuItemHelper();
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
         actionBar.setElevation(0);
@@ -62,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         tiles.setActiveColor(Color.parseColor("#E8175D"));
         tiles.setTabIndex(0, true);
         tiles.setStripColor(Color.parseColor("#E8175D"));
-
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         arrayTempValue.add(value);
                         arrayTempTime.add(time);
                     }
-                    listing.add(getHumiData);
+//                    listing.add(getHumiData);
                 }
                 if (humiOrTemp){
                     bundle = new Bundle();
@@ -122,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("HumiTime", arrayTime);
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
+                    bundle.putStringArrayList("Date", arrayTempDate);
 //                    deleyedLoop();
 
 
@@ -165,35 +172,33 @@ public class MainActivity extends AppCompatActivity {
                 }).create().show();
 
     }
-//    public void deleyedLoop(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    while (true){
-//                        Thread.sleep(5000);
-//                        Log.e("toto","deley");
-//                        arrayDate.clear();
-//                        arrayTempTime.clear();
-//                        arrayTempValue.clear();
-//                        arrayTime.clear();
-//                        arrayValue.clear();
-//                        arrayTempDate.clear();
-//                        cont = 0;
-//                        humiOrTemp = false;
-//                        Login(new ApiKeys().getHumiData());
-//
-//                    }
-//                }catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
-//
-//    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return refreshMenuItemHelper.onCreateOptionsMenu(getMenuInflater(), menu, true);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                refreshMenuItemHelper.setMenuItem(item);
+                humiOrTemp = false;
+                cont = 0;
+                arrayDate.clear();
+                arrayValue.clear();
+                arrayTime.clear();
+                arrayTempDate.clear();
+                arrayTempValue.clear();
+                arrayTempTime.clear();
+                Login(new ApiKeys().getHumiData());
+                tiles.setTabIndex(0, true);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
 
 
