@@ -67,18 +67,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStartTabSelected(String title, int index) {
                 switch (title){
-                    case "GRAPHS": loadFragment(new GraphFragment(), bundle);  break;
-                    case "HOME": arrayDate.clear();
-                        arrayTempTime.clear();
-                        arrayTempValue.clear();
-                        arrayTime.clear();
-                        arrayValue.clear();
-                        arrayTempDate.clear();
-                        cont = 0;
-                        humiOrTemp = false;
-                        Login(new ApiKeys().getHumiData()
-                        ); break;
-                    case "CONTROL": loadFragment(new MainFragment(), bundle); break;
+                    case "GRAPHS":  loadFragment(new GraphFragment(), bundle); break;
+                    case "HOME":    loadFragment(new MainFragment(), bundle);  break;
+                    case "CONTROL": loadFragment(new MainFragment(), bundle);  break;
                 }
             }
 
