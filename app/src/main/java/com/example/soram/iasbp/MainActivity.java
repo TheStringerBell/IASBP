@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
+    ArrayList<String> controlMode = new ArrayList<>();
+
     Integer cont = 0;
     ConstraintLayout constraintLayout;
     ActionBar actionBar;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationTabStrip tiles;
     Timer timer;
     RefreshMenuItemHelper refreshMenuItemHelper;
+    String HOST_URL;
 
 
     @Override
@@ -63,8 +66,12 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
         actionBar.setElevation(0);
         actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
+
+        HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
         new Control(1,0).test();
+
+
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void Login(String url) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://slm.uniza.sk/~sochor/")
+                .baseUrl(HOST_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -103,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 GetHumiData getHumiData = null;
                 listing = new ArrayList<GetHumiData>();
                 for (int i = 0; i < list.size(); i++) {
-                    getHumiData = new GetHumiData();
+//                    getHumiData = new GetHumiData();
                     String date = list.get(i).getDate();
                     String time = list.get(i).getTime();
                     String value = list.get(i).getValue();
-                    getHumiData.setDate(date);
-                    getHumiData.setTime(time);
-                    getHumiData.setValue(value);
+//                    getHumiData.setDate(date);
+//                    getHumiData.setTime(time);
+//                    getHumiData.setValue(value);
                     if (!humiOrTemp){
 
                         arrayValue.add(value);
@@ -130,11 +137,10 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
                     bundle.putStringArrayList("Date", arrayTempDate);
+
 //                    deleyedLoop();
-
-
                     if (cont == 0){
-                        loadFragment(new MainFragment(), bundle);
+                        getControlData();
                     }
                     cont++;
                 }else {
@@ -146,6 +152,35 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<GetHumiData>> call, Throwable t) {
+                Log.e("Fail ", " " + t);
+            }
+        });
+
+    }
+    public void getControlData(){
+        final String CONTROL = new ApiKeys().getControl();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        newControl service = retrofit.create(newControl.class);
+        Call<List<GetControlData>> call = service.controlData(CONTROL);
+        call.enqueue(new Callback<List<GetControlData>>() {
+            @Override
+            public void onResponse(Call<List<GetControlData>> call, Response<List<GetControlData>> response) {
+                List<GetControlData> list = response.body();
+                GetControlData getControlData = null;
+                for (int i = 0; i < list.size(); i++){
+                    controlMode.add(list.get(i).getMode());
+                }
+                Log.e("das", controlMode.toString());
+                bundle.putStringArrayList("Mode", controlMode);
+                loadFragment(new MainFragment(), bundle);
+
+
+            }
+            @Override
+            public void onFailure(Call<List<GetControlData>> call, Throwable t) {
                 Log.e("Fail ", " " + t);
             }
         });
@@ -186,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 refreshMenuItemHelper.setMenuItem(item);
                 humiOrTemp = false;
                 cont = 0;
+                controlMode.clear();
                 arrayDate.clear();
                 arrayValue.clear();
                 arrayTime.clear();

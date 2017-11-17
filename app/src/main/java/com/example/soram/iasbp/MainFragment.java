@@ -29,16 +29,18 @@ import lecho.lib.hellocharts.model.Line;
 public class MainFragment extends Fragment{
     View view;
     TextView textView;
-
+    TextView textMode;
     ArrayList<String> HumiValues;
     ArrayList<String> HumiTime;
     ArrayList<String> date;
     ArrayList<String> TempValues;
+    ArrayList<String> mode;
     CircleProgressView circleProgressView;
     CircleProgressView circleProgressView2;
     Float maxValue;
     Float maxValue2;
     ShimmerTextView typer;
+    String dateAndTime;
 
 
     @Nullable
@@ -48,19 +50,23 @@ public class MainFragment extends Fragment{
         view = inflater.inflate(R.layout.main_fragment, container, false);
         typer = ( ShimmerTextView) view.findViewById(R.id.typer);
         textView = (TextView) view.findViewById(R.id.textView);
+        textMode = (TextView) view.findViewById(R.id.textMode);
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
         circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
         date = getArguments().getStringArrayList("Date");
+        mode = getArguments().getStringArrayList("Mode");
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
         typer.setTextColor(Color.parseColor("#2d2e30"));
         typer.setReflectionColor(Color.parseColor("#E8175D"));
         typer.setTextSize(15);
+        dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
         textView.setTextColor(Color.parseColor("#E8175D"));
-        textView.setText(date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1));
+        textView.setText(dateAndTime);
+
 
         Shimmer shimmer = new Shimmer();
         shimmer.setDuration(3000);
