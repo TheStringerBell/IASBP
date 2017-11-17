@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
+    android:layout_gravity="center"
     tools:context="com.example.soram.iasbp.MainActivity">
 
     <com.gigamole.navigationtabstrip.NavigationTabStrip
@@ -16,13 +17,26 @@
         app:nts_size="15sp"
         app:nts_weight="3dp"
         app:nts_factor="2.5"
-        app:nts_type="point"
+        app:nts_type="line"
         app:nts_gravity="top"
         app:nts_typeface="fonts/typeface.otf"
         app:nts_corners_radius="1.5dp"
         app:nts_animation_duration="300"
 
 />
+
+    <RelativeLayout
+        android:id="@+id/relativeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </RelativeLayout>
 
 
     <!--<Button-->
@@ -121,14 +135,15 @@
 
     <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="369dp"
-        android:layout_height="457dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frameLayout"-->
+        <!--android:layout_width="369dp"-->
+        <!--android:layout_height="457dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="48dp"-->
+        <!--android:foregroundGravity="center"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
+    <!--</FrameLayout>-->
 
-    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

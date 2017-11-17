@@ -59,6 +59,8 @@ public class GraphFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
+        xAxis.setLabelRotationAngle(-45);
+        xAxis.setTextSize(9);
         xAxis.setTextColor(Color.parseColor("#CC527A"));
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
@@ -110,6 +112,8 @@ public class GraphFragment extends Fragment {
         xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis2.setDrawGridLines(false);
         xAxis2.setDrawAxisLine(false);
+        xAxis2.setLabelRotationAngle(-45);
+        xAxis2.setTextSize(9);
         xAxis2.setTextColor(Color.parseColor("#CC527A"));
         xAxis2.setValueFormatter(new IAxisValueFormatter() {
             @Override

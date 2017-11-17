@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setElevation(0);
         actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
         Login(new ApiKeys().getHumiData());
+        new Control(1,0).test();
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.replace(R.id.relativeView, fragment);
         fragmentTransaction.commit();
 
     }

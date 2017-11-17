@@ -40,6 +40,8 @@ dependencies {
     compile "com.hanks:htextview-base:0.1.2"
     compile 'com.romainpiel.shimmer:library:1.4.0@aar'
     compile 'com.github.nicolasjafelle:refreshmenuitem:1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
