@@ -1,36 +1,22 @@
 package com.example.soram.iasbp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.graphics.BlurMaskFilter;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.RadialGradient;
-import android.graphics.Shader;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
-import lecho.lib.hellocharts.model.Line;
+
 
 /**
  * Created by sOram on 11. 11. 2017.

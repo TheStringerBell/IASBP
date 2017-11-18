@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 
@@ -15,67 +16,38 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Control{
-    Integer mode;
-    Integer status;
-    String url = "http://slm.uniza.sk/~sochor/tempControl.php?mode=";
-    final OkHttpClient okHttpClient = new OkHttpClient();
-    public Control(Integer mode, Integer status){
-        this.status = status;
-        this.mode = mode;
-    }
-    public void test(){
 
-        Observable.defer(new Callable<ObservableSource<?>>() {
+    final String URL = new ApiKeys().getLink();
+    final String das = new ApiKeys().getControltest();
+
+    public void updateControl(String mode){
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        newControl service = retrofit.create(newControl.class);
+        retrofit2.Call<Void> call = service.control(das+mode);
+        call.enqueue(new retrofit2.Callback<Void>() {
             @Override
-            public ObservableSource<?> call() throws Exception {
-                Response response = okHttpClient.newCall(new Request.Builder().url(url+mode).build()).execute();
-                Log.e("toto", response.toString());
-                return Observable.just(response);
+            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                Log.e(" ",  response.toString());
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+
             }
         });
     }
 
 
+
 }
-//public class Control extends AsyncTask<String, String, String> {
-//
-//    String url = "http://slm.uniza.sk/~sochor/tempControl.php?mode=";
-//    String url2= "http://slm.uniza.sk/~sochor/humiControl.php?mode=";
-//    int mode;
-//    int status;
-//    Response response;
-//    Response response2;
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//    }
-//
-//    @Override
-//    protected void onPostExecute(String s) {
-//        super.onPostExecute(s);
-//    }
-//
-//    @Override
-//    protected String doInBackground(String... params) {
-//        mode = Integer.parseInt(params[0]);
-//        status = Integer.parseInt(params[1]);
-//        try {
-//            OkHttpClient client = new OkHttpClient();
-//            Request request = new Request.Builder()
-//                    .url(url+mode)
-//                    .build();
-//            Request request2 = new Request.Builder()
-//                    .url(url2+status)
-//                    .build();
-//            response = client.newCall(request).execute();
-//            response2 = client.newCall(request2).execute();
-//
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//}
+

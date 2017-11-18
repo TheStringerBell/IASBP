@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
-        new Control(1,0).test();
+        new Control().updateControl("1");
 
 
         tiles.setTitles("Home", "Graphs", "Control");
