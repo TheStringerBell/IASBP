@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < list.size(); i++){
                     controlMode.add(list.get(i).getMode());
                 }
-                Log.e("das", controlMode.toString());
+
                 bundle.putStringArrayList("Mode", controlMode);
                 getInsideData();
             }

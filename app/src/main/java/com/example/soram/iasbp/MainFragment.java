@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.hitomi.cmlibrary.CircleMenu;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import java.text.DecimalFormat;
@@ -36,13 +39,17 @@ public class MainFragment extends Fragment{
     CircleProgressView circleProgressView2;
     CircleProgressView circleProgressView3;
     CircleProgressView circleProgressView4;
+    FrameLayout frameLayout;
+    FrameLayout frameLayout2;
     Float maxValue;
     Float maxValue2;
     Float maxValue3;
     Float maxValue4;
-    ShimmerTextView typer;
+
     String dateAndTime;
     BlurMaskFilter blurMaskFilter;
+    CircleMenu circleMenu;
+    CircleMenu circleMenu2;
 
 
     @Nullable
@@ -50,13 +57,25 @@ public class MainFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.main_fragment, container, false);
-        typer = ( ShimmerTextView) view.findViewById(R.id.typer);
+
         textView = (TextView) view.findViewById(R.id.textView);
 //        textMode = (TextView) view.findViewById(R.id.textMode);
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
         circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
         circleProgressView3 = (CircleProgressView) view.findViewById(R.id.circleView3);
         circleProgressView4 = (CircleProgressView) view.findViewById(R.id.circleView4);
+        frameLayout = (FrameLayout) view.findViewById(R.id.frame);
+        frameLayout2 = (FrameLayout) view.findViewById(R.id.frame2);
+        circleMenu2 = (CircleMenu) view.findViewById(R.id.circle_menu2);
+        circleMenu = (CircleMenu) view.findViewById(R.id.circle_menu);
+        frameLayout.setBackgroundColor(Color.parseColor("#474747"));
+        frameLayout.setAlpha(0.25f);
+        frameLayout2.setBackgroundColor(Color.parseColor("#474747"));
+        frameLayout2.setAlpha(0.25f);
+
+
+
+
         //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
@@ -69,33 +88,37 @@ public class MainFragment extends Fragment{
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
         maxValue3 = Float.parseFloat(inside.get(0));
         maxValue4 = Float.parseFloat(inside.get(1));
-
-        typer.setTextColor(Color.parseColor("#2d2e30"));
-        typer.setReflectionColor(Color.parseColor("#E8175D"));
-        typer.setTextSize(15);
         dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
         textView.setTextColor(Color.parseColor("#E8175D"));
         textView.setText(dateAndTime);
         blurMaskFilter = new BlurMaskFilter(textView.getTextSize()/6, BlurMaskFilter.Blur.SOLID);
         textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         textView.getPaint().setMaskFilter(blurMaskFilter);
-        typer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        typer.getPaint().setMaskFilter(blurMaskFilter);
 
 
-        Shimmer shimmer = new Shimmer();
-        shimmer.setDuration(3000);
+        //cirslemenu
+        circleMenu.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
+                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
+                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_fcd3)
+                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_auto2);
 
-        shimmer.start(typer);
-        if (maxValue < 40){
-            typer.setText("Dry");
-        }
-        if (maxValue > 40 && maxValue < 60){
-            typer.setText("Comfort");
-        }
-        if (maxValue > 60){
-            typer.setText("Wet");
-        }
+        circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
+                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
+                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_fcd3)
+                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_auto2);
+
+
+
+
+//        if (maxValue < 40){
+//            typer.setText("Dry");
+//        }
+//        if (maxValue > 40 && maxValue < 60){
+//            typer.setText("Comfort");
+//        }
+//        if (maxValue > 60){
+//            typer.setText("Wet");
+//        }
 
 
         circleProgressView.setMaxValue(100);
