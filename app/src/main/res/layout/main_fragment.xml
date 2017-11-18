@@ -7,19 +7,43 @@
 
     <at.grabner.circleprogress.CircleProgressView
         android:id="@+id/circleView2"
-        android:layout_width="180dp"
-        android:layout_height="221dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleView" />
+        android:layout_width="127dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="268dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/circleView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <at.grabner.circleprogress.CircleProgressView
         android:id="@+id/circleView"
-        android:layout_width="180dp"
-        android:layout_height="221dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="127dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="268dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <at.grabner.circleprogress.CircleProgressView
+        android:id="@+id/circleView3"
+        android:layout_width="127dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/circleView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <at.grabner.circleprogress.CircleProgressView
+        android:id="@+id/circleView4"
+        android:layout_width="127dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,12 +51,10 @@
         android:id="@+id/typer"
         android:layout_width="90dp"
         android:layout_height="41dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="188dp"
 
         android:textAlignment="textStart"
-        app:layout_constraintStart_toStartOf="@+id/circleView"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="188dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -42,16 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="40dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleView2" />
 
 
 </android.support.constraint.ConstraintLayout>
