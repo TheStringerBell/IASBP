@@ -1,6 +1,8 @@
 package com.example.soram.iasbp;
 
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -93,6 +95,8 @@ public class GraphFragment extends Fragment {
 //        lineChart.getLegend().setEnabled(false);
         lineChart.getLegend().setTextColor(Color.parseColor("#CC527A"));
         lineChart.animateX(1500);
+
+
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -105,6 +109,7 @@ public class GraphFragment extends Fragment {
 
             }
         });
+
 
         //Graph2
         ArrayList<Entry> entries2 = new ArrayList<>();

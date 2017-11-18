@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayTime = new ArrayList<String>();
     ArrayList<String> arrayDate = new ArrayList<String>();
     ArrayList<String> arrayValue = new ArrayList<String>();
-    ArrayList<String> arrayMode = new ArrayList<String>();
+    ArrayList<String> insideArray = new ArrayList<String>();
     ArrayList<String> arrayStatus = new ArrayList<String>();
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
@@ -175,15 +175,40 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.e("das", controlMode.toString());
                 bundle.putStringArrayList("Mode", controlMode);
-                loadFragment(new MainFragment(), bundle);
-
-
+                getInsideData();
             }
             @Override
             public void onFailure(Call<List<GetControlData>> call, Throwable t) {
                 Log.e("Fail ", " " + t);
             }
         });
+
+    }
+    public void getInsideData(){
+        final String insideData = new ApiKeys().getInsideData();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        newControl service = retrofit.create(newControl.class);
+        Call<List<GetInsideData>> call = service.insideData(insideData);
+        call.enqueue(new Callback<List<GetInsideData>>() {
+            @Override
+            public void onResponse(Call<List<GetInsideData>> call, Response<List<GetInsideData>> response) {
+                List<GetInsideData> list = response.body();
+                for (int i = 0; i < list.size(); i++){
+                    insideArray.add(list.get(i).getValue());
+                }
+                bundle.putStringArrayList("Inside", insideArray);
+                loadFragment(new MainFragment(), bundle);
+            }
+
+            @Override
+            public void onFailure(Call<List<GetInsideData>> call, Throwable t) {
+
+            }
+        });
+
 
     }
     public void loadFragment(Fragment fragment, Bundle bundle){

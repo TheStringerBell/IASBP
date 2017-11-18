@@ -17,6 +17,9 @@ public interface newControl{
     @GET
     Call<List<GetControlData>> controlData(@Url String url
     );
+    @GET
+    Call<List<GetInsideData>> insideData(@Url String url
+    );
 
 }
 

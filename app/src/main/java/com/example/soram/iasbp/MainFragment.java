@@ -1,14 +1,23 @@
 package com.example.soram.iasbp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -17,6 +26,7 @@ import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
@@ -41,6 +51,7 @@ public class MainFragment extends Fragment{
     Float maxValue2;
     ShimmerTextView typer;
     String dateAndTime;
+    BlurMaskFilter blurMaskFilter;
 
 
     @Nullable
@@ -66,6 +77,11 @@ public class MainFragment extends Fragment{
         dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
         textView.setTextColor(Color.parseColor("#E8175D"));
         textView.setText(dateAndTime);
+        blurMaskFilter = new BlurMaskFilter(textView.getTextSize()/6, BlurMaskFilter.Blur.SOLID);
+        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        textView.getPaint().setMaskFilter(blurMaskFilter);
+        typer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        typer.getPaint().setMaskFilter(blurMaskFilter);
 
 
         Shimmer shimmer = new Shimmer();
@@ -96,9 +112,16 @@ public class MainFragment extends Fragment{
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue);
+//        BitmapFactory bitmapFactory = new BitmapFactory(circleProgressView);
+//        Canvas canvas = new Canvas(circleProgressView);
+//        Bitmap test = circleProgressView.getBackground();
 
 
-        circleProgressView2.setMaxValue(50);
+
+
+
+
+                circleProgressView2.setMaxValue(50);
         circleProgressView2.setValue(0);
         circleProgressView2.setBarColor(Color.parseColor("#E8175D"));
         circleProgressView2.setRimColor(Color.parseColor("#474747"));
