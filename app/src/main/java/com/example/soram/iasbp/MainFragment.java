@@ -3,6 +3,7 @@ package com.example.soram.iasbp;
 
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.hitomi.cmlibrary.CircleMenu;
+import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import java.text.DecimalFormat;
@@ -68,12 +70,18 @@ public class MainFragment extends Fragment{
         frameLayout2 = (FrameLayout) view.findViewById(R.id.frame2);
         circleMenu2 = (CircleMenu) view.findViewById(R.id.circle_menu2);
         circleMenu = (CircleMenu) view.findViewById(R.id.circle_menu);
-        frameLayout.setBackgroundColor(Color.parseColor("#474747"));
-        frameLayout.setAlpha(0.25f);
-        frameLayout2.setBackgroundColor(Color.parseColor("#474747"));
-        frameLayout2.setAlpha(0.25f);
+//        frameLayout.setBackgroundColor(Color.parseColor("#474747"));
 
+//        frameLayout2.setBackgroundColor(Color.parseColor("#474747"));
+        int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
 
+        gd.setStroke(1, getResources().getColor(R.color.white));
+        frameLayout2.setBackground(gd);
+        frameLayout.setBackground(gd);
+
+        frameLayout2.getBackground().setAlpha(50);
+        frameLayout.getBackground().setAlpha(50);
 
 
         //get arraylists from Main Activity
@@ -99,16 +107,19 @@ public class MainFragment extends Fragment{
         //cirslemenu
         circleMenu.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
                 .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_fcd3)
-                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_auto2);
+                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
+                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
+        circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
+            @Override
+            public void onMenuSelected(int i) {
+                new Control().updateControl(Integer.toString(i));
+            }
+        });
 
         circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
                 .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
                 .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_fcd3)
                 .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_auto2);
-
-
-
 
 //        if (maxValue < 40){
 //            typer.setText("Dry");
