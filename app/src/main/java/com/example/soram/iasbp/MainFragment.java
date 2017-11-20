@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hitomi.cmlibrary.CircleMenu;
@@ -52,36 +53,49 @@ public class MainFragment extends Fragment{
     BlurMaskFilter blurMaskFilter;
     CircleMenu circleMenu;
     CircleMenu circleMenu2;
+    RelativeLayout relativeLayout;
+    RelativeLayout relativeLayout2;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.main_fragment, container, false);
+        view = inflater.inflate(R.layout.test, container, false);
 
-        textView = (TextView) view.findViewById(R.id.textView);
-//        textMode = (TextView) view.findViewById(R.id.textMode);
+//        textView = (TextView) view.findViewById(R.id.textView);
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
         circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
         circleProgressView3 = (CircleProgressView) view.findViewById(R.id.circleView3);
         circleProgressView4 = (CircleProgressView) view.findViewById(R.id.circleView4);
-        frameLayout = (FrameLayout) view.findViewById(R.id.frame);
-        frameLayout2 = (FrameLayout) view.findViewById(R.id.frame2);
+//        frameLayout = (FrameLayout) view.findViewById(R.id.frame);
+//        frameLayout2 = (FrameLayout) view.findViewById(R.id.frame2);
         circleMenu2 = (CircleMenu) view.findViewById(R.id.circle_menu2);
         circleMenu = (CircleMenu) view.findViewById(R.id.circle_menu);
 //        frameLayout.setBackgroundColor(Color.parseColor("#474747"));
 
 //        frameLayout2.setBackgroundColor(Color.parseColor("#474747"));
-        int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
+//        int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
+//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+//
+//        gd.setStroke(1, getResources().getColor(R.color.white));
+//        frameLayout2.setBackground(gd);
+//        frameLayout.setBackground(gd);
+//
+//        frameLayout2.getBackground().setAlpha(50);
+//        frameLayout.getBackground().setAlpha(50);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.frame);
+        relativeLayout2 = (RelativeLayout) view.findViewById(R.id.frame2);
+                int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
         GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
 
         gd.setStroke(1, getResources().getColor(R.color.white));
-        frameLayout2.setBackground(gd);
-        frameLayout.setBackground(gd);
+        relativeLayout2.setBackground(gd);
+        relativeLayout.setBackground(gd);
 
-        frameLayout2.getBackground().setAlpha(50);
-        frameLayout.getBackground().setAlpha(50);
+        relativeLayout.getBackground().setAlpha(75);
+        relativeLayout2.getBackground().setAlpha(50);
+
 
 
         //get arraylists from Main Activity
@@ -97,11 +111,11 @@ public class MainFragment extends Fragment{
         maxValue3 = Float.parseFloat(inside.get(0));
         maxValue4 = Float.parseFloat(inside.get(1));
         dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
-        textView.setTextColor(Color.parseColor("#E8175D"));
-        textView.setText(dateAndTime);
-        blurMaskFilter = new BlurMaskFilter(textView.getTextSize()/6, BlurMaskFilter.Blur.SOLID);
-        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        textView.getPaint().setMaskFilter(blurMaskFilter);
+//        textView.setTextColor(Color.parseColor("#E8175D"));
+//        textView.setText(dateAndTime);
+//        blurMaskFilter = new BlurMaskFilter(textView.getTextSize()/6, BlurMaskFilter.Blur.SOLID);
+//        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        textView.getPaint().setMaskFilter(blurMaskFilter);
 
 
         //cirslemenu
