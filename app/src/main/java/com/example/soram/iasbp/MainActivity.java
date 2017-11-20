@@ -1,6 +1,7 @@
 package com.example.soram.iasbp;
 
 
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,10 +23,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.animation.RotateAnimation;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.refresh.menuitem.RefreshMenuItemHelper;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Timer;
 
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle;
     NavigationTabStrip tiles;
     Timer timer;
-    RefreshMenuItemHelper refreshMenuItemHelper;
+
     String HOST_URL;
 
 
@@ -60,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tiles = (NavigationTabStrip) findViewById(R.id.tiles);
-        constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
-        refreshMenuItemHelper = new RefreshMenuItemHelper();
+//        constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
+
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
         actionBar.setElevation(0);
@@ -234,22 +238,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return refreshMenuItemHelper.onCreateOptionsMenu(getMenuInflater(), menu, true);
-    }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    //
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                refreshMenuItemHelper.setMenuItem(item);
                 humiOrTemp = false;
                 cont = 0;
                 controlMode.clear();
                 arrayDate.clear();
                 arrayValue.clear();
                 arrayTime.clear();
+                insideArray.clear();
                 arrayTempDate.clear();
                 arrayTempValue.clear();
                 arrayTempTime.clear();

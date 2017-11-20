@@ -1,21 +1,4 @@
 package com.example.soram.iasbp;
-
-import android.os.AsyncTask;
-import android.util.Log;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.Callable;
-
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

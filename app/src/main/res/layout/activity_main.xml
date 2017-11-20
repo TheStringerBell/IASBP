@@ -1,149 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/gray"
-    android:layout_gravity="center"
     tools:context="com.example.soram.iasbp.MainActivity">
 
     <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:id="@+id/tiles"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/tiles"
-
-        app:nts_size="15sp"
-        app:nts_weight="3dp"
-        app:nts_factor="2.5"
-        app:nts_type="line"
-        app:nts_gravity="top"
-        app:nts_typeface="fonts/typeface.otf"
-        app:nts_corners_radius="1.5dp"
         app:nts_animation_duration="300"
+        app:nts_corners_radius="1.5dp"
+        app:nts_factor="2.5"
+        app:nts_gravity="top"
+        app:nts_size="15sp"
+        app:nts_type="line"
+        app:nts_typeface="fonts/typeface.otf"
+        app:nts_weight="3dp"
 
-/>
+        />
 
     <RelativeLayout
         android:id="@+id/relativeView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
 
-        android:layout_marginTop="60dp"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </RelativeLayout>
 
-
-    <!--<Button-->
-        <!--android:id="@+id/firstFragment"-->
-        <!--android:layout_width="196dp"-->
-        <!--android:layout_height="44dp"-->
-
-
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="First Fragment"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="20sp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/secondFragment"-->
-        <!--android:layout_width="153dp"-->
-        <!--android:layout_height="50dp"-->
-
-
-        <!--android:layout_marginStart="20dp"-->
-        <!--android:text="Second Fragment"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="20sp"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/firstFragment"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    <!--<it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
-    <!--android:layout_width="71dp"-->
-    <!--android:layout_height="22dp"-->
-    <!--android:id="@+id/tstb_1"-->
-    <!--app:tbMidColor="#b0b1b2"-->
-    <!--app:tbOffColor="#646566"-->
-    <!--app:tbOnColor="#e6e7ed"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--android:layout_marginLeft="107dp"-->
-    <!--android:layout_marginStart="107dp"-->
-    <!--app:layout_constraintBottom_toBottomOf="@+id/tstb_2" />-->
-
-    <!--<it.beppi.tristatetogglebutton_library.TriStateToggleButton-->
-    <!--android:layout_width="71dp"-->
-    <!--android:layout_height="22dp"-->
-    <!--android:id="@+id/tstb_2"-->
-    <!--app:layout_constraintLeft_toRightOf="@+id/tstb_1"-->
-    <!--app:tbMidColor="#b0b1b2"-->
-    <!--app:tbOffColor="#646566"-->
-    <!--app:tbOnColor="#e6e7ed"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/textTemp"-->
-    <!--android:layout_marginLeft="12dp"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--android:layout_marginStart="12dp" />-->
-
-
-    <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
-    <!--android:id="@+id/multiple_actions"-->
-
-    <!--android:layout_width="79dp"-->
-    <!--android:layout_height="9dp"-->
-
-    <!--android:layout_marginStart="4dp"-->
-    <!--android:layout_marginTop="444dp"-->
-    <!--app:fab_addButtonColorNormal="#e5e5e5"-->
-    <!--app:fab_addButtonColorPressed="@color/white_pressed"-->
-    <!--app:fab_addButtonPlusIconColor="@color/half_black"-->
-    <!--app:fab_expandDirection="right"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-    <!--android:id="@+id/action_a"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:fab_colorNormal="#727171"-->
-    <!--app:fab_colorPressed="@color/white_pressed"-->
-    <!--app:fab_title="Automatic" />-->
-
-    <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-    <!--android:id="@+id/action_b"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:fab_colorNormal="#999999"-->
-    <!--app:fab_colorPressed="@color/white_pressed"-->
-    <!--app:fab_title="Automatic" />-->
-
-    <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-    <!--android:id="@+id/action_c"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:fab_colorNormal="#b7b7b7"-->
-
-    <!--app:fab_colorPressed="@color/white_pressed"-->
-    <!--app:fab_title="Forced" />-->
-
-    <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/frameLayout"-->
-        <!--android:layout_width="369dp"-->
-        <!--android:layout_height="457dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="48dp"-->
-        <!--android:foregroundGravity="center"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
-    <!--</FrameLayout>-->
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

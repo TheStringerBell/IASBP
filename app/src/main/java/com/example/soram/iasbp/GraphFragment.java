@@ -100,8 +100,9 @@ public class GraphFragment extends Fragment {
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
+                String value = HumiTime.get((int) e.getX()) + "  /  " +e.getY() + "%";
                 textView.setVisibility(View.VISIBLE);
-                textView.setText(" " +e.getY()+ "%");
+                textView.setText(value);
             }
 
             @Override
@@ -151,8 +152,9 @@ public class GraphFragment extends Fragment {
         lineChart2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
+                String value = TempTime.get((int) e.getX()) + "  /  " +e.getY() + "°C";
                 textView.setVisibility(View.VISIBLE);
-                textView.setText(" " +e.getY() + "°C");
+                textView.setText(value);
             }
 
             @Override
