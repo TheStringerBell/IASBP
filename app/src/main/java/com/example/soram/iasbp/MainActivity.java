@@ -70,12 +70,8 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
         actionBar.setElevation(0);
         actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
-
         HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
-        new Control().updateControl("1");
-
-
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
