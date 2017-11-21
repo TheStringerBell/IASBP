@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -38,7 +39,8 @@ public class GraphFragment extends Fragment {
     ArrayList<String> TempValues;
     LineChart lineChart;
     LineChart lineChart2;
-    TextView textView;
+
+
 
 
     @Nullable
@@ -48,13 +50,11 @@ public class GraphFragment extends Fragment {
         view = inflater.inflate(R.layout.graph_fragment, container, false);
         lineChart = (LineChart) view.findViewById(R.id.chart1);
         lineChart2 = (LineChart) view.findViewById(R.id.chart2);
+
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
         TempTime = getArguments().getStringArrayList("TempTime");
-        textView = (TextView) view.findViewById(R.id.textView);
-        textView.setTextColor(Color.parseColor("#E8175D"));
-        textView.setVisibility(View.GONE);
 
         ArrayList<Entry> entries = new ArrayList<>();
         XAxis xAxis = lineChart.getXAxis();
@@ -101,8 +101,7 @@ public class GraphFragment extends Fragment {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 String value = HumiTime.get((int) e.getX()) + "  /  " +e.getY() + "%";
-                textView.setVisibility(View.VISIBLE);
-                textView.setText(value);
+
             }
 
             @Override
@@ -153,8 +152,7 @@ public class GraphFragment extends Fragment {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 String value = TempTime.get((int) e.getX()) + "  /  " +e.getY() + "°C";
-                textView.setVisibility(View.VISIBLE);
-                textView.setText(value);
+
             }
 
             @Override

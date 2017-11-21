@@ -61,29 +61,15 @@ public class MainFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.test, container, false);
-
-//        textView = (TextView) view.findViewById(R.id.textView);
+        view = inflater.inflate(R.layout.main_fragment, container, false);
         circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
-        circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView2);
-        circleProgressView3 = (CircleProgressView) view.findViewById(R.id.circleView3);
+        circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView3);
+        circleProgressView3 = (CircleProgressView) view.findViewById(R.id.circleView2);
         circleProgressView4 = (CircleProgressView) view.findViewById(R.id.circleView4);
-//        frameLayout = (FrameLayout) view.findViewById(R.id.frame);
-//        frameLayout2 = (FrameLayout) view.findViewById(R.id.frame2);
+
         circleMenu2 = (CircleMenu) view.findViewById(R.id.circle_menu2);
         circleMenu = (CircleMenu) view.findViewById(R.id.circle_menu);
-//        frameLayout.setBackgroundColor(Color.parseColor("#474747"));
 
-//        frameLayout2.setBackgroundColor(Color.parseColor("#474747"));
-//        int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
-//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-//
-//        gd.setStroke(1, getResources().getColor(R.color.white));
-//        frameLayout2.setBackground(gd);
-//        frameLayout.setBackground(gd);
-//
-//        frameLayout2.getBackground().setAlpha(50);
-//        frameLayout.getBackground().setAlpha(50);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.frame);
         relativeLayout2 = (RelativeLayout) view.findViewById(R.id.frame2);
                 int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
