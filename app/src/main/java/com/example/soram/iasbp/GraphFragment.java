@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -100,7 +102,8 @@ public class GraphFragment extends Fragment {
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                String value = HumiTime.get((int) e.getX()) + "  /  " +e.getY() + "%";
+                String value = HumiTime.get((int) e.getX()) + "  /  " +e.getY() + "%" + " / " + TempValues.get((int) e.getX()) + "°C";
+                Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -151,7 +154,8 @@ public class GraphFragment extends Fragment {
         lineChart2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                String value = TempTime.get((int) e.getX()) + "  /  " +e.getY() + "°C";
+                String value = TempTime.get((int) e.getX()) + "  /  " +e.getY() + "°C" + " / " + HumiValues.get((int) e.getX()) + "%";
+                Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
 
             }
 
