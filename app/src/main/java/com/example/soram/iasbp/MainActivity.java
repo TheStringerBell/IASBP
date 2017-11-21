@@ -64,12 +64,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tiles = (NavigationTabStrip) findViewById(R.id.tiles);
-//        constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
-
         actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#282828")));
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_logo4);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar = getSupportActionBar();
         actionBar.setElevation(0);
-        actionBar.setTitle(Html.fromHtml("<font color='#444444'>IAS BP</font>"));
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setTitle("");
+
+
         HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
         tiles.setTitles("Home", "Graphs", "Control");
