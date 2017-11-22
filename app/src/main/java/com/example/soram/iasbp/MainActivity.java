@@ -1,17 +1,13 @@
 package com.example.soram.iasbp;
 
-
-import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +21,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.animation.RotateAnimation;
-
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.refresh.menuitem.RefreshMenuItemHelper;
-import com.wang.avi.AVLoadingIndicatorView;
 
-import java.util.Timer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,17 +37,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
     ArrayList<String> controlMode = new ArrayList<>();
-
     Integer cont = 0;
-    ConstraintLayout constraintLayout;
     ActionBar actionBar;
     Boolean humiOrTemp = false;
     List<GetHumiData> listing;
     Bundle bundle;
     NavigationTabStrip tiles;
-    Timer timer;
-
     String HOST_URL;
+    int whichSide;
 
 
     @Override
@@ -81,14 +69,18 @@ public class MainActivity extends AppCompatActivity {
         tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
         tiles.setActiveColor(Color.parseColor("#E8175D"));
         tiles.setTabIndex(0, true);
+
         tiles.setStripColor(Color.parseColor("#E8175D"));
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
                 switch (title){
-                    case "GRAPHS":  loadFragment(new GraphFragment(), bundle); break;
-                    case "HOME":    loadFragment(new MainFragment(), bundle);  break;
-                    case "CONTROL": loadFragment(new MainFragment(), bundle);  break;
+                    case "GRAPHS":  if (whichSide == 0){
+                        loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
+                    }else{
+                    } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                    case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
+                    case "CONTROL": loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
                 }
             }
 
@@ -205,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     insideArray.add(list.get(i).getValue());
                 }
                 bundle.putStringArrayList("Inside", insideArray);
-                loadFragment(new MainFragment(), bundle);
+                loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
             }
 
             @Override
@@ -216,12 +208,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void loadFragment(Fragment fragment, Bundle bundle){
+    public void loadFragment(Fragment fragment, Bundle bundle, int anim1, int anim2){
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(anim1, anim2);
         fragmentTransaction.replace(R.id.relativeView, fragment);
         fragmentTransaction.commit();
+ 
 
     }
     @Override
