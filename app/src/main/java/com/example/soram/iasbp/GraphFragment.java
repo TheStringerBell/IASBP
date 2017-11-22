@@ -65,7 +65,7 @@ public class GraphFragment extends Fragment {
         xAxis.setDrawAxisLine(false);
         xAxis.setLabelRotationAngle(-45);
         xAxis.setTextSize(9);
-        xAxis.setTextColor(Color.parseColor("#CC527A"));
+        xAxis.setTextColor(getResources().getColor(R.color.graph_text));
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -79,15 +79,15 @@ public class GraphFragment extends Fragment {
         yAxis.setEnabled(false);
         YAxis leftYaxis = lineChart.getAxisLeft();
         leftYaxis.setDrawAxisLine(false);
-        leftYaxis.setGridColor(Color.parseColor("#CC527A"));
-        leftYaxis.setTextColor(Color.parseColor("#CC527A"));
+        leftYaxis.setGridColor(getResources().getColor(R.color.graph_text));
+        leftYaxis.setTextColor(getResources().getColor(R.color.graph_text));
         LineDataSet lineDataSet = new LineDataSet(entries, "Humidity");
-        lineDataSet.setColor(Color.parseColor("#E8175D"));
+        lineDataSet.setColor(getResources().getColor(R.color.graph_setColor));
         lineDataSet.setDrawCircles(false);
         lineDataSet.setLineWidth(3);
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawFilled(true);
-        lineDataSet.setFillColor(Color.parseColor("#CC527A"));
+        lineDataSet.setFillColor(getResources().getColor(R.color.graph_text));
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
         lineChart.setHighlightPerTapEnabled(true);
@@ -95,7 +95,7 @@ public class GraphFragment extends Fragment {
         lineChart.getDescription().setEnabled(false);
         lineChart.getXAxis().setLabelCount(6, true);
 //        lineChart.getLegend().setEnabled(false);
-        lineChart.getLegend().setTextColor(Color.parseColor("#CC527A"));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.graph_text));
         lineChart.animateX(1500);
 
 
@@ -122,7 +122,7 @@ public class GraphFragment extends Fragment {
         xAxis2.setDrawAxisLine(false);
         xAxis2.setLabelRotationAngle(-45);
         xAxis2.setTextSize(9);
-        xAxis2.setTextColor(Color.parseColor("#CC527A"));
+        xAxis2.setTextColor(getResources().getColor(R.color.graph_text));
         xAxis2.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -136,21 +136,21 @@ public class GraphFragment extends Fragment {
         yAxis2.setEnabled(false);
         YAxis leftYaxis2 = lineChart2.getAxisLeft();
         leftYaxis2.setDrawAxisLine(false);
-        leftYaxis2.setTextColor(Color.parseColor("#CC527A"));
-        leftYaxis2.setGridColor(Color.parseColor("#CC527A"));
+        leftYaxis2.setTextColor(getResources().getColor(R.color.graph_text));
+        leftYaxis2.setGridColor(getResources().getColor(R.color.graph_text));
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "Temperature");
-        lineDataSet2.setColor(Color.parseColor("#E8175D"));
+        lineDataSet2.setColor(getResources().getColor(R.color.graph_setColor));
         lineDataSet2.setDrawCircles(false);
         lineDataSet2.setLineWidth(3);
         lineDataSet2.setDrawValues(false);
         lineDataSet2.setDrawFilled(true);
-        lineDataSet2.setFillColor(Color.parseColor("#CC527A"));
+        lineDataSet2.setFillColor(getResources().getColor(R.color.graph_text));
         LineData lineData2 = new LineData(lineDataSet2);
         lineChart2.setData(lineData2);
         lineChart2.getXAxis().setLabelCount(6, true);
         lineChart2.getDescription().setEnabled(false);
         lineChart2.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        lineChart2.getLegend().setTextColor(Color.parseColor("#CC527A"));
+        lineChart2.getLegend().setTextColor(getResources().getColor(R.color.graph_text));
         lineChart2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {

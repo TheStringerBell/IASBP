@@ -12,12 +12,23 @@
     <color name="mainActionBg">#282828</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="pink">#e91e63</color>
-    <color name="mainPink">#E8175D</color>
-    <color name="mainGray">#474747</color>
+
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
+    <!--Main Colors-->
+    <color name="mainPink">#E8175D</color>
+    <color name="mainGray">#474747</color>
+
+
+    <!--Graph Colors-->
+    <color name="graph_text">#CC527A</color>
+    <color name="graph_setColor">#E8175D</color>
+
+    <!--tiles colors-->
+    <color name="tiles_inactive">#7c7c7c</color>
+    <color name="tiles_active">#E8175D</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

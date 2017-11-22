@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
         HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
         tiles.setTitles("Home", "Graphs", "Control");
-        tiles.setInactiveColor(Color.parseColor("#7c7c7c"));
-        tiles.setActiveColor(Color.parseColor("#E8175D"));
+        tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
+        tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
         tiles.setTabIndex(0, true);
-
-        tiles.setStripColor(Color.parseColor("#E8175D"));
+        tiles.setStripColor(getResources().getColor(R.color.mainPink));
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
@@ -215,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.setCustomAnimations(anim1, anim2);
         fragmentTransaction.replace(R.id.relativeView, fragment);
         fragmentTransaction.commit();
- 
+
 
     }
     @Override
@@ -223,8 +222,8 @@ public class MainActivity extends AppCompatActivity {
 //        super.onBackPressed();
         new AlertDialog.Builder(this)
                 .setTitle("Do you really want to exit?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.action_no, null)
+                .setPositiveButton(R.string.action_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MainActivity.super.onBackPressed();
