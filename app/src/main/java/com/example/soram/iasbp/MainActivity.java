@@ -1,8 +1,7 @@
 package com.example.soram.iasbp;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         HOST_URL = new ApiKeys().getLink();
         Login(new ApiKeys().getHumiData());
+
+
         tiles.setTitles("Home", "Graphs", "Control");
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
@@ -79,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                     } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
-                    case "CONTROL": loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+                    case "CONTROL":
+//                        loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+                        switchScreen(); break;
                 }
             }
 
@@ -264,6 +267,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void switchScreen() {
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
+//        overridePendingTransition(R.anim.from_right, R.anim.to_left);
+        finish();
     }
 }
 

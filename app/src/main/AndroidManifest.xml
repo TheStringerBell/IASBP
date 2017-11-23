@@ -7,16 +7,21 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true"
-
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/FullscreenTheme">
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/AppTheme">
 
+        </activity>
     </application>
 
 </manifest>
