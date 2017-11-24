@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
@@ -11,7 +12,8 @@ import retrofit2.http.Url;
 
 public interface newControl{
 
-
+    @Headers({"PHP_AUTH_USER: user",
+            "PHP_AUTH_PWD: 1234"})
     @GET
     retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
     );

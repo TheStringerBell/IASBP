@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Callback;
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle;
     NavigationTabStrip tiles;
     String HOST_URL;
+    String USERNAME;
+    String PASSWORD;
+    String HUMIDATA;
+    String TEMPDATA;
     int whichSide;
 
 
@@ -50,53 +56,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tiles = (NavigationTabStrip) findViewById(R.id.tiles);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_logo4);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar = getSupportActionBar();
-        actionBar.setElevation(0);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setTitle("");
-
-
+        tiles = findViewById(R.id.tiles);
+        // API_KEYS
         HOST_URL = new ApiKeys().getLink();
-        Login(new ApiKeys().getHumiData());
+        USERNAME = new ApiKeys().getUsername();
+        PASSWORD = new ApiKeys().getPassword();
+        HUMIDATA = new ApiKeys().getHumiData();
+        TEMPDATA = new ApiKeys().getTempData();
+
+        setActionBar();
+        setTiles();
+        Login(HUMIDATA);
 
 
-        tiles.setTitles("Home", "Graphs", "Control");
-        tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
-        tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
-        tiles.setTabIndex(0, true);
-        tiles.setStripColor(getResources().getColor(R.color.mainPink));
-        tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
-            @Override
-            public void onStartTabSelected(String title, int index) {
-                switch (title){
-                    case "GRAPHS":  if (whichSide == 0){
-                        loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
-                    }else{
-                    } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
-                    case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
-                    case "CONTROL":
-//                        loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
-                        switchScreen(); break;
-                }
-            }
 
-            @Override
-            public void onEndTabSelected(String title, int index) {
-
-            }
-        });
     }
 
     public void Login(String url) {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
+                .client(new HttpClient(USERNAME,PASSWORD).getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -113,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     String date = list.get(i).getDate();
                     String time = list.get(i).getTime();
                     String value = list.get(i).getValue();
+
 //                    getHumiData.setDate(date);
 //                    getHumiData.setTime(time);
 //                    getHumiData.setValue(value);
@@ -144,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     cont++;
                 }else {
                     humiOrTemp = true;
-                    Login(new ApiKeys().getTempData());
+                    Login(TEMPDATA);
 
                 }
             }
@@ -267,6 +247,45 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void setActionBar(){
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_logo4);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar = getSupportActionBar();
+        actionBar.setElevation(0);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setTitle("");
+    }
+    public void setTiles(){
+        whichSide = 1;
+        tiles.setTitles("Home", "Graphs", "Control");
+        tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
+        tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
+        tiles.setTabIndex(0, true);
+        tiles.setStripColor(getResources().getColor(R.color.mainPink));
+        tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
+            @Override
+            public void onStartTabSelected(String title, int index) {
+                switch (title){
+                    case "GRAPHS":  if (whichSide == 0){
+                        loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
+                    }else{
+                    } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                    case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
+                    case "CONTROL":
+//                        loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+                        switchScreen(); break;
+                }
+            }
+
+            @Override
+            public void onEndTabSelected(String title, int index) {
+
+            }
+        });
     }
     public void switchScreen() {
         Intent intent = new Intent(this, IntroActivity.class);
