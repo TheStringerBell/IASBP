@@ -108,6 +108,7 @@ public class MainFragment extends Fragment{
             @Override
             public void onMenuSelected(int i) {
                 new Control().updateControl(Integer.toString(i), mode.get(1));
+                mode.set(0, Integer.toString(i));
             }
         });
 
@@ -119,6 +120,7 @@ public class MainFragment extends Fragment{
             @Override
             public void onMenuSelected(int i) {
                 new Control().updateControl(mode.get(0), Integer.toString(i));
+                mode.set(1, Integer.toString(i));
 
             }
         });
