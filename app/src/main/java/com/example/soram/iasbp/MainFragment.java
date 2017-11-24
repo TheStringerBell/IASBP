@@ -97,11 +97,6 @@ public class MainFragment extends Fragment{
         maxValue3 = Float.parseFloat(inside.get(0));
         maxValue4 = Float.parseFloat(inside.get(1));
         dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
-//        textView.setTextColor(Color.parseColor("#E8175D"));
-//        textView.setText(dateAndTime);
-//        blurMaskFilter = new BlurMaskFilter(textView.getTextSize()/6, BlurMaskFilter.Blur.SOLID);
-//        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-//        textView.getPaint().setMaskFilter(blurMaskFilter);
 
 
         //cirslemenu
@@ -112,24 +107,21 @@ public class MainFragment extends Fragment{
         circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
             @Override
             public void onMenuSelected(int i) {
-                new Control().updateControl(Integer.toString(i));
+                new Control().updateControl(Integer.toString(i), mode.get(1));
             }
         });
 
         circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
                 .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_fcd3)
-                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_auto2);
+                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
+                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
+        circleMenu2.setOnMenuSelectedListener(new OnMenuSelectedListener() {
+            @Override
+            public void onMenuSelected(int i) {
+                new Control().updateControl(mode.get(0), Integer.toString(i));
 
-//        if (maxValue < 40){
-//            typer.setText("Dry");
-//        }
-//        if (maxValue > 40 && maxValue < 60){
-//            typer.setText("Comfort");
-//        }
-//        if (maxValue > 60){
-//            typer.setText("Wet");
-//        }
+            }
+        });
 
 
         circleProgressView.setMaxValue(100);

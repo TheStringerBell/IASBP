@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     String HUMIDATA;
     String TEMPDATA;
     int whichSide;
+    OkHttpClient client;
+    String emptyTag;
 
 
     @Override
@@ -58,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tiles = findViewById(R.id.tiles);
         // API_KEYS
+        emptyTag = "";
         HOST_URL = new ApiKeys().getLink();
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPassword();
         HUMIDATA = new ApiKeys().getHumiData();
         TEMPDATA = new ApiKeys().getTempData();
+        client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
 
         setActionBar();
         setTiles();
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public void Login(String url) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
-                .client(new HttpClient(USERNAME,PASSWORD).getClient())
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         final String CONTROL = new ApiKeys().getControl();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         newControl service = retrofit.create(newControl.class);
@@ -168,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         final String insideData = new ApiKeys().getInsideData();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         newControl service = retrofit.create(newControl.class);
