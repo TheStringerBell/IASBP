@@ -12,8 +12,7 @@ import retrofit2.http.Url;
 
 public interface newControl{
 
-    @Headers({"PHP_AUTH_USER: user",
-            "PHP_AUTH_PWD: 1234"})
+
     @GET
     retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
     );

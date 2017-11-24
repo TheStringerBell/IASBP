@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setActionBar();
         setTiles();
         Login(HUMIDATA);
+        Log.e("key ", new ApiKeys().getToken());
 
 
 
