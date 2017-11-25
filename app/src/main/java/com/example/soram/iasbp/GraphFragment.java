@@ -29,31 +29,30 @@ import java.util.ArrayList;
 
 public class GraphFragment extends Fragment {
     View view;
-
     ArrayList<String> HumiValues;
     ArrayList<String> HumiTime;
     ArrayList<String> TempTime;
     ArrayList<String> TempValues;
     LineChart lineChart;
     LineChart lineChart2;
-
-
-
+    ArrayList<Entry> entries;
+    ArrayList<Entry> entries2;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.graph_fragment, container, false);
-        lineChart = (LineChart) view.findViewById(R.id.chart1);
-        lineChart2 = (LineChart) view.findViewById(R.id.chart2);
 
+        view = inflater.inflate(R.layout.graph_fragment, container, false);
+        lineChart = view.findViewById(R.id.chart1);
+        lineChart2 = view.findViewById(R.id.chart2);
+        //get mysql Data
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
         TempTime = getArguments().getStringArrayList("TempTime");
 
-        ArrayList<Entry> entries = new ArrayList<>();
+        entries = new ArrayList<>();
+
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
@@ -92,25 +91,19 @@ public class GraphFragment extends Fragment {
 //        lineChart.getLegend().setEnabled(false);
         lineChart.getLegend().setTextColor(getResources().getColor(R.color.graph_text));
         lineChart.animateX(1500);
-
-
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 String value = HumiTime.get((int) e.getX()) + "  /  " +e.getY() + "%" + " / " + TempValues.get((int) e.getX()) + "°C";
                 Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
-
             }
-
             @Override
             public void onNothingSelected() {
-
             }
         });
 
-
         //Graph2
-        ArrayList<Entry> entries2 = new ArrayList<>();
+        entries2 = new ArrayList<>();
         XAxis xAxis2 = lineChart2.getXAxis();
         xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis2.setDrawGridLines(false);
@@ -151,22 +144,12 @@ public class GraphFragment extends Fragment {
             public void onValueSelected(Entry e, Highlight h) {
                 String value = TempTime.get((int) e.getX()) + "  /  " +e.getY() + "°C" + " / " + HumiValues.get((int) e.getX()) + "%";
                 Toast.makeText(getActivity(), value, Toast.LENGTH_SHORT).show();
-
             }
-
             @Override
             public void onNothingSelected() {
-
             }
         });
-
         lineChart2.animateX(1500);
         return view;
-
-
     }
-
-
-
-
 }

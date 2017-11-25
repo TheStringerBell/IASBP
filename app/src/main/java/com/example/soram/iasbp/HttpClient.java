@@ -14,7 +14,6 @@ public class HttpClient {
         this.password = password;
         this.mode = mode;
         this.mode2 = mode2;
-
     }
     public okhttp3.OkHttpClient getClient(){
         okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder()

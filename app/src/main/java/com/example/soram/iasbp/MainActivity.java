@@ -21,14 +21,11 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 
 
 public class MainActivity extends AppCompatActivity {
-
 
     ArrayList<String> arrayTime = new ArrayList<String>();
     ArrayList<String> arrayDate = new ArrayList<String>();
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     Integer cont = 0;
     ActionBar actionBar;
     Boolean humiOrTemp = false;
-    List<GetHumiData> listing;
     Bundle bundle;
     NavigationTabStrip tiles;
     String HOST_URL;
@@ -50,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
     String PASSWORD;
     String HUMIDATA;
     String TEMPDATA;
+    String CONTROL;
+    String INSIDEDATA;
     int whichSide;
     OkHttpClient client;
     String emptyTag;
+
 
 
 
@@ -61,20 +60,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tiles = findViewById(R.id.tiles);
-        // API_KEYS
-        emptyTag = "";
-        HOST_URL = new ApiKeys().getLink();
-        USERNAME = new ApiKeys().getUsername();
-        PASSWORD = new ApiKeys().getPassword();
-        HUMIDATA = new ApiKeys().getHumiData();
-        TEMPDATA = new ApiKeys().getTempData();
-        client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
+        getValues();
         setActionBar();
         setTiles();
-        Login(HUMIDATA);
+        getHumiData(HUMIDATA);
     }
 
-    public void Login(String url) {
+    public void getHumiData(String url) {
+        generateCredentials();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -87,30 +80,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<GetHumiData>> call, Response<List<GetHumiData>> response) {
                 List<GetHumiData> list = response.body();
-                GetHumiData getHumiData = null;
-                listing = new ArrayList<GetHumiData>();
-
                 for (int i = 0; i < list.size(); i++) {
-//                    getHumiData = new GetHumiData();
                     String date = list.get(i).getDate();
                     String time = list.get(i).getTime();
                     String value = list.get(i).getValue();
-
-//                    getHumiData.setDate(date);
-//                    getHumiData.setTime(time);
-//                    getHumiData.setValue(value);
                     if (!humiOrTemp){
-
                         arrayValue.add(value);
                         arrayTime.add(time);
                         arrayDate.add(date);
-
                     }else {
                         arrayTempDate.add(date);
                         arrayTempValue.add(value);
                         arrayTempTime.add(time);
                     }
-//                    listing.add(getHumiData);
                 }
                 if (humiOrTemp){
                     bundle = new Bundle();
@@ -120,18 +102,15 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("TempTime", arrayTempTime);
                     bundle.putStringArrayList("Date", arrayTempDate);
 
-//                    deleyedLoop();
                     if (cont == 0){
                         getControlData();
                     }
                     cont++;
                 }else {
                     humiOrTemp = true;
-                    Login(TEMPDATA);
-
+                    getHumiData(TEMPDATA);
                 }
             }
-
             @Override
             public void onFailure(Call<List<GetHumiData>> call, Throwable t) {
                 Log.e("Fail ", " " + t);
@@ -140,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getControlData(){
-        Toast.makeText(this, new ApiKeys().getPassword(), Toast.LENGTH_SHORT).show();
-        final String CONTROL = new ApiKeys().getControl();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -153,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<GetControlData>> call, Response<List<GetControlData>> response) {
                 List<GetControlData> list = response.body();
-                GetControlData getControlData = null;
                 for (int i = 0; i < list.size(); i++){
                     controlMode.add(list.get(i).getMode());
                 }
@@ -169,14 +145,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getInsideData(){
-        final String insideData = new ApiKeys().getInsideData();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         newControl service = retrofit.create(newControl.class);
-        Call<List<GetInsideData>> call = service.insideData(insideData);
+        Call<List<GetInsideData>> call = service.insideData(INSIDEDATA);
         call.enqueue(new Callback<List<GetInsideData>>() {
             @Override
             public void onResponse(Call<List<GetInsideData>> call, Response<List<GetInsideData>> response) {
@@ -218,9 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.super.onBackPressed();
                     }
                 }).create().show();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         
@@ -246,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 arrayTempDate.clear();
                 arrayTempValue.clear();
                 arrayTempTime.clear();
-                Login(new ApiKeys().getHumiData());
+                getHumiData(new ApiKeys().getHumiData());
                 tiles.setTabIndex(0, true);
 
                 return true;
@@ -264,6 +237,23 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setElevation(0);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setTitle("");
+    }
+
+    // API_KEYS
+    public void getValues(){
+        emptyTag = "";
+        HOST_URL = new ApiKeys().getLink();
+        HUMIDATA = new ApiKeys().getHumiData();
+        TEMPDATA = new ApiKeys().getTempData();
+        CONTROL  = new ApiKeys().getControl();
+        INSIDEDATA = new ApiKeys().getInsideData();
+
+
+    }
+    public void generateCredentials(){
+        USERNAME = new ApiKeys().getUsername();
+        PASSWORD = new ApiKeys().getPassword();
+        client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
     }
     public void setTiles(){
         whichSide = 1;

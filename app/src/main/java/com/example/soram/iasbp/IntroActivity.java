@@ -9,15 +9,11 @@ import android.widget.VideoView;
 
 public class IntroActivity extends AppCompatActivity {
     VideoView videoView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_intro);
         getSupportActionBar().hide();
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         videoView =(VideoView) findViewById(R.id.videoView);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoView.setVideoURI(video);
@@ -25,17 +21,13 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 switchScreen();
-
-
             }
         });
         videoView.start();
-
     }
     public void switchScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-//        overridePendingTransition(R.anim.from_right, R.anim.to_left);
         finish();
     }
 

@@ -12,8 +12,6 @@ public class Control{
     String USERNAME;
     String PASSWORD;
 
-
-
     public void updateControl(String mode, String mode2){
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPassword();

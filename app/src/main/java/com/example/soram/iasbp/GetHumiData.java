@@ -10,10 +10,6 @@ public class GetHumiData {
     String Date;
     String Time;
     String Value;
-
-
-
-
     public String getDate(){
         return Date;
     }

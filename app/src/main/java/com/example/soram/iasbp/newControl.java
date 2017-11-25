@@ -1,18 +1,11 @@
 package com.example.soram.iasbp;
 
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
 import retrofit2.http.Url;
 
-
-
 public interface newControl{
-
-
     @GET
     retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
     );
@@ -22,7 +15,7 @@ public interface newControl{
     @GET
     Call<List<GetInsideData>> insideData(@Url String url
     );
-    @POST
+    @GET
     Call<Void> control(@Url String url
     );
 
