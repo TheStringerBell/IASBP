@@ -1,5 +1,7 @@
 package com.example.soram.iasbp;
 
+import android.util.Base64;
+
 import java.io.IOException;
 
 import okhttp3.Credentials;
@@ -27,9 +29,13 @@ public class Intercepto implements Interceptor {
         Request request = chain.request();
         Request authRequest = request.newBuilder()
                 .header("Authorization", credentials)
-                .header("Mode", mode)
-                .header("Mode2", mode2)
+                .addHeader("Mode", mode)
+                .addHeader("Mode2", mode2)
                 .build();
         return chain.proceed(authRequest);
     }
 }
+
+
+
+

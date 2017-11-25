@@ -8,9 +8,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,6 +27,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     String emptyTag;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +75,9 @@ public class MainActivity extends AppCompatActivity {
         HUMIDATA = new ApiKeys().getHumiData();
         TEMPDATA = new ApiKeys().getTempData();
         client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
-
         setActionBar();
         setTiles();
         Login(HUMIDATA);
-        Log.e("key ", new ApiKeys().getToken());
-
-
-
     }
 
     public void Login(String url) {
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 List<GetHumiData> list = response.body();
                 GetHumiData getHumiData = null;
                 listing = new ArrayList<GetHumiData>();
+
                 for (int i = 0; i < list.size(); i++) {
 //                    getHumiData = new GetHumiData();
                     String date = list.get(i).getDate();
@@ -142,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getControlData(){
+        Toast.makeText(this, new ApiKeys().getPassword(), Toast.LENGTH_SHORT).show();
         final String CONTROL = new ApiKeys().getControl();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
