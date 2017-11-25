@@ -1,9 +1,5 @@
 package com.example.soram.iasbp;
-
-import android.util.Base64;
-
 import java.io.IOException;
-
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
