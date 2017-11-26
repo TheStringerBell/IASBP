@@ -1,8 +1,9 @@
 package com.example.soram.iasbp;
 
 
+import java.io.Serializable;
 
-public class GetControlData {
+public class GetControlData{
     String Status;
     String Mode;
     String lowMin;

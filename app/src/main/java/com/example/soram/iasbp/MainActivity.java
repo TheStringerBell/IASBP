@@ -1,6 +1,7 @@
 package com.example.soram.iasbp;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -29,11 +30,16 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayDate = new ArrayList<String>();
     ArrayList<String> arrayValue = new ArrayList<String>();
     ArrayList<String> insideArray = new ArrayList<String>();
-    ArrayList<String> arrayStatus = new ArrayList<String>();
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
+    //Control
     ArrayList<String> controlMode = new ArrayList<>();
+    ArrayList<String> controlStatus = new ArrayList<String>();
+    ArrayList<String> controlLowMin = new ArrayList<String>();
+    ArrayList<String> controlLowMax = new ArrayList<String>();
+    ArrayList<String> controlHighMin = new ArrayList<String>();
+    ArrayList<String> controlHighMax = new ArrayList<String>();
     Integer cont = 0;
     ActionBar actionBar;
     Boolean humiOrTemp = false;
@@ -126,10 +132,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<GetControlData>> call, Response<List<GetControlData>> response) {
                 List<GetControlData> list = response.body();
-                for (int i = 0; i < list.size(); i++){
-                    controlMode.add(list.get(i).getMode());
-                }
 
+                for (int i = 0; i < list.size(); i++){
+
+                    controlMode.add(list.get(i).getMode());
+                    controlHighMax.add(list.get(i).getHighMax());
+                    controlHighMin.add(list.get(i).getHighMin());
+                    controlLowMax.add(list.get(i).getLowMax());
+                    controlLowMin.add(list.get(i).getLowMin());
+                    controlStatus.add(list.get(i).getStatus());
+                }
+                bundle.putStringArrayList("HighMax", controlHighMax);
+                bundle.putStringArrayList("HighMin", controlHighMin);
+                bundle.putStringArrayList("LowMax", controlLowMax);
+                bundle.putStringArrayList("LowMin", controlLowMin);
+                bundle.putStringArrayList("Status", controlStatus);
                 bundle.putStringArrayList("Mode", controlMode);
                 getInsideData();
             }
@@ -267,8 +284,8 @@ public class MainActivity extends AppCompatActivity {
                     } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
                     case "CONTROL":
-//                        loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
-                        switchScreen(); break;
+                        loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+
                 }
             }
 
