@@ -4,19 +4,17 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
-/**
- * Created by sOram on 26. 11. 2017.
- */
+
 
 public class ControlFragment extends Fragment {
     View view;
@@ -26,16 +24,21 @@ public class ControlFragment extends Fragment {
     ArrayList<String> controlLowMax;
     ArrayList<String> controlHighMin;
     ArrayList<String> controlHighMax;
-    TextView lowMin;
-    TextView lowMax;
-    TextView highMin;
-    TextView highMax;
-    TextView lowMin2;
-    TextView lowMax2;
-    TextView highMin2;
-    TextView highMax2;
+    EditText lowMin;
+    EditText lowMax;
+    EditText highMin;
+    EditText highMax;
+    EditText lowMin2;
+    EditText lowMax2;
+    EditText highMin2;
+    EditText highMax2;
+    TextView lowM;
+    TextView lowMa;
+    TextView highM;
+    TextView highMa;
     RelativeLayout relativeLayout;
     InputMethodManager imm;
+    LinearLayout ln3;
 
     @Nullable
     @Override
@@ -49,6 +52,11 @@ public class ControlFragment extends Fragment {
         lowMin2 = view.findViewById(R.id.editText6);
         highMin2 = view.findViewById(R.id.editText7);
         highMax2 = view.findViewById(R.id.editText8);
+        lowM = view.findViewById(R.id.textView);
+        lowMa = view.findViewById(R.id.textView2);
+        highM = view.findViewById(R.id.textView3);
+        highMa = view.findViewById(R.id.textView4);
+        ln3 = view.findViewById(R.id.linearLayout3);
         relativeLayout = view.findViewById(R.id.relativeView);
         controlHighMax = getArguments().getStringArrayList("HighMax");
         controlStatus = getArguments().getStringArrayList("Status");
@@ -63,6 +71,7 @@ public class ControlFragment extends Fragment {
             }
         });
 
+
         lowMin.setText(controlLowMin.get(0));
         lowMax.setText(controlLowMax.get(0));
         highMin.setText(controlHighMin.get(0));
@@ -71,6 +80,7 @@ public class ControlFragment extends Fragment {
         lowMax2.setText(controlLowMax.get(1));
         highMin2.setText(controlHighMin.get(1));
         highMax2.setText(controlHighMax.get(1));
+
         return view;
     }
     public void hideKeyboard(View v){

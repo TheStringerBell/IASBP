@@ -64,7 +64,7 @@ public class MainFragment extends Fragment{
         relativeLayout.setBackground(gd);
 
         relativeLayout.getBackground().setAlpha(75);
-        relativeLayout2.getBackground().setAlpha(50);
+        relativeLayout2.getBackground().setAlpha(75);
 
 
 
