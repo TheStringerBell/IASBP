@@ -1,5 +1,4 @@
 package com.example.soram.iasbp;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
     int whichSide;
     OkHttpClient client;
     String emptyTag;
-
-
 
 
     @Override
@@ -206,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
+
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 humiOrTemp = false;
