@@ -1,5 +1,6 @@
 package com.example.soram.iasbp;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ public class ControlFragment extends Fragment {
     TextView lowMax2;
     TextView highMin2;
     TextView highMax2;
+    RelativeLayout relativeLayout;
+    InputMethodManager imm;
 
     @Nullable
     @Override
@@ -44,11 +49,19 @@ public class ControlFragment extends Fragment {
         lowMin2 = view.findViewById(R.id.editText6);
         highMin2 = view.findViewById(R.id.editText7);
         highMax2 = view.findViewById(R.id.editText8);
+        relativeLayout = view.findViewById(R.id.relativeView);
         controlHighMax = getArguments().getStringArrayList("HighMax");
         controlStatus = getArguments().getStringArrayList("Status");
         controlLowMin = getArguments().getStringArrayList("LowMin");
         controlLowMax = getArguments().getStringArrayList("LowMax");
         controlHighMin = getArguments().getStringArrayList("HighMin");
+        imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(view);
+            }
+        });
 
         lowMin.setText(controlLowMin.get(0));
         lowMax.setText(controlLowMax.get(0));
@@ -60,4 +73,10 @@ public class ControlFragment extends Fragment {
         highMax2.setText(controlHighMax.get(1));
         return view;
     }
+    public void hideKeyboard(View v){
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+
+    }
+
 }

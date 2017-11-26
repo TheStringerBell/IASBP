@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_refresh:
                 humiOrTemp = false;
                 cont = 0;
+                whichSide = 1;
                 controlMode.clear();
                 arrayDate.clear();
                 arrayValue.clear();
