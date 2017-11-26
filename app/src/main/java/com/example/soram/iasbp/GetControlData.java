@@ -1,8 +1,6 @@
 package com.example.soram.iasbp;
 
-/**
- * Created by sOram on 17. 11. 2017.
- */
+
 
 public class GetControlData {
     String Status;

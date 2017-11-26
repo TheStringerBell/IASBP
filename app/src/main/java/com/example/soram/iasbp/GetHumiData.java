@@ -1,10 +1,6 @@
 package com.example.soram.iasbp;
 
 
-/**
- * Created by sOram on 5. 11. 2017.
- */
-
 public class GetHumiData {
 
     String Date;

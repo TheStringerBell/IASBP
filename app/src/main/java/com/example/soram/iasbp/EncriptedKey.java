@@ -2,9 +2,6 @@ package com.example.soram.iasbp;
 
 import org.magiclen.magiccrypt.MagicCrypt;
 
-/**
- * Created by sOram on 25. 11. 2017.
- */
 
 public class EncriptedKey {
     String key;

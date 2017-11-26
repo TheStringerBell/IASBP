@@ -244,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
         CONTROL  = new ApiKeys().getControl();
         INSIDEDATA = new ApiKeys().getInsideData();
 
-
     }
     public void generateCredentials(){
         USERNAME = new ApiKeys().getUsername();

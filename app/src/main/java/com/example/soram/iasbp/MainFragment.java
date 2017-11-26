@@ -1,7 +1,6 @@
 package com.example.soram.iasbp;
 
 
-import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -10,9 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import java.text.DecimalFormat;
@@ -21,14 +18,8 @@ import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 
 
-/**
- * Created by sOram on 11. 11. 2017.
- */
-
 public class MainFragment extends Fragment{
     View view;
-    TextView textView;
-    TextView textMode;
     ArrayList<String> HumiValues;
     ArrayList<String> HumiTime;
     ArrayList<String> date;
@@ -39,15 +30,11 @@ public class MainFragment extends Fragment{
     CircleProgressView circleProgressView2;
     CircleProgressView circleProgressView3;
     CircleProgressView circleProgressView4;
-    FrameLayout frameLayout;
-    FrameLayout frameLayout2;
     Float maxValue;
     Float maxValue2;
     Float maxValue3;
     Float maxValue4;
-
     String dateAndTime;
-    BlurMaskFilter blurMaskFilter;
     CircleMenu circleMenu;
     CircleMenu circleMenu2;
     RelativeLayout relativeLayout;

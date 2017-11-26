@@ -14,7 +14,7 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         getSupportActionBar().hide();
-        videoView =(VideoView) findViewById(R.id.videoView);
+        videoView = findViewById(R.id.videoView);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoView.setVideoURI(video);
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

@@ -1,7 +1,5 @@
 package com.example.soram.iasbp;
 
-
-
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,10 +20,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 
-
-/**
- * Created by sOram on 11. 11. 2017.
- */
 
 public class GraphFragment extends Fragment {
     View view;
