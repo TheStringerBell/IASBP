@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
         android:id="@+id/linearLayout4">
 
         <at.grabner.circleprogress.CircleProgressView
@@ -40,6 +41,62 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+
+        android:layout_below="@+id/heating"
+        android:orientation="horizontal">
+
+
+
+        <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+            android:id="@+id/toggleswitch"
+            android:layout_width="0dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
+
+
+
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/heating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/linearLayout4"
+
+        android:paddingBottom="10dp"
+        android:text="@string/heating"
+        android:textAlignment="center"
+        android:textColor="@color/mainPink" />
+
+    <TextView
+        android:id="@+id/minMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heating"
+        android:layout_marginStart="50dp"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:textAlignment="center"
+
+        android:textColor="@color/mainPink" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/minMax"
+        android:layout_below="@+id/linearLayout" />
 
 
 </RelativeLayout>
