@@ -46,7 +46,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
 
         android:layout_below="@+id/heating"
         android:orientation="horizontal">
@@ -85,10 +85,12 @@
         android:id="@+id/minMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+
         android:layout_below="@+id/heating"
-        android:layout_marginStart="50dp"
-        android:layout_toEndOf="@+id/linearLayout"
-        android:textAlignment="viewStart"
+
+
+        android:textAlignment="textEnd"
 
         android:textColor="@color/mainPink" />
 
@@ -97,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/humiditySettings"
         android:id="@+id/linearLayout2"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
 
         android:orientation="horizontal">
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
@@ -113,11 +115,9 @@
         android:id="@+id/humiValues"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/humiditySettings"
-        android:layout_marginStart="50dp"
-
-        android:layout_toEndOf="@+id/linearLayout2"
-        android:textAlignment="viewStart"
+        android:textAlignment="textEnd"
         android:textColor="@color/mainPink" />
 
     <TextView
