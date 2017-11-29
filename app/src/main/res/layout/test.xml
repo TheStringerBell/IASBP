@@ -2,78 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
     android:padding="15dp">
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/frame"-->
-        <!--android:layout_width="155dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginRight="15dp"-->
 
-        <!--&gt;-->
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout4">
 
-        <!--<com.hitomi.cmlibrary.CircleMenu-->
-            <!--android:id="@+id/circle_menu"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/circleView3"-->
-            <!--android:layout_centerInParent="true"-->
+        <at.grabner.circleprogress.CircleProgressView
+        android:id="@+id/circleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="15dp" />
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/circleView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="15dp" />
 
+        <TextView
+            android:id="@+id/textTemp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
 
-            <!--/>-->
-
-        <!--<at.grabner.circleprogress.CircleProgressView-->
-            <!--android:id="@+id/circleView3"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_below="@+id/circleView4"-->
-            <!--android:layout_margin="15dp" />-->
-
-        <!--<at.grabner.circleprogress.CircleProgressView-->
-            <!--android:id="@+id/circleView4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_margin="15dp"-->
+            android:textColor="@color/mainPink" />
 
 
-            <!--/>-->
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/frame2"-->
-        <!--android:layout_width="155dp"-->
-        <!--android:layout_height="wrap_content"-->
-
-        <!--android:layout_toEndOf="@id/frame">-->
-
-        <!--<com.hitomi.cmlibrary.CircleMenu-->
-            <!--android:id="@+id/circle_menu2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/circleView"-->
-            <!--android:layout_centerInParent="true" />-->
-
-        <!--<at.grabner.circleprogress.CircleProgressView-->
-            <!--android:id="@+id/circleView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_below="@+id/circleView2"-->
-            <!--android:layout_margin="15dp" />-->
-
-        <!--<at.grabner.circleprogress.CircleProgressView-->
-            <!--android:id="@+id/circleView2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_margin="15dp"-->
-
-
-            <!--/>-->
-    <!--</RelativeLayout>-->
+    </LinearLayout>
 
 
 </RelativeLayout>

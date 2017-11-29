@@ -271,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
     public void setTiles(){
         whichSide = 1;
         tiles.setTitles("Home", "Graphs", "Control");
+        tiles.setBackgroundColor(getResources().getColor(R.color.mainActionBg));
+
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
         tiles.setTabIndex(0, true);
@@ -303,5 +305,3 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 }
-
-

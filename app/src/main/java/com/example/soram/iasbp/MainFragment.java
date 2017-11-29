@@ -10,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
+import devlight.io.library.ArcProgressStackView;
 
 
 public class MainFragment extends Fragment{
@@ -39,36 +43,42 @@ public class MainFragment extends Fragment{
     CircleMenu circleMenu2;
     RelativeLayout relativeLayout;
     RelativeLayout relativeLayout2;
+    TextView textHumi;
+    TextView textTemp;
+
+
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.main_fragment, container, false);
-        circleProgressView = (CircleProgressView) view.findViewById(R.id.circleView);
-        circleProgressView2 = (CircleProgressView) view.findViewById(R.id.circleView3);
-        circleProgressView3 = (CircleProgressView) view.findViewById(R.id.circleView2);
-        circleProgressView4 = (CircleProgressView) view.findViewById(R.id.circleView4);
-
-        circleMenu2 = (CircleMenu) view.findViewById(R.id.circle_menu2);
-        circleMenu = (CircleMenu) view.findViewById(R.id.circle_menu);
-
-        relativeLayout = (RelativeLayout) view.findViewById(R.id.frame);
-        relativeLayout2 = (RelativeLayout) view.findViewById(R.id.frame2);
-                int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
-        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-
-        gd.setStroke(1, getResources().getColor(R.color.white));
-        relativeLayout2.setBackground(gd);
-        relativeLayout.setBackground(gd);
-
-        relativeLayout.getBackground().setAlpha(75);
-        relativeLayout2.getBackground().setAlpha(75);
+        view = inflater.inflate(R.layout.test, container, false);
 
 
-
-        //get arraylists from Main Activity
+        textTemp = view.findViewById(R.id.textTemp);
+        circleProgressView  = view.findViewById(R.id.circleView);
+        circleProgressView2 = view.findViewById(R.id.circleView2);
+//        circleProgressView3 = view.findViewById(R.id.circleView2);
+//        circleProgressView4 = view.findViewById(R.id.circleView4);
+//        circleMenu2 = view.findViewById(R.id.circle_menu2);
+//        circleMenu  = view.findViewById(R.id.circle_menu);
+//
+//        relativeLayout  = view.findViewById(R.id.frame);
+//        relativeLayout2 = view.findViewById(R.id.frame2);
+//                int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
+//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+//
+//        gd.setStroke(1, getResources().getColor(R.color.white));
+//        relativeLayout2.setBackground(gd);
+//        relativeLayout.setBackground(gd);
+//
+//        relativeLayout.getBackground().setAlpha(75);
+//        relativeLayout2.getBackground().setAlpha(75);
+//
+//
+//
+//        //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
         TempValues = getArguments().getStringArrayList("TempValues");
@@ -80,91 +90,99 @@ public class MainFragment extends Fragment{
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
         maxValue3 = Float.parseFloat(inside.get(0));
         maxValue4 = Float.parseFloat(inside.get(1));
-        dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
+        String outside ="\n\n" + "Outside:" + "\n" + TempValues.get(TempValues.size()-1) + " °C" + "\n" + HumiValues.get(HumiValues.size()-1) + " %";
+        textTemp.setText(outside);
 
 
+//        dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
+//
+//
         //cirslemenu
-        circleMenu.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
-                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
-                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
-        circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
-            @Override
-            public void onMenuSelected(int i) {
-                new Control().updateControl(Integer.toString(i), mode.get(1));
-                mode.set(0, Integer.toString(i));
-            }
-        });
+//        circleMenu.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
+//                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
+//                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
+//                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
+//        circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
+//            @Override
+//            public void onMenuSelected(int i) {
+//                new Control().updateControl(Integer.toString(i), mode.get(1));
+//                mode.set(0, Integer.toString(i));
+//            }
+//        });
+//
+//        circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
+//                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
+//                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
+//                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
+//        circleMenu2.setOnMenuSelectedListener(new OnMenuSelectedListener() {
+//            @Override
+//            public void onMenuSelected(int i) {
+//                new Control().updateControl(mode.get(0), Integer.toString(i));
+//                mode.set(1, Integer.toString(i));
+//
+//            }
+//        });
 
-        circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
-                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
-                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
-        circleMenu2.setOnMenuSelectedListener(new OnMenuSelectedListener() {
-            @Override
-            public void onMenuSelected(int i) {
-                new Control().updateControl(mode.get(0), Integer.toString(i));
-                mode.set(1, Integer.toString(i));
 
-            }
-        });
-
-
-        circleProgressView.setMaxValue(100);
+        circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
         circleProgressView.setBarColor(Color.parseColor("#E8175D"));
         circleProgressView.setRimColor(Color.parseColor("#474747"));
-        circleProgressView.setTextSize(50);
-        circleProgressView.setUnit("%");
+        circleProgressView.setTextSize(52);
+        circleProgressView.setUnit("°C");
         circleProgressView.setUnitVisible(true);
-        circleProgressView.setUnitSize(27);
+        circleProgressView.setUnitSize(25);
+        circleProgressView.setBarWidth(5);
+        circleProgressView.setRimWidth(7);
         circleProgressView.setUnitColor(Color.parseColor("#CC527A"));
         circleProgressView.setTextColor(Color.parseColor("#E8175D"));
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
-        circleProgressView.setValueAnimated(maxValue);
+        circleProgressView.setValueAnimated(maxValue3);
 
-        circleProgressView2.setMaxValue(45);
+        circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);
         circleProgressView2.setBarColor(Color.parseColor("#E8175D"));
         circleProgressView2.setRimColor(Color.parseColor("#474747"));
-        circleProgressView2.setTextSize(50);
-        circleProgressView2.setUnit("°C");
+        circleProgressView2.setTextSize(52);
+        circleProgressView2.setBarWidth(5);
+        circleProgressView2.setRimWidth(7);
+        circleProgressView2.setUnit("%");
         circleProgressView2.setUnitVisible(true);
-        circleProgressView2.setUnitSize(27);
+        circleProgressView2.setUnitSize(25);
         circleProgressView2.setUnitColor(Color.parseColor("#CC527A"));
         circleProgressView2.setTextColor(Color.parseColor("#E8175D"));
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
-        circleProgressView2.setValueAnimated(maxValue2);
+        circleProgressView2.setValueAnimated(maxValue4);
 
-        circleProgressView3.setMaxValue(45);
-        circleProgressView3.setValue(0);
-        circleProgressView3.setBarColor(Color.parseColor("#E8175D"));
-        circleProgressView3.setRimColor(Color.parseColor("#474747"));
-        circleProgressView3.setTextSize(50);
-        circleProgressView3.setUnit("°C");
-        circleProgressView3.setUnitVisible(true);
-        circleProgressView3.setUnitSize(27);
-        circleProgressView3.setUnitColor(Color.parseColor("#CC527A"));
-        circleProgressView3.setTextColor(Color.parseColor("#E8175D"));
-        circleProgressView3.setDecimalFormat(new DecimalFormat("#.#"));
-        circleProgressView3.setTextMode(TextMode.VALUE);
-        circleProgressView3.setValueAnimated(maxValue3);
-
-        circleProgressView4.setMaxValue(45);
-        circleProgressView4.setValue(0);
-        circleProgressView4.setBarColor(Color.parseColor("#E8175D"));
-        circleProgressView4.setRimColor(Color.parseColor("#474747"));
-        circleProgressView4.setTextSize(50);
-        circleProgressView4.setUnit("%");
-        circleProgressView4.setUnitVisible(true);
-        circleProgressView4.setUnitSize(27);
-        circleProgressView4.setUnitColor(Color.parseColor("#CC527A"));
-        circleProgressView4.setTextColor(Color.parseColor("#E8175D"));
-        circleProgressView4.setDecimalFormat(new DecimalFormat("#.#"));
-        circleProgressView4.setTextMode(TextMode.VALUE);
-        circleProgressView4.setValueAnimated(maxValue4);
+//        circleProgressView3.setMaxValue(45);
+//        circleProgressView3.setValue(0);
+//        circleProgressView3.setBarColor(Color.parseColor("#E8175D"));
+//        circleProgressView3.setRimColor(Color.parseColor("#474747"));
+//        circleProgressView3.setTextSize(50);
+//        circleProgressView3.setUnit("°C");
+//        circleProgressView3.setUnitVisible(true);
+//        circleProgressView3.setUnitSize(27);
+//        circleProgressView3.setUnitColor(Color.parseColor("#CC527A"));
+//        circleProgressView3.setTextColor(Color.parseColor("#E8175D"));
+//        circleProgressView3.setDecimalFormat(new DecimalFormat("#.#"));
+//        circleProgressView3.setTextMode(TextMode.VALUE);
+//        circleProgressView3.setValueAnimated(maxValue3);
+//
+//        circleProgressView4.setMaxValue(100);
+//        circleProgressView4.setValue(0);
+//        circleProgressView4.setBarColor(Color.parseColor("#E8175D"));
+//        circleProgressView4.setRimColor(Color.parseColor("#474747"));
+//        circleProgressView4.setTextSize(50);
+//        circleProgressView4.setUnit("%");
+//        circleProgressView4.setUnitVisible(true);
+//        circleProgressView4.setUnitSize(27);
+//        circleProgressView4.setUnitColor(Color.parseColor("#CC527A"));
+//        circleProgressView4.setTextColor(Color.parseColor("#E8175D"));
+//        circleProgressView4.setDecimalFormat(new DecimalFormat("#.#"));
+//        circleProgressView4.setTextMode(TextMode.VALUE);
+//        circleProgressView4.setValueAnimated(maxValue4);
 
 
         return view;

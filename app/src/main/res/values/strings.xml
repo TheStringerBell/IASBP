@@ -5,6 +5,7 @@
     <string name="notitle">s</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
+    <string name="Outside">Outside</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
