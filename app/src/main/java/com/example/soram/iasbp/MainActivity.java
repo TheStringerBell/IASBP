@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_logo4);
+        actionBar.setLogo(R.mipmap.ic_logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar = getSupportActionBar();
         actionBar.setElevation(0);

@@ -2,21 +2,29 @@ package com.example.soram.iasbp;
 
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
+import com.stealthcopter.networktools.Ping;
+import com.stealthcopter.networktools.ping.PingResult;
 
 
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import at.grabner.circleprogress.CircleProgressView;
@@ -38,26 +46,31 @@ public class MainFragment extends Fragment{
     ArrayList<String> controlHighMin;
     CircleProgressView circleProgressView;
     CircleProgressView circleProgressView2;
-    CircleProgressView circleProgressView3;
-    CircleProgressView circleProgressView4;
     Float maxValue;
     Float maxValue2;
     Float maxValue3;
     Float maxValue4;
-    String dateAndTime;
     String outside;
     String lowMin;
     String lowMin2;
-    CircleMenu circleMenu;
-    CircleMenu circleMenu2;
-    RelativeLayout relativeLayout;
-    RelativeLayout relativeLayout2;
     TextView minMax;
     TextView textTemp;
     TextView humiValues;
+    TextView heating;
+    TextView humidication;
     ToggleSwitch toggleSwitch;
     ToggleSwitch toggleSwitch2;
     ArrayList<String> labels;
+    LinearLayout linearLayout;
+    LinearLayout linearLayout2;
+    LinearLayout linearLayout3;
+
+    Animation animation;
+    Animation animation2;
+    Animation animation3;
+    Animation animation4;
+    Animation animation5;
+
 
 
 
@@ -77,6 +90,16 @@ public class MainFragment extends Fragment{
         circleProgressView  = view.findViewById(R.id.circleView);
         circleProgressView2 = view.findViewById(R.id.circleView2);
         minMax = view.findViewById(R.id.minMax);
+        heating = view.findViewById(R.id.heating);
+        humidication = view.findViewById(R.id.humiditySettings);
+        linearLayout = view.findViewById(R.id.linearLayout);
+        linearLayout2 = view.findViewById(R.id.linearLayout2);
+        linearLayout3 = view.findViewById(R.id.linearLayout4);
+        setAnimation();
+
+
+
+
 //        circleProgressView3 = view.findViewById(R.id.circleView2);
 //        circleProgressView4 = view.findViewById(R.id.circleView4);
 //        circleMenu2 = view.findViewById(R.id.circle_menu2);
@@ -151,6 +174,14 @@ public class MainFragment extends Fragment{
 
             }
         });
+//        try {
+//            PingResult pingResult = Ping.onAddress("172.217.5.195").doPing();
+//            Log.e("das", pingResult.toString());
+//        }catch (UnknownHostException e){
+//            e.printStackTrace();
+//        }
+
+
 
 
 
@@ -218,36 +249,31 @@ public class MainFragment extends Fragment{
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
-
-//        circleProgressView3.setMaxValue(45);
-//        circleProgressView3.setValue(0);
-//        circleProgressView3.setBarColor(Color.parseColor("#E8175D"));
-//        circleProgressView3.setRimColor(Color.parseColor("#474747"));
-//        circleProgressView3.setTextSize(50);
-//        circleProgressView3.setUnit("°C");
-//        circleProgressView3.setUnitVisible(true);
-//        circleProgressView3.setUnitSize(27);
-//        circleProgressView3.setUnitColor(Color.parseColor("#CC527A"));
-//        circleProgressView3.setTextColor(Color.parseColor("#E8175D"));
-//        circleProgressView3.setDecimalFormat(new DecimalFormat("#.#"));
-//        circleProgressView3.setTextMode(TextMode.VALUE);
-//        circleProgressView3.setValueAnimated(maxValue3);
-//
-//        circleProgressView4.setMaxValue(100);
-//        circleProgressView4.setValue(0);
-//        circleProgressView4.setBarColor(Color.parseColor("#E8175D"));
-//        circleProgressView4.setRimColor(Color.parseColor("#474747"));
-//        circleProgressView4.setTextSize(50);
-//        circleProgressView4.setUnit("%");
-//        circleProgressView4.setUnitVisible(true);
-//        circleProgressView4.setUnitSize(27);
-//        circleProgressView4.setUnitColor(Color.parseColor("#CC527A"));
-//        circleProgressView4.setTextColor(Color.parseColor("#E8175D"));
-//        circleProgressView4.setDecimalFormat(new DecimalFormat("#.#"));
-//        circleProgressView4.setTextMode(TextMode.VALUE);
-//        circleProgressView4.setValueAnimated(maxValue4);
-
-
         return view;
+    }
+    public void setAnimation(){
+        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        animation5 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+        animation.setDuration(1000);
+        animation2.setDuration(1500);
+        animation3.setDuration(2000);
+        animation4.setDuration(2500);
+        animation5.setDuration(3000);
+        linearLayout3.startAnimation(animation2);
+
+        textTemp.startAnimation(animation2);
+        linearLayout.startAnimation(animation3);
+
+        linearLayout2.startAnimation(animation3);
+
+        heating.startAnimation(animation4);
+        minMax.startAnimation(animation4);
+
+        humiValues.startAnimation(animation5);
+        humidication.startAnimation(animation5);
+
     }
 }
