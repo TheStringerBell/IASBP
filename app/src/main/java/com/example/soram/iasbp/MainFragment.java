@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
+import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import devlight.io.library.ArcProgressStackView;
 
@@ -46,14 +47,18 @@ public class MainFragment extends Fragment{
     String dateAndTime;
     String outside;
     String lowMin;
+    String lowMin2;
     CircleMenu circleMenu;
     CircleMenu circleMenu2;
     RelativeLayout relativeLayout;
     RelativeLayout relativeLayout2;
     TextView minMax;
     TextView textTemp;
+    TextView humiValues;
     ToggleSwitch toggleSwitch;
+    ToggleSwitch toggleSwitch2;
     ArrayList<String> labels;
+
 
 
 
@@ -65,7 +70,9 @@ public class MainFragment extends Fragment{
 //        return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.test, container, false);
 
+        humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
+        toggleSwitch2 = view.findViewById(R.id.toggleswitch2);
         textTemp = view.findViewById(R.id.textTemp);
         circleProgressView  = view.findViewById(R.id.circleView);
         circleProgressView2 = view.findViewById(R.id.circleView2);
@@ -99,14 +106,18 @@ public class MainFragment extends Fragment{
         mode = getArguments().getStringArrayList("Mode");
         inside = getArguments().getStringArrayList("Inside");
 
+
+
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
         maxValue3 = Float.parseFloat(inside.get(0));
         maxValue4 = Float.parseFloat(inside.get(1));
         outside ="\n\n" + "Outside:" + "\n" + TempValues.get(TempValues.size()-1) + " °C" + "\n" + HumiValues.get(HumiValues.size()-1) + " %";
         lowMin = "Min: " + controlLowMax.get(0) + " °C"  + "\n" + "Max: " + controlHighMin.get(0)+ " °C" ;
+        lowMin2 = "Min: " + controlLowMax.get(1) + " %"  + "\n" + "Max: " + controlHighMin.get(1)+ " %" ;
         minMax.setText(lowMin);
         textTemp.setText(outside);
+        humiValues.setText(lowMin2);
         labels = new ArrayList<>();
         labels.add("OFF");
         labels.add("AUTO");
@@ -116,6 +127,30 @@ public class MainFragment extends Fragment{
         toggleSwitch.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
         toggleSwitch.setInactiveBgColor(getResources().getColor(R.color.gray));
         toggleSwitch.setCheckedTogglePosition(Integer.parseInt(mode.get(0)));
+        toggleSwitch.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
+            @Override
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+                new Control().updateControl(Integer.toString(position), mode.get(1));
+                mode.set(0, Integer.toString(position));
+            }
+        });
+        labels = new ArrayList<>();
+        labels.add("OFF");
+        labels.add("AUTO");
+        labels.add("ON");
+        toggleSwitch2.setLabels(labels);
+        toggleSwitch2.setActiveBgColor(getResources().getColor(R.color.mainPink));
+        toggleSwitch2.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
+        toggleSwitch2.setInactiveBgColor(getResources().getColor(R.color.gray));
+        toggleSwitch2.setCheckedTogglePosition(Integer.parseInt(mode.get(1)));
+        toggleSwitch2.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
+            @Override
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+                new Control().updateControl(mode.get(0), Integer.toString(position));
+                mode.set(1, Integer.toString(position));
+
+            }
+        });
 
 
 
