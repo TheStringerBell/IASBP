@@ -8,13 +8,12 @@
     android:layout_gravity="center"
     android:padding="15dp">
 
-
+    <!--MAIN-->
     <LinearLayout
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
         android:id="@+id/linearLayout4">
 
         <at.grabner.circleprogress.CircleProgressView
@@ -41,17 +40,15 @@
 
 
     </LinearLayout>
-
+        <!--SETTINGS TEMPERATURE-->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-
+        android:paddingBottom="10dp"
         android:layout_below="@+id/heating"
         android:orientation="horizontal">
-
-
 
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
             android:id="@+id/toggleswitch"
@@ -62,11 +59,6 @@
 
         </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
 
-
-
-
-
-
     </LinearLayout>
 
     <TextView
@@ -74,8 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@id/linearLayout4"
-
+        android:layout_below="@+id/relatV"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="@string/heating"
         android:textAlignment="center"
@@ -94,12 +86,14 @@
 
         android:textColor="@color/mainPink" />
 
+        <!--SETTINGS HUMIDITY-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/humiditySettings"
         android:id="@+id/linearLayout2"
         android:layout_marginEnd="10dp"
+        android:paddingBottom="@dimen/dp_10"
 
         android:orientation="horizontal">
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
@@ -129,6 +123,24 @@
         android:layout_centerInParent="true"
         android:textColor="@color/mainPink"
         android:text="@string/humidity" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/relatV"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_gradient"
+        android:layout_below="@+id/linearLayout4">
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/relatV2"
+
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_gradient"
+        android:layout_below="@+id/linearLayout2">
+    </RelativeLayout>
 
 
 </RelativeLayout>

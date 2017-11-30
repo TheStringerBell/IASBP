@@ -72,11 +72,6 @@ public class MainFragment extends Fragment{
     Animation animation5;
 
 
-
-
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -220,32 +215,32 @@ public class MainFragment extends Fragment{
 
         circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
-        circleProgressView.setBarColor(Color.parseColor("#E8175D"));
-        circleProgressView.setRimColor(Color.parseColor("#474747"));
+        circleProgressView.setBarColor(getResources().getColor(R.color.mainPink));
+        circleProgressView.setRimColor(getResources().getColor(R.color.mainGray));
         circleProgressView.setTextSize(52);
         circleProgressView.setUnit("°C");
         circleProgressView.setUnitVisible(true);
         circleProgressView.setUnitSize(25);
         circleProgressView.setBarWidth(5);
         circleProgressView.setRimWidth(7);
-        circleProgressView.setUnitColor(Color.parseColor("#CC527A"));
-        circleProgressView.setTextColor(Color.parseColor("#E8175D"));
+        circleProgressView.setUnitColor(getResources().getColor(R.color.graph_text));
+        circleProgressView.setTextColor(getResources().getColor(R.color.mainPink));
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue3);
 
         circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);
-        circleProgressView2.setBarColor(Color.parseColor("#E8175D"));
-        circleProgressView2.setRimColor(Color.parseColor("#474747"));
+        circleProgressView2.setBarColor(getResources().getColor(R.color.mainPink));
+        circleProgressView2.setRimColor(getResources().getColor(R.color.mainGray));
         circleProgressView2.setTextSize(52);
         circleProgressView2.setBarWidth(5);
         circleProgressView2.setRimWidth(7);
         circleProgressView2.setUnit("%");
         circleProgressView2.setUnitVisible(true);
         circleProgressView2.setUnitSize(25);
-        circleProgressView2.setUnitColor(Color.parseColor("#CC527A"));
-        circleProgressView2.setTextColor(Color.parseColor("#E8175D"));
+        circleProgressView2.setUnitColor(getResources().getColor(R.color.graph_text));
+        circleProgressView2.setTextColor(getResources().getColor(R.color.mainPink));
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
