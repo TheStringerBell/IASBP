@@ -179,15 +179,12 @@ public class MainFragment extends Fragment{
             }
 
         });
-
-//        try {
-//            PingResult pingResult = Ping.onAddress("172.217.5.195").doPing();
-//            Log.e("das", pingResult.toString());
-//        }catch (UnknownHostException e){
-//            e.printStackTrace();
-//        }
-
-
+        humiValues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog("Update humidity", "40", "60", 1);
+            }
+        });
 
         circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
@@ -248,7 +245,7 @@ public class MainFragment extends Fragment{
         realL2.startAnimation(animation5);
 
     }
-    public void openDialog(String tit, final String def, final String def2, int i){
+    public void openDialog(String tit, final String def, final String def2, final int in){
         final EditText first = new EditText(getContext());
         final EditText second = new EditText(getContext());
         final LinearLayout ln = new LinearLayout(getContext());
@@ -279,8 +276,8 @@ public class MainFragment extends Fragment{
                         if (two.equals("")){
                             two = def2;
                         }
-                        if (i == 0){
-
+                        if (in == 0){
+                            new Control().updateTemp(one, two);
                         }else {
                             new Control().updateHumi(one, two);
                         }

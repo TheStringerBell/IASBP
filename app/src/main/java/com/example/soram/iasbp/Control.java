@@ -7,8 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Control{
 
     final String URL = new ApiKeys().getLink();
-    String addition = new ApiKeys().getControltest();
-    String tempLowMin = new ApiKeys().getTempLowMin();
+    final String addition = new ApiKeys().getControltest();
+    final String tempLowMin = new ApiKeys().getTempLowMin();
+    final String humiLowMin = new ApiKeys().getHumiLowMin();
     OkHttpClient client;
     String USERNAME;
     String PASSWORD;
@@ -66,7 +67,7 @@ public class Control{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         newControl service = retrofit.create(newControl.class);
-        retrofit2.Call<Void> call = service.control(addition);
+        retrofit2.Call<Void> call = service.control(humiLowMin);
         call.enqueue(new retrofit2.Callback<Void>() {
             @Override
             public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
