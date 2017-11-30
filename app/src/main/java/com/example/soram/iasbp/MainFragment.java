@@ -1,6 +1,8 @@
 package com.example.soram.iasbp;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -8,21 +10,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import com.hitomi.cmlibrary.CircleMenu;
-import com.hitomi.cmlibrary.OnMenuSelectedListener;
-import com.stealthcopter.networktools.Ping;
-import com.stealthcopter.networktools.ping.PingResult;
-
+import org.w3c.dom.Text;
 
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
@@ -170,9 +169,17 @@ public class MainFragment extends Fragment{
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
                 new Control().updateControl(mode.get(0), Integer.toString(position));
                 mode.set(1, Integer.toString(position));
-
             }
         });
+
+        minMax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog("Update temperature", "21", "23", 0);
+            }
+
+        });
+
 //        try {
 //            PingResult pingResult = Ping.onAddress("172.217.5.195").doPing();
 //            Log.e("das", pingResult.toString());
@@ -180,41 +187,6 @@ public class MainFragment extends Fragment{
 //            e.printStackTrace();
 //        }
 
-
-
-
-
-
-
-
-//        dateAndTime = date.get(date.size()-1) + "  " + HumiTime.get(HumiTime.size()-1);
-//
-//
-        //cirslemenu
-//        circleMenu.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
-//                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-//                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
-//                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
-//        circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
-//            @Override
-//            public void onMenuSelected(int i) {
-//                new Control().updateControl(Integer.toString(i), mode.get(1));
-//                mode.set(0, Integer.toString(i));
-//            }
-//        });
-//
-//        circleMenu2.setMainMenu(Color.parseColor("#E8175D"), R.mipmap.ic_menu, R.mipmap.ic_close_white)
-//                .addSubMenu(Color.parseColor("#680a29"), R.mipmap.ic_off3)
-//                .addSubMenu(Color.parseColor("#8c0e38"), R.mipmap.ic_auto2)
-//                .addSubMenu(Color.parseColor("#b21147"), R.mipmap.ic_fcd3);
-//        circleMenu2.setOnMenuSelectedListener(new OnMenuSelectedListener() {
-//            @Override
-//            public void onMenuSelected(int i) {
-//                new Control().updateControl(mode.get(0), Integer.toString(i));
-//                mode.set(1, Integer.toString(i));
-//
-//            }
-//        });
 
 
         circleProgressView.setMaxValue(45);
@@ -274,6 +246,54 @@ public class MainFragment extends Fragment{
         humiValues.startAnimation(animation5);
         humidication.startAnimation(animation5);
         realL2.startAnimation(animation5);
+
+    }
+    public void openDialog(String tit, final String def, final String def2, int i){
+        final EditText first = new EditText(getContext());
+        final EditText second = new EditText(getContext());
+        final LinearLayout ln = new LinearLayout(getContext());
+        final TextView title = new TextView(getContext());
+        title.setText(tit);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0,25,0,0);
+        first.setHint(def);
+        second.setHint(def2);
+        first.setGravity(Gravity.CENTER_HORIZONTAL);
+        second.setGravity(Gravity.CENTER_HORIZONTAL);
+        ln.setOrientation(LinearLayout.VERTICAL);
+        ln.setGravity(Gravity.CENTER);
+
+        ln.addView(first, 100,100);
+        ln.addView(second,100,100);
+        new AlertDialog.Builder(getContext())
+                .setCustomTitle(title)
+                .setView(ln)
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String one = first.getText().toString();
+                        String two = second.getText().toString();
+                        if (one.equals("")){
+                            one = def;
+                        }
+                        if (two.equals("")){
+                            two = def2;
+                        }
+                        if (i == 0){
+
+                        }else {
+                            new Control().updateHumi(one, two);
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .show();
 
     }
 }
