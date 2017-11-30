@@ -64,6 +64,8 @@ public class MainFragment extends Fragment{
     LinearLayout linearLayout;
     LinearLayout linearLayout2;
     LinearLayout linearLayout3;
+    RelativeLayout realL;
+    RelativeLayout realL2;
 
     Animation animation;
     Animation animation2;
@@ -90,6 +92,8 @@ public class MainFragment extends Fragment{
         linearLayout = view.findViewById(R.id.linearLayout);
         linearLayout2 = view.findViewById(R.id.linearLayout2);
         linearLayout3 = view.findViewById(R.id.linearLayout4);
+        realL = view.findViewById(R.id.relatV);
+        realL2 = view.findViewById(R.id.relatV2);
         setAnimation();
 
 
@@ -257,8 +261,8 @@ public class MainFragment extends Fragment{
         animation3.setDuration(2000);
         animation4.setDuration(2500);
         animation5.setDuration(3000);
-        linearLayout3.startAnimation(animation2);
-
+        linearLayout3.startAnimation(animation);
+        realL.startAnimation(animation2);
         textTemp.startAnimation(animation2);
         linearLayout.startAnimation(animation3);
 
@@ -269,6 +273,7 @@ public class MainFragment extends Fragment{
 
         humiValues.startAnimation(animation5);
         humidication.startAnimation(animation5);
+        realL2.startAnimation(animation5);
 
     }
 }

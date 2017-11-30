@@ -233,6 +233,12 @@ public class MainActivity extends AppCompatActivity {
                 arrayTempDate.clear();
                 arrayTempValue.clear();
                 arrayTempTime.clear();
+                controlMode.clear();
+                controlHighMax.clear();
+                controlHighMin.clear();
+                controlLowMax.clear();
+                controlLowMin.clear();
+                controlStatus.clear();
                 getHumiData(new ApiKeys().getHumiData());
                 tiles.setTabIndex(0, true);
 

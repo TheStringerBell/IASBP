@@ -93,7 +93,7 @@
         android:layout_below="@+id/humiditySettings"
         android:id="@+id/linearLayout2"
         android:layout_marginEnd="10dp"
-        android:paddingBottom="@dimen/dp_10"
+        android:paddingBottom="14dp"
 
         android:orientation="horizontal">
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
