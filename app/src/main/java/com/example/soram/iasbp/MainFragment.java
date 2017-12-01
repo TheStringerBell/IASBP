@@ -3,13 +3,9 @@ package com.example.soram.iasbp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +16,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
-import devlight.io.library.ArcProgressStackView;
 
 
 public class MainFragment extends Fragment{
@@ -65,12 +56,15 @@ public class MainFragment extends Fragment{
     LinearLayout linearLayout3;
     RelativeLayout realL;
     RelativeLayout realL2;
-
     Animation animation;
     Animation animation2;
     Animation animation3;
     Animation animation4;
     Animation animation5;
+    int mainPink;
+    int mainGray;
+    int mainCenter;
+    int mainCenter2;
 
 
     @Nullable
@@ -93,30 +87,15 @@ public class MainFragment extends Fragment{
         linearLayout3 = view.findViewById(R.id.linearLayout4);
         realL = view.findViewById(R.id.relatV);
         realL2 = view.findViewById(R.id.relatV2);
+
+        // COLORS
+        mainPink = R.color.mainPink;
+        mainGray = R.color.mainGray;
+        mainCenter = R.color.mainCenter;
+        mainCenter2 = R.color.mainCenter2;
+
         setAnimation();
 
-
-
-
-//        circleProgressView3 = view.findViewById(R.id.circleView2);
-//        circleProgressView4 = view.findViewById(R.id.circleView4);
-//        circleMenu2 = view.findViewById(R.id.circle_menu2);
-//        circleMenu  = view.findViewById(R.id.circle_menu);
-//
-//        relativeLayout  = view.findViewById(R.id.frame);
-//        relativeLayout2 = view.findViewById(R.id.frame2);
-//                int[] colors = new int[]{ getResources().getColor(R.color.mainGray),getResources().getColor(R.color.gray)};
-//        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-//
-//        gd.setStroke(1, getResources().getColor(R.color.white));
-//        relativeLayout2.setBackground(gd);
-//        relativeLayout.setBackground(gd);
-//
-//        relativeLayout.getBackground().setAlpha(75);
-//        relativeLayout2.getBackground().setAlpha(75);
-//
-//
-//
 //        //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");
         HumiValues = getArguments().getStringArrayList("HumiValues");
@@ -144,7 +123,7 @@ public class MainFragment extends Fragment{
         labels.add("AUTO");
         labels.add("ON");
         toggleSwitch.setLabels(labels);
-        toggleSwitch.setActiveBgColor(getResources().getColor(R.color.mainPink));
+        toggleSwitch.setActiveBgColor(getResources().getColor(mainCenter));
         toggleSwitch.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
         toggleSwitch.setInactiveBgColor(getResources().getColor(R.color.gray));
         toggleSwitch.setCheckedTogglePosition(Integer.parseInt(mode.get(0)));
@@ -160,7 +139,7 @@ public class MainFragment extends Fragment{
         labels.add("AUTO");
         labels.add("ON");
         toggleSwitch2.setLabels(labels);
-        toggleSwitch2.setActiveBgColor(getResources().getColor(R.color.mainPink));
+        toggleSwitch2.setActiveBgColor(getResources().getColor(mainCenter2));
         toggleSwitch2.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
         toggleSwitch2.setInactiveBgColor(getResources().getColor(R.color.gray));
         toggleSwitch2.setCheckedTogglePosition(Integer.parseInt(mode.get(1)));
@@ -188,7 +167,7 @@ public class MainFragment extends Fragment{
 
         circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
-        circleProgressView.setBarColor(getResources().getColor(R.color.mainPink));
+        circleProgressView.setBarColor(getResources().getColor(mainPink));
         circleProgressView.setRimColor(getResources().getColor(R.color.mainGray));
         circleProgressView.setTextSize(52);
         circleProgressView.setUnit("°C");
@@ -197,7 +176,7 @@ public class MainFragment extends Fragment{
         circleProgressView.setBarWidth(5);
         circleProgressView.setRimWidth(7);
         circleProgressView.setUnitColor(getResources().getColor(R.color.graph_text));
-        circleProgressView.setTextColor(getResources().getColor(R.color.mainPink));
+        circleProgressView.setTextColor(getResources().getColor(mainPink));
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue3);
@@ -213,7 +192,7 @@ public class MainFragment extends Fragment{
         circleProgressView2.setUnitVisible(true);
         circleProgressView2.setUnitSize(25);
         circleProgressView2.setUnitColor(getResources().getColor(R.color.graph_text));
-        circleProgressView2.setTextColor(getResources().getColor(R.color.mainPink));
+        circleProgressView2.setTextColor(getResources().getColor(mainPink));
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
