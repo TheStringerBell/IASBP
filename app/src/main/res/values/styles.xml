@@ -27,6 +27,12 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+    <style name="dialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/gray</item>
+        <item name="android:colorPrimary">@color/mainPink</item>
+        <item name="android:colorAccent">@color/mainPink</item>
+
+    </style>
 
     <style name="TextColor">
         <item name="android:textColor">#e6e7ed</item>

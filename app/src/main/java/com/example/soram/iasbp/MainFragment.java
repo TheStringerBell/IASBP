@@ -253,16 +253,25 @@ public class MainFragment extends Fragment{
         title.setText(tit);
         title.setGravity(Gravity.CENTER);
         title.setPadding(0,25,0,0);
+
         first.setHint(def);
         second.setHint(def2);
         first.setGravity(Gravity.CENTER_HORIZONTAL);
         second.setGravity(Gravity.CENTER_HORIZONTAL);
+        first.setTextColor(getResources().getColor(R.color.mainPink));
+        second.setTextColor(getResources().getColor(R.color.mainPink));
+        title.setTextColor(getResources().getColor(R.color.mainPink));
+        first.setHintTextColor(getResources().getColor(R.color.mainPink));
+        second.setHintTextColor(getResources().getColor(R.color.mainPink));
+        first.setPadding(0,15,0,15);
+        second.setPadding(0,15,0,15);
         ln.setOrientation(LinearLayout.VERTICAL);
         ln.setGravity(Gravity.CENTER);
+        ln.setBackgroundColor(getResources().getColor(R.color.gray));
 
         ln.addView(first, 100,100);
         ln.addView(second,100,100);
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.dialogTheme)
                 .setCustomTitle(title)
                 .setView(ln)
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
