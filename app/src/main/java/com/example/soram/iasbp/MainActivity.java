@@ -31,7 +31,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
-import org.reactivestreams.Subscriber;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -62,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
     String TEMPDATA;
     String CONTROL;
     String INSIDEDATA;
+    String GETTOKEN;
     int whichSide;
     OkHttpClient client;
     String emptyTag;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
     newControl mNewControl;
     String token;
 
@@ -86,52 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        compositeDisposable.clear();
-    }
 
-    public void generatePrivateToken(){
-        mNewControl.obstest("getToken/")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<ResponseBody>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Response<ResponseBody> responseBodyResponse) {
-                        token = responseBodyResponse.headers().get("Token");
-                        Log.e("Token", token);
-                        new ApiKeys().encryptToken(token, new GeneralCallback() {
-                            @Override
-                            public void onSuccess(String token) {
-                                PASSWORD = token;
-                                Log.e("pw", PASSWORD);
-
-                            }
-                        });
-
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-
-    }
 
     public void getHumiData(String url) {
         generateCredentials();
@@ -338,13 +292,43 @@ public class MainActivity extends AppCompatActivity {
         TEMPDATA = new ApiKeys().getTempData();
         CONTROL  = new ApiKeys().getControl();
         INSIDEDATA = new ApiKeys().getInsideData();
+        GETTOKEN = new ApiKeys().getGetToken();
 
     }
+    public void generatePrivateToken(){
+        mNewControl.obstest(GETTOKEN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<ResponseBody>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(Response<ResponseBody> responseBodyResponse) {
+                        token = responseBodyResponse.headers().get("Token");
+                        Log.e("Token", token);
+                        new ApiKeys().encryptToken(token, new GeneralCallback() {
+                            @Override
+                            public void onSuccess(String token) {
+                                Log.e("pw", token);
+
+                            }
+                        });
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public void generateCredentials(){
         generatePrivateToken();
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPassword();
-
         client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
     }
     public void setTiles(){
