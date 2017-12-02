@@ -16,7 +16,7 @@ public class GetPrivateToken {
     String key;
 
     public newControl getNewControl(String mode, String mode2){
-        Log.e("token", "");
+
         final Retrofit retrofit = getRetrofit(mode, mode2);
 
         return retrofit.create(newControl.class);

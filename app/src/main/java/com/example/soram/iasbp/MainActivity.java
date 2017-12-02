@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<GetHumiData>>() {
             @Override
             public void onResponse(Call<List<GetHumiData>> call, Response<List<GetHumiData>> response) {
+
                 List<GetHumiData> list = response.body();
                 for (int i = 0; i < list.size(); i++) {
                     String date = list.get(i).getDate();

@@ -135,7 +135,7 @@ public class MainFragment extends Fragment{
         toggleSwitch.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
-                new Control().updateControl(Integer.toString(position), mode.get(1));
+                new Control().generatePrivateToken(Integer.toString(position), mode.get(1) , 0);
                 mode.set(0, Integer.toString(position));
             }
         });
@@ -151,7 +151,7 @@ public class MainFragment extends Fragment{
         toggleSwitch2.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
             @Override
             public void onToggleSwitchChangeListener(int position, boolean isChecked) {
-                new Control().updateControl(mode.get(0), Integer.toString(position));
+                new Control().generatePrivateToken(mode.get(0), Integer.toString(position), 0);
                 mode.set(1, Integer.toString(position));
             }
         });
@@ -270,9 +270,9 @@ public class MainFragment extends Fragment{
                             two = def2;
                         }
                         if (in == 0){
-                            new Control().updateTemp(one, two);
+                            new Control().generatePrivateToken(one, two, 1);
                         }else {
-                            new Control().updateHumi(one, two);
+                            new Control().generatePrivateToken(one, two, 2);
                         }
 
                     }
