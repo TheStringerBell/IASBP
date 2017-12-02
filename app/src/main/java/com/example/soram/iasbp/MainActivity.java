@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client;
     String emptyTag;
     newControl mNewControl;
-    String token;
+    String key;
 
 
 
@@ -80,15 +80,19 @@ public class MainActivity extends AppCompatActivity {
         setTiles();
         mNewControl = new GetPrivateToken().getNewControl("", "");
 
-//        generatePrivateToken();
-        getHumiData(HUMIDATA);
+
+        generatePrivateToken();
+//        getHumiData(HUMIDATA);
 
     }
 
 
 
+
     public void getHumiData(String url) {
-        generateCredentials();
+
+//        generateCredentials();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
@@ -136,13 +140,12 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<GetHumiData>> call, Throwable t) {
-                Log.e("Fail ", " " + t);
             }
         });
 
     }
     public void getControlData(){
-        generateCredentials();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
@@ -175,13 +178,12 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<GetControlData>> call, Throwable t) {
-                Log.e("Fail ", " " + t);
             }
         });
 
     }
     public void getInsideData(){
-        generateCredentials();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
@@ -203,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<GetInsideData>> call, Throwable t) {
-
             }
         });
 
@@ -264,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                 controlLowMax.clear();
                 controlLowMin.clear();
                 controlStatus.clear();
-                getHumiData(new ApiKeys().getHumiData());
+                generatePrivateToken();
                 tiles.setTabIndex(0, true);
 
                 return true;
@@ -293,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         CONTROL  = new ApiKeys().getControl();
         INSIDEDATA = new ApiKeys().getInsideData();
         GETTOKEN = new ApiKeys().getGetToken();
+        USERNAME = new ApiKeys().getUsername();
 
     }
     public void generatePrivateToken(){
@@ -305,13 +307,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onNext(Response<ResponseBody> responseBodyResponse) {
-                        token = responseBodyResponse.headers().get("Token");
-                        Log.e("Token", token);
-                        new ApiKeys().encryptToken(token, new GeneralCallback() {
+                        key = responseBodyResponse.headers().get("Token");
+                        new ApiKeys().encryptToken(key, new GeneralCallback() {
                             @Override
                             public void onSuccess(String token) {
-                                Log.e("pw", token);
-
+                                Log.e("Token", token);
+                                PASSWORD = token;
+                                client = new HttpClient(USERNAME,token, emptyTag, emptyTag).getClient();
+                                getHumiData(HUMIDATA);
                             }
                         });
                     }
@@ -326,9 +329,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generateCredentials(){
-        generatePrivateToken();
-        USERNAME = new ApiKeys().getUsername();
-        PASSWORD = new ApiKeys().getPassword();
+//        generatePrivateToken();
+//        PASSWORD = new ApiKeys().getPassword();
         client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
     }
     public void setTiles(){
