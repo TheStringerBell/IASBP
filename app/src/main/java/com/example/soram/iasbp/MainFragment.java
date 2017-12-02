@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.text.DecimalFormat;
@@ -34,6 +36,7 @@ public class MainFragment extends Fragment{
     ArrayList<String> inside;
     ArrayList<String> controlLowMax;
     ArrayList<String> controlHighMin;
+    ArrayList<String> deviceStatus;
     CircleProgressView circleProgressView;
     CircleProgressView circleProgressView2;
     Float maxValue;
@@ -65,6 +68,8 @@ public class MainFragment extends Fragment{
     int mainGray;
     int mainCenter;
     int mainCenter2;
+    ArrayAdapter<String> arrayAdapter;
+    ListView listView;
 
 
     @Nullable
@@ -73,6 +78,7 @@ public class MainFragment extends Fragment{
 //        return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.test, container, false);
 
+        listView = view.findViewById(R.id.listView);
         humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
         toggleSwitch2 = view.findViewById(R.id.toggleswitch2);
@@ -95,6 +101,17 @@ public class MainFragment extends Fragment{
         mainCenter2 = R.color.mainCenter2;
 
         setAnimation();
+
+        //set adapter
+        deviceStatus = new ArrayList<>();
+        deviceStatus.add("Smart TV: ONLINE");
+        deviceStatus.add("Smart TV: ONLINE");
+        deviceStatus.add("Smart TV: ONLINE");
+        deviceStatus.add("Smart TV: ONLINE");
+        deviceStatus.add("Smart TV: ONLINE");
+        arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, deviceStatus);
+        listView.setAdapter(arrayAdapter);
+
 
 //        //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");

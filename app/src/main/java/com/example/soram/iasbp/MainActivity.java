@@ -2,6 +2,7 @@ package com.example.soram.iasbp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.annotation.MainThread;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -10,7 +11,14 @@ import android.os.Bundle;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Callback;
@@ -22,6 +30,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+
+import org.reactivestreams.Subscriber;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
     int whichSide;
     OkHttpClient client;
     String emptyTag;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    newControl mNewControl;
+    String token;
+
 
 
     @Override
@@ -65,13 +79,63 @@ public class MainActivity extends AppCompatActivity {
         getValues();
         setActionBar();
         setTiles();
+        mNewControl = new GetPrivateToken().getNewControl("", "");
 
-
+//        generatePrivateToken();
         getHumiData(HUMIDATA);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
+    }
+
+    public void generatePrivateToken(){
+        mNewControl.obstest("getToken/")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<ResponseBody>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<ResponseBody> responseBodyResponse) {
+                        token = responseBodyResponse.headers().get("Token");
+                        Log.e("Token", token);
+                        new ApiKeys().encryptToken(token, new GeneralCallback() {
+                            @Override
+                            public void onSuccess(String token) {
+                                PASSWORD = token;
+                                Log.e("pw", PASSWORD);
+
+                            }
+                        });
+
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
     }
 
     public void getHumiData(String url) {
         generateCredentials();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -105,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
                     bundle.putStringArrayList("Date", arrayTempDate);
+                    Log.e("Temp", "");
 
                     if (cont == 0){
                         getControlData();
@@ -123,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getControlData(){
+        generateCredentials();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -160,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getInsideData(){
+        generateCredentials();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -272,8 +341,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void generateCredentials(){
+        generatePrivateToken();
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPassword();
+
         client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
     }
     public void setTiles(){
