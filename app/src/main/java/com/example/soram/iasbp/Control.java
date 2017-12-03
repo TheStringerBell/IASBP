@@ -1,6 +1,7 @@
 package com.example.soram.iasbp;
 import android.util.Log;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -21,46 +22,23 @@ public class Control{
     final String GETTOKEN = new ApiKeys().getGetToken();
     final String USERNAME = new ApiKeys().getUsername();
     newControl mNewControl;
-    String key;
     OkHttpClient client;
 
-    String PASSWORD;
+
     public void generatePrivateToken(final String mode,final String mode2, final int i){
         mNewControl = new GetPrivateToken().getNewControl("", "");
-        mNewControl.obstest(GETTOKEN)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<ResponseBody>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(Response<ResponseBody> responseBodyResponse) {
-                        key = responseBodyResponse.headers().get("Token");
-                        new ApiKeys().encryptToken(key, new GeneralCallback() {
-                            @Override
-                            public void onSuccess(String token) {
-                                Log.e("Token", token);
-                                PASSWORD = token;
-                                client = new HttpClient(USERNAME,token, mode, mode2).getClient();
-                                switch (i){
-                                    case 0: updateControl(); break;
-                                    case 1: updateTemp(); break;
-                                    case 2: updateHumi(); break;
-                                }
-
-
-                            }
-                        });
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+        rb.subscribe(responseBodyResponse -> {
+            String key = new ApiKeys().encryptToken2(responseBodyResponse.headers().get("Token"));
+            client = new HttpClient(USERNAME,key, mode, mode2).getClient();
+            switch (i){
+                case 0: updateControl(); break;
+                case 1: updateTemp(); break;
+                case 2: updateHumi(); break;
+            }
+        });
     }
 
     public void updateControl(){

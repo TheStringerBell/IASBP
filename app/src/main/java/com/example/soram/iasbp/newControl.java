@@ -25,6 +25,11 @@ public interface newControl{
     @GET
     Observable<Response<ResponseBody>> obstest(@Url String url
     );
+    @GET
+    Observable<List<GetHumiData>> humiTest(@Url String url
+    );
+    Observable<List<GetControlData>> contTest(@Url String url
+    );
 
 }
 

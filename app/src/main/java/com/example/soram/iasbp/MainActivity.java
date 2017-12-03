@@ -12,10 +12,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -79,21 +84,10 @@ public class MainActivity extends AppCompatActivity {
         setActionBar();
         setTiles();
         mNewControl = new GetPrivateToken().getNewControl("", "");
-
-
         generatePrivateToken();
-//        getHumiData(HUMIDATA);
-
     }
 
-
-
-
     public void getHumiData(String url) {
-
-//        generateCredentials();
-
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -146,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getControlData(){
-
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -184,8 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getInsideData(){
-
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_URL)
                 .client(client)
@@ -219,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.relativeView, fragment);
         fragmentTransaction.commit();
 
-
     }
     @Override
     public void onBackPressed() {
@@ -241,8 +230,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -299,40 +286,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void generatePrivateToken(){
-        mNewControl.obstest(GETTOKEN)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<ResponseBody>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(Response<ResponseBody> responseBodyResponse) {
-                        key = responseBodyResponse.headers().get("Token");
-                        new ApiKeys().encryptToken(key, new GeneralCallback() {
-                            @Override
-                            public void onSuccess(String token) {
-                                Log.e("Token", token);
-                                PASSWORD = token;
-                                client = new HttpClient(USERNAME,token, emptyTag, emptyTag).getClient();
-                                getHumiData(HUMIDATA);
-                            }
-                        });
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
-    public void generateCredentials(){
-//        generatePrivateToken();
-//        PASSWORD = new ApiKeys().getPassword();
-        client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
+        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+        rb.subscribe(responseBodyResponse -> {
+            String key = new ApiKeys().encryptToken2(responseBodyResponse.headers().get("Token"));
+            client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
+            getHumiData(HUMIDATA);
+        });
     }
     public void setTiles(){
         whichSide = 1;
@@ -363,11 +324,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-    public void switchScreen() {
-        Intent intent = new Intent(this, IntroActivity.class);
-        startActivity(intent);
-//        overridePendingTransition(R.anim.from_right, R.anim.to_left);
-        finish();
     }
 }
