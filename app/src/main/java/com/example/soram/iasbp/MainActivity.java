@@ -290,10 +290,11 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
         rb.subscribe(responseBodyResponse -> {
-            String key = new ApiKeys().encryptToken2(responseBodyResponse.headers().get("Token"));
+            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
             client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
             getHumiData(HUMIDATA);
         });
+
     }
     public void setTiles(){
         whichSide = 1;
