@@ -1,8 +1,10 @@
 package com.example.soram.iasbp;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,7 @@ public class GraphFragment extends Fragment {
         TempTime = getArguments().getStringArrayList("TempTime");
 
         entries = new ArrayList<>();
+        Drawable gradient = ContextCompat.getDrawable(getContext(), R.drawable.graph_bg);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -65,19 +68,28 @@ public class GraphFragment extends Fragment {
         }
         YAxis yAxis = lineChart.getAxisRight();
         yAxis.setEnabled(false);
+        yAxis.setDrawGridLines(false);
         YAxis leftYaxis = lineChart.getAxisLeft();
         leftYaxis.setDrawAxisLine(false);
+        leftYaxis.setDrawGridLines(false);
         leftYaxis.setGridColor(getResources().getColor(R.color.graph_text));
         leftYaxis.setTextColor(getResources().getColor(R.color.graph_text));
         LineDataSet lineDataSet = new LineDataSet(entries, "Humidity");
         lineDataSet.setColor(getResources().getColor(R.color.graph_setColor));
         lineDataSet.setDrawCircles(false);
-        lineDataSet.setLineWidth(3);
+        lineDataSet.setLineWidth(1);
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawFilled(true);
-        lineDataSet.setFillColor(getResources().getColor(R.color.graph_text));
+
+//        lineDataSet.setFillColor(getResources().getColor(R.color.graph_text));
+        lineDataSet.setFillDrawable(gradient);
         LineData lineData = new LineData(lineDataSet);
+
+
         lineChart.setData(lineData);
+
+
+
         lineChart.setHighlightPerTapEnabled(true);
         lineChart.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         lineChart.getDescription().setEnabled(false);
@@ -116,17 +128,21 @@ public class GraphFragment extends Fragment {
         }
         YAxis yAxis2 = lineChart2.getAxisRight();
         yAxis2.setEnabled(false);
+        yAxis2.setDrawGridLines(false);
         YAxis leftYaxis2 = lineChart2.getAxisLeft();
         leftYaxis2.setDrawAxisLine(false);
+        leftYaxis2.setDrawGridLines(false);
         leftYaxis2.setTextColor(getResources().getColor(R.color.graph_text));
         leftYaxis2.setGridColor(getResources().getColor(R.color.graph_text));
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "Temperature");
         lineDataSet2.setColor(getResources().getColor(R.color.graph_setColor));
         lineDataSet2.setDrawCircles(false);
-        lineDataSet2.setLineWidth(3);
+        lineDataSet2.setLineWidth(1);
         lineDataSet2.setDrawValues(false);
         lineDataSet2.setDrawFilled(true);
-        lineDataSet2.setFillColor(getResources().getColor(R.color.graph_text));
+        lineDataSet2.setFillDrawable(gradient);
+
+//        lineDataSet2.setFillColor(getResources().getColor(R.color.graph_text));
         LineData lineData2 = new LineData(lineDataSet2);
         lineChart2.setData(lineData2);
         lineChart2.getXAxis().setLabelCount(6, true);

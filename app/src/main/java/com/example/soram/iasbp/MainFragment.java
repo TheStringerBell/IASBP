@@ -75,7 +75,7 @@ public class MainFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.test, container, false);
+        view = inflater.inflate(R.layout.main_fragment, container, false);
 
 
         humiValues = view.findViewById(R.id.humiValues);
