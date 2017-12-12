@@ -1,6 +1,9 @@
 package com.example.soram.iasbp;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.renderscript.ScriptGroup;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -57,8 +61,12 @@ public class ControlFragment extends Fragment {
 
         String url = "http://188.123.101.50:8083/mjpg/video.mjpg";
         String url2 = "https://ia800208.us.archive.org/4/items/Popeye_forPresident/Popeye_forPresident_512kb.mp4";
-        Glide.with(getActivity()).load(R.raw.frame1).into(imageView);
-        Glide.with(getActivity()).load(R.raw.frame2).into(imageView2);
+//        InputStream inputStream = this.getResources().openRawResource(R.raw.frame1);
+//        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//        imageView.setImageBitmap(bitmap);
+//        Glide.with(getActivity()).load(R.raw.frame1).into(imageView);
+//        Glide.with(getActivity()).load(R.raw.frame2).into(imageView2);
 
 
 
@@ -104,6 +112,7 @@ public class ControlFragment extends Fragment {
     }
     public void loadCam(){
         int TIMEOUT = 5;
+
 
     }
 

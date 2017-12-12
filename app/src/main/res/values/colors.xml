@@ -3,13 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="gray">#2d2e30</color>
+    <color name="gray">#0c0c0d</color>
     <color name="white">#aeb0b2</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="background">#e5e5e5</color>
     <color name="half_black">#808080</color>
     <color name="newbg">#474747</color>
-    <color name="mainActionBg">#282828</color>
+    <color name="mainActionBg">#090909</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="pink">#e91e63</color>
 
@@ -19,7 +19,7 @@
 
     <!--Main Colors-->
     <color name="mainPink">#E8175D</color>
-    <color name="mainGray">#474747</color>
+    <color name="mainGray">#2d2d2d</color>
     <color name="mainBlack">#282828</color>
     <color name="mainCenter">#E8175D</color>
     <color name="mainCenter2">#E8175D</color>

@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("");
     }
 
-    // API_KEYS
+    // generate credentials
     public void getValues(){
         emptyTag = "";
         HOST_URL = new ApiKeys().getLink();
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setTiles(){
         whichSide = 1;
-        tiles.setTitles("Home", "Graphs", "Cam");
+        tiles.setTitles("Home", "Graphs", "Security");
         tiles.setBackgroundColor(getResources().getColor(R.color.mainActionBg));
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                     } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
-                    case "CCTV":
+                    case "SECURITY":
                         loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
 
                 }
