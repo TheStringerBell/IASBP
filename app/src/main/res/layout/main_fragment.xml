@@ -136,11 +136,13 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/relatV2"
+        android:layout_marginBottom="15dp"
 
         android:paddingBottom="10dp"
         android:background="@drawable/bg_gradient2"
         android:layout_below="@+id/linearLayout2">
     </RelativeLayout>
+
 
     <!--<ListView-->
     <!--android:id="@+id/listView"-->

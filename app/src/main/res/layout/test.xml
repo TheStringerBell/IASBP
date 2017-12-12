@@ -2,154 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeView"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
     android:padding="15dp">
-
-    <!--MAIN-->
-    <LinearLayout
-        android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout4">
-
-        <at.grabner.circleprogress.CircleProgressView
-        android:id="@+id/circleView"
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_margin="15dp" />
-        <at.grabner.circleprogress.CircleProgressView
-            android:id="@+id/circleView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="15dp" />
-
-        <TextView
-            android:id="@+id/textTemp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-
-            android:textColor="@color/mainPink" />
-
-
-    </LinearLayout>
-        <!--SETTINGS TEMPERATURE-->
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:paddingBottom="10dp"
-        android:layout_below="@+id/heating"
-        android:orientation="horizontal">
-
-        <belka.us.androidtoggleswitch.widgets.ToggleSwitch
-            android:id="@+id/toggleswitch"
-            android:layout_width="0dp"
-            android:layout_marginEnd="20dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </belka.us.androidtoggleswitch.widgets.ToggleSwitch>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/heating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/relatV"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="@string/heating"
-        android:textAlignment="center"
-        android:textColor="@color/mainCenter" />
-
-    <TextView
-        android:id="@+id/minMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-
-        android:layout_below="@+id/heating"
-
-
-        android:textAlignment="textEnd"
-
-        android:textColor="@color/mainCenter" />
-
-        <!--SETTINGS HUMIDITY-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/humiditySettings"
-        android:id="@+id/linearLayout2"
-        android:layout_marginEnd="10dp"
-        android:paddingBottom="14dp"
-
-        android:orientation="horizontal">
-        <belka.us.androidtoggleswitch.widgets.ToggleSwitch
-            android:id="@+id/toggleswitch2"
-            android:layout_width="0dp"
-            android:layout_marginEnd="20dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/humiValues"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/humiditySettings"
-        android:textAlignment="textEnd"
-        android:textColor="@color/mainCenter2" />
-
-    <TextView
-        android:id="@+id/humiditySettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerInParent="true"
-        android:textColor="@color/mainCenter2"
-        android:text="@string/humidity" />
-
-    <RelativeLayout
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/relatV"
-        android:paddingBottom="10dp"
-        android:background="@drawable/bg_gradient"
-        android:layout_below="@+id/linearLayout4">
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/relatV2"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/imageView1"
+        android:layout_height="wrap_content" />
 
-        android:paddingBottom="10dp"
-        android:background="@drawable/bg_gradient2"
-        android:layout_below="@+id/linearLayout2">
-    </RelativeLayout>
-
-    <!--<ListView-->
-        <!--android:id="@+id/listView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/relatV2"-->
-
-        <!--android:layout_centerHorizontal="true"-->
- <!--/>-->
 
 
 </RelativeLayout>

@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client;
     String emptyTag;
     newControl mNewControl;
-    String key;
 
 
 
@@ -298,9 +297,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setTiles(){
         whichSide = 1;
-        tiles.setTitles("Home", "Graphs", "Control");
+        tiles.setTitles("Home", "Graphs", "Cam");
         tiles.setBackgroundColor(getResources().getColor(R.color.mainActionBg));
-
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
         tiles.setTabIndex(0, true);
@@ -314,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                     } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
-                    case "CONTROL":
+                    case "CCTV":
                         loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
 
                 }

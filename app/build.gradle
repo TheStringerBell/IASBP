@@ -2,19 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 26
+    compileSdkVersion 27
     useLibrary 'org.apache.http.legacy'
-    buildToolsVersion "26.0.1"
+
     defaultConfig {
         applicationId "com.example.soram.iasbp"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true
-        }
+
     }
     buildTypes {
         release {
@@ -34,6 +32,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -42,35 +41,31 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
 
     })
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.github.BeppiMenozzi:TriStateToggleButton:1.1.4'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.lecho:hellocharts-android:v1.5.8'
-    compile 'com.github.blackfizz:eazegraph:1.2.5l@aar'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
-    compile 'com.hanks:htextview-base:0.1.2'
-    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
-    compile 'com.github.nicolasjafelle:refreshmenuitem:1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.github.Hitomis:CircleMenu:v1.1.0'
     compile 'com.wang.avi:library:2.1.3'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     compile 'org.greenrobot:eventbus:3.1.1'
     compile 'devlight.io:arcprogressstackview:1.0.4'
     compile 'us.belka:androidtoggleswitch:1.2.2'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     compile 'com.github.stealthcopter:AndroidNetworkTools:0.3.0'
+    compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
+    compile 'com.google.android.exoplayer:exoplayer-dash:2.6.0'
+    compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/MagicCrypt.jar')
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+
 }
