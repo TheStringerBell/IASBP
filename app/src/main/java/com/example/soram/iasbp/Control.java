@@ -74,6 +74,7 @@ public class Control{
         call.enqueue(new retrofit2.Callback<Void>() {
             @Override
             public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+
             }
             @Override
             public void onFailure(retrofit2.Call<Void> call, Throwable t) {
