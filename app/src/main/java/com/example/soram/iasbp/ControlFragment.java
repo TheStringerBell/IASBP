@@ -50,31 +50,6 @@ public class ControlFragment extends Fragment {
     Handler handler = new Handler();
     Runnable runnable;
 
-
-
-    ArrayList<String> controlMode;
-    ArrayList<String> controlStatus;
-    ArrayList<String> controlLowMin;
-    ArrayList<String> controlLowMax;
-    ArrayList<String> controlHighMin;
-    ArrayList<String> controlHighMax;
-    EditText lowMin;
-    EditText lowMax;
-    EditText highMin;
-    EditText highMax;
-    EditText lowMin2;
-    EditText lowMax2;
-    EditText highMin2;
-    EditText highMax2;
-    TextView lowM;
-    TextView lowMa;
-    TextView highM;
-    TextView highMa;
-    RelativeLayout relativeLayout;
-    InputMethodManager imm;
-    LinearLayout ln3;
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -83,9 +58,7 @@ public class ControlFragment extends Fragment {
         imageView2 = view.findViewById(R.id.imageView2);
 
         String url = "http://188.123.101.50:8083/mjpg/video.mjpg";
-        url2 = "http://158.193.254.248/cgi-bin/video.jpg";
-
-
+        url2 = new ApiKeys().getIpCam();
         return view;
     }
     public void loadCam(){
@@ -95,10 +68,6 @@ public class ControlFragment extends Fragment {
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(imageView);
-    }
-    public void infiniteLoop(){
-
-
     }
 
     @Override
@@ -120,10 +89,5 @@ public class ControlFragment extends Fragment {
         handler.removeCallbacks(runnable);
         super.onDetach();
     }
-
-    public void loadVideo(){
-
-    }
-
 
 }
