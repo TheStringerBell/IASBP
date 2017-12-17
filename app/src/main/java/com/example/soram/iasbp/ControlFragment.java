@@ -83,7 +83,7 @@ public class ControlFragment extends Fragment {
         imageView2 = view.findViewById(R.id.imageView2);
 
         String url = "http://188.123.101.50:8083/mjpg/video.mjpg";
-        url2 = "http://158.193.254.248/cgi-bin/video.jpg";
+        
 
 
         return view;
