@@ -65,6 +65,7 @@ dependencies {
     compile 'com.google.android.exoplayer:exoplayer-dash:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:0.12.3'
     testCompile 'junit:junit:4.12'
     compile files('libs/MagicCrypt.jar')
 

@@ -9,11 +9,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -35,7 +41,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
+import com.stealthcopter.networktools.Ping;
+import com.stealthcopter.networktools.ping.PingResult;
+import com.stealthcopter.networktools.ping.PingStats;
 
+import org.reactivestreams.Subscription;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         setActionBar();
         setTiles();
         mNewControl = new GetPrivateToken().getNewControl("", "");
-        generatePrivateToken();
+
+//        generatePrivateToken();
+        pingIt("https://158.193.254.201");
     }
 
     public void getHumiData(String url) {
@@ -324,4 +338,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+//    public String pingIt(String url){
+//        try {
+//            Ping.onAddress(url).setTimeOutMillis(1000).setTimes(5).doPing(new Ping.PingListener() {
+//                @Override
+//                public void onResult(PingResult pingResult) {
+//                    Log.d("toto", pingResult.toString());
+//                    return; pingResult.toString();
+//                }
+//
+//                @Override
+//                public void onFinished(PingStats pingStats) {
+//                    Log.d("poto",  pingStats.toString());
+//                }
+//            });
+//        }catch (UnknownHostException o){
+//            o.printStackTrace();
+//        }
+//
+//
+//    }
+//    public String pingIt(String url){
+//        PingResult pingResult;
+//        try {
+//            pingResult = Ping.onAddress("8.8.8.8").setTimeOutMillis(1000).doPing();
+//        }catch (UnknownHostException o){
+//            o.printStackTrace();
+//            return "nope";
+//        }
+//        return pingResult.toString();
+//    }
+public void pingIt(String url){
+    ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<Boolean>() {
+                @Override
+                public void accept(Boolean aBoolean) throws Exception {
+                    Log.d("toto", aBoolean.toString());
+                }
+            });
+}
+
+
 }

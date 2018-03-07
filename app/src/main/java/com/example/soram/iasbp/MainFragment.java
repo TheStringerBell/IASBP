@@ -4,8 +4,10 @@ package com.example.soram.iasbp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import at.grabner.circleprogress.CircleProgressView;
@@ -286,4 +292,23 @@ public class MainFragment extends Fragment{
                 .show();
 
     }
+
+//    public void pingIt(String url){
+//        String str = "";
+//        try {
+//            Process process = Runtime.getRuntime().exec("/system/bin/ping -c 8 " + url);
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//            int i ;
+//            char[] buffer = new char[4096];
+//            StringBuffer stringBuffer = new StringBuffer();
+//            while ((i = bufferedReader.read(buffer))>0){
+//                stringBuffer.append(buffer, 0, i);
+//                bufferedReader.close();
+//            }
+//            str = stringBuffer.toString();
+//            Log.d("toto", str);
+//        }catch (IOException i){
+//            i.printStackTrace();
+//        }
+//    }
 }
