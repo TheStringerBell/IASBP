@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         setTiles();
         mNewControl = new GetPrivateToken().getNewControl("", "");
 
-//        generatePrivateToken();
-        pingIt("https://158.193.254.201");
+        generatePrivateToken();
+//        pingIt("https://158.193.254.201");
     }
 
     public void getHumiData(String url) {
@@ -338,47 +338,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-//    public String pingIt(String url){
-//        try {
-//            Ping.onAddress(url).setTimeOutMillis(1000).setTimes(5).doPing(new Ping.PingListener() {
-//                @Override
-//                public void onResult(PingResult pingResult) {
-//                    Log.d("toto", pingResult.toString());
-//                    return; pingResult.toString();
-//                }
+
+//    public void pingIt(String url){
+//        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aBoolean ->
+//                    Log.d("toto", aBoolean.toString())
 //
-//                @Override
-//                public void onFinished(PingStats pingStats) {
-//                    Log.d("poto",  pingStats.toString());
-//                }
-//            });
-//        }catch (UnknownHostException o){
-//            o.printStackTrace();
+//                );
 //        }
-//
-//
-//    }
-//    public String pingIt(String url){
-//        PingResult pingResult;
-//        try {
-//            pingResult = Ping.onAddress("8.8.8.8").setTimeOutMillis(1000).doPing();
-//        }catch (UnknownHostException o){
-//            o.printStackTrace();
-//            return "nope";
-//        }
-//        return pingResult.toString();
-//    }
-public void pingIt(String url){
-    ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<Boolean>() {
-                @Override
-                public void accept(Boolean aBoolean) throws Exception {
-                    Log.d("toto", aBoolean.toString());
-                }
-            });
-}
 
 
 }

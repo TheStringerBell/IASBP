@@ -2,9 +2,11 @@ package com.example.soram.iasbp;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,6 +23,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,6 +35,8 @@ import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainFragment extends Fragment{
@@ -74,6 +81,8 @@ public class MainFragment extends Fragment{
     int mainGray;
     int mainCenter;
     int mainCenter2;
+    Handler handler = new Handler();
+    Runnable runnable;
 
 
 
@@ -293,22 +302,32 @@ public class MainFragment extends Fragment{
 
     }
 
-//    public void pingIt(String url){
-//        String str = "";
-//        try {
-//            Process process = Runtime.getRuntime().exec("/system/bin/ping -c 8 " + url);
-//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//            int i ;
-//            char[] buffer = new char[4096];
-//            StringBuffer stringBuffer = new StringBuffer();
-//            while ((i = bufferedReader.read(buffer))>0){
-//                stringBuffer.append(buffer, 0, i);
-//                bufferedReader.close();
-//            }
-//            str = stringBuffer.toString();
-//            Log.d("toto", str);
-//        }catch (IOException i){
-//            i.printStackTrace();
-//        }
-//    }
+    public void pingIt(String url){
+        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean ->
+                        Log.d("toto", aBoolean.toString())
+
+                );
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pingIt("https://158.193.254.201");
+                runnable = this;
+                handler.postDelayed(runnable, 5000);
+            }
+        }, 1000);
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        handler.removeCallbacks(runnable);
+        super.onDetach();
+    }
 }
