@@ -143,6 +143,33 @@
         android:layout_below="@+id/linearLayout2">
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/devices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/relatV2"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/mainCenter2"
+        android:text="@string/devices" />
+
+    <TextView
+        android:id="@+id/device1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/devices"
+        android:textColor="@color/mainCenter2"
+        android:layout_centerHorizontal="true"
+         />
+    <TextView
+        android:id="@+id/device2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device1"
+        android:textColor="@color/mainCenter2"
+        android:layout_centerHorizontal="true"
+        />
+
 
     <!--<ListView-->
     <!--android:id="@+id/listView"-->

@@ -59,11 +59,16 @@ public class MainFragment extends Fragment{
     String outside;
     String lowMin;
     String lowMin2;
+    String raspberryPi;
+    String ipCam;
     TextView minMax;
     TextView textTemp;
     TextView humiValues;
     TextView heating;
     TextView humidication;
+    TextView devices;
+    TextView device1;
+    TextView device2;
     ToggleSwitch toggleSwitch;
     ToggleSwitch toggleSwitch2;
     ArrayList<String> labels;
@@ -92,7 +97,9 @@ public class MainFragment extends Fragment{
 //        return super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.main_fragment, container, false);
 
-
+        devices = view.findViewById(R.id.devices);
+        device1 = view.findViewById(R.id.device1);
+        device2 = view.findViewById(R.id.device2);
         humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
         toggleSwitch2 = view.findViewById(R.id.toggleswitch2);
@@ -125,6 +132,8 @@ public class MainFragment extends Fragment{
         date = getArguments().getStringArrayList("Date");
         mode = getArguments().getStringArrayList("Mode");
         inside = getArguments().getStringArrayList("Inside");
+        raspberryPi = new ApiKeys().getRaspberryPi();
+        ipCam = new ApiKeys().getIpCam();
 
 
 
@@ -242,6 +251,7 @@ public class MainFragment extends Fragment{
         humiValues.startAnimation(animation5);
         humidication.startAnimation(animation5);
         realL2.startAnimation(animation5);
+        devices.startAnimation(animation5);
 
     }
     public void openDialog(String tit, final String def, final String def2, final int in){
@@ -302,12 +312,34 @@ public class MainFragment extends Fragment{
 
     }
 
-    public void pingIt(String url){
+    public void pingIt(int i, String url){
         ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean ->
-                        Log.d("toto", aBoolean.toString())
+                .subscribe(aBoolean ->{
+                    switch (i){
+                        case 1: if (aBoolean){
+
+                            device1.setText("RaspBerry Pi  ->   ONLINE");
+//                            device1.setTextColor(mainPink);
+
+                            break;
+                        }
+                            device1.setText("RaspBerry Pi  ->   OFFLINE");
+                        break;
+
+                        case 2: if (aBoolean){
+
+                            device2.setText("IP Cam  ->   ONLINE");
+//                            device2.setTextColor(mainPink);
+                            break;
+                        }
+                            device2.setText("IP Cam  ->   OFFLINE");
+                            break;
+                    }
+
+                        }
+//                        Log.d("toto", name +aBoolean.toString())
 
                 );
     }
@@ -317,7 +349,8 @@ public class MainFragment extends Fragment{
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                pingIt("https://158.193.254.201");
+                pingIt(1,raspberryPi);
+                pingIt(2,ipCam);
                 runnable = this;
                 handler.postDelayed(runnable, 5000);
             }

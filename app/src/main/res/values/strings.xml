@@ -8,6 +8,7 @@
     <string name="Outside">Outside</string>
     <string name="heating">Heating:</string>
     <string name="humidity">Humidification:</string>
+    <string name="devices">Devices</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
