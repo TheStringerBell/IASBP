@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeView"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -153,22 +154,39 @@
         android:textColor="@color/mainCenter2"
         android:text="@string/devices" />
 
-    <TextView
-        android:id="@+id/device1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--<TextView-->
+        <!--android:id="@+id/device1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/devices"-->
+        <!--android:textColor="@color/mainCenter2"-->
+        <!--android:layout_centerHorizontal="true"-->
+         <!--/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/device2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/device1"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:textColor="@color/mainCenter2"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--/>-->
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/devices"
-        android:textColor="@color/mainCenter2"
         android:layout_centerHorizontal="true"
-         />
-    <TextView
-        android:id="@+id/device2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/device1"
-        android:textColor="@color/mainCenter2"
-        android:layout_centerHorizontal="true"
-        />
+ />
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatbut"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:fab_colorNormal="@color/mainCenter2"
+        app:fab_colorPressed="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
 
 
     <!--<ListView-->

@@ -27,7 +27,7 @@
 
 
     <!--Graph Colors-->
-    <color name="graph_text">#E8175D</color>
+    <color name="graph_text">#e8175d</color>
     <color name="graph_setColor">#E8175D</color>
 
     <!--tiles colors-->

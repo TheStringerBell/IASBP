@@ -23,14 +23,21 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
 
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
@@ -88,6 +95,12 @@ public class MainFragment extends Fragment{
     int mainCenter2;
     Handler handler = new Handler();
     Runnable runnable;
+    ArrayAdapter<String> adapter;
+    ListView listView;
+    ArrayList<String> arrayList;
+    ArrayList<String> ips;
+    ArrayList<String> names;
+    FloatingActionButton floatbut;
 
 
 
@@ -98,8 +111,11 @@ public class MainFragment extends Fragment{
         view = inflater.inflate(R.layout.main_fragment, container, false);
 
         devices = view.findViewById(R.id.devices);
-        device1 = view.findViewById(R.id.device1);
-        device2 = view.findViewById(R.id.device2);
+//        device1 = view.findViewById(R.id.device1);
+//        device2 = view.findViewById(R.id.device2);
+        listView = view.findViewById(R.id.listview);
+        floatbut = view.findViewById(R.id.floatbut);
+
         humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
         toggleSwitch2 = view.findViewById(R.id.toggleswitch2);
@@ -122,6 +138,7 @@ public class MainFragment extends Fragment{
         mainCenter2 = R.color.mainCenter2;
 
         setAnimation();
+        getValues();
 
 //        //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");
@@ -132,9 +149,6 @@ public class MainFragment extends Fragment{
         date = getArguments().getStringArrayList("Date");
         mode = getArguments().getStringArrayList("Mode");
         inside = getArguments().getStringArrayList("Inside");
-        raspberryPi = new ApiKeys().getRaspberryPi();
-        ipCam = new ApiKeys().getIpCam();
-
 
 
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
@@ -225,6 +239,16 @@ public class MainFragment extends Fragment{
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
+
+
+        floatbut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAddressDialog();
+            }
+        });
+
+
         return view;
     }
     public void setAnimation(){
@@ -254,6 +278,57 @@ public class MainFragment extends Fragment{
         devices.startAnimation(animation5);
 
     }
+
+    public void addAddressDialog(){
+        final EditText first = new EditText(getContext());
+        final EditText second = new EditText(getContext());
+        final LinearLayout ln = new LinearLayout(getContext());
+        final TextView title = new TextView(getContext());
+        title.setText(R.string.AddIPAddress);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0,25,0,0);
+
+        first.setHint("Name");
+        second.setHint("IP address");
+        first.setGravity(Gravity.CENTER_HORIZONTAL);
+        second.setGravity(Gravity.CENTER_HORIZONTAL);
+        first.setTextColor(getResources().getColor(R.color.mainPink));
+        second.setTextColor(getResources().getColor(R.color.mainPink));
+        title.setTextColor(getResources().getColor(R.color.mainPink));
+        first.setHintTextColor(getResources().getColor(R.color.mainPink));
+        second.setHintTextColor(getResources().getColor(R.color.mainPink));
+        first.setPadding(0,15,0,15);
+        second.setPadding(0,15,0,15);
+        ln.setOrientation(LinearLayout.VERTICAL);
+        ln.setGravity(Gravity.CENTER);
+        ln.setBackgroundColor(getResources().getColor(R.color.gray));
+
+        ln.addView(first, 100,100);
+        ln.addView(second,100,100);
+        new AlertDialog.Builder(getContext(), R.style.dialogTheme)
+                .setCustomTitle(title)
+                .setView(ln)
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String name = first.getText().toString();
+                        String ip = second.getText().toString();
+                        names.add(name);
+                        ips.add(ip);
+
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .show();
+
+    }
+
     public void openDialog(String tit, final String def, final String def2, final int in){
         final EditText first = new EditText(getContext());
         final EditText second = new EditText(getContext());
@@ -312,35 +387,25 @@ public class MainFragment extends Fragment{
 
     }
 
-    public void pingIt(int i, String url){
+    public void pingIt(int i ,String name, String url){
         ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean ->{
-                    switch (i){
-                        case 1: if (aBoolean){
 
-                            device1.setText("RaspBerry Pi  ->   ONLINE");
-//                            device1.setTextColor(mainPink);
+                    if (aBoolean){
+                        Log.d("toto ",  name + " " +aBoolean.toString());
+//                        arrayList.add(name +"  ->   ONLINE");
+                        arrayList.set(i, name +"  ->   ONLINE");
 
-                            break;
-                        }
-                            device1.setText("RaspBerry Pi  ->   OFFLINE");
-                        break;
 
-                        case 2: if (aBoolean){
-
-                            device2.setText("IP Cam  ->   ONLINE");
-//                            device2.setTextColor(mainPink);
-                            break;
-                        }
-                            device2.setText("IP Cam  ->   OFFLINE");
-                            break;
+                    }else {
+                        Log.d("toto ", name + " " + aBoolean.toString());
+//                        arrayList.add(name +"  ->   OFFLINE");
+                        arrayList.set(i, name +"  ->   OFFLINE");
                     }
 
                         }
-//                        Log.d("toto", name +aBoolean.toString())
-
                 );
     }
 
@@ -349,10 +414,14 @@ public class MainFragment extends Fragment{
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                pingIt(1,raspberryPi);
-                pingIt(2,ipCam);
+                for (int i = 0; i < ips.size(); i++){
+                    pingIt(i,names.get(i),ips.get(i));
+
+                }
+                pingList();
                 runnable = this;
                 handler.postDelayed(runnable, 5000);
+
             }
         }, 1000);
         super.onAttach(context);
@@ -362,5 +431,27 @@ public class MainFragment extends Fragment{
     public void onDetach() {
         handler.removeCallbacks(runnable);
         super.onDetach();
+    }
+    public void pingList(){
+
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_row,arrayList);
+        listView.setAdapter(adapter);
+
+    }
+    public void getValues(){
+        raspberryPi = new ApiKeys().getRaspberryPi();
+        ipCam = new ApiKeys().getIpCamIP();
+        arrayList = new ArrayList<>();
+
+        names = new ArrayList<>();
+        names.add("RaspBerry Pi");
+        names.add("IP Cam");
+
+        ips = new ArrayList<>();
+        ips.add(raspberryPi);
+        ips.add(ipCam);
+
+        arrayList.add("");
+        arrayList.add("");
     }
 }
