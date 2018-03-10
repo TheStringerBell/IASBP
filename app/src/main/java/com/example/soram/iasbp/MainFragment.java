@@ -313,7 +313,8 @@ public class MainFragment extends Fragment{
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = first.getText().toString();
                         String ip = second.getText().toString();
-                        names.add(name);
+                        arrayList.add("");
+                        names.add( name);
                         ips.add(ip);
 
 
@@ -417,13 +418,15 @@ public class MainFragment extends Fragment{
                 for (int i = 0; i < ips.size(); i++){
                     pingIt(i,names.get(i),ips.get(i));
 
+
                 }
+                Log.d("LIST ", names.toString());
                 pingList();
                 runnable = this;
-                handler.postDelayed(runnable, 5000);
+                handler.postDelayed(runnable, 10000);
 
             }
-        }, 1000);
+        }, 3000);
         super.onAttach(context);
     }
 
@@ -446,12 +449,16 @@ public class MainFragment extends Fragment{
         names = new ArrayList<>();
         names.add("RaspBerry Pi");
         names.add("IP Cam");
+        names.add("LM UNIZA");
 
         ips = new ArrayList<>();
         ips.add(raspberryPi);
         ips.add(ipCam);
+        ips.add("http://slm.uniza.sk");
+        for (int i = 0; i < names.size(); i++){
+            arrayList.add("");
+        }
 
-        arrayList.add("");
-        arrayList.add("");
+
     }
 }
