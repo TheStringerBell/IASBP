@@ -395,13 +395,13 @@ public class MainFragment extends Fragment{
                 .subscribe(aBoolean ->{
 
                     if (aBoolean){
-                        Log.d("toto ",  name + " " +aBoolean.toString());
+//                        Log.d("toto ",  name + " " +aBoolean.toString());
 //                        arrayList.add(name +"  ->   ONLINE");
                         arrayList.set(i, name +"  ->   ONLINE");
 
 
                     }else {
-                        Log.d("toto ", name + " " + aBoolean.toString());
+//                        Log.d("toto ", name + " " + aBoolean.toString());
 //                        arrayList.add(name +"  ->   OFFLINE");
                         arrayList.set(i, name +"  ->   OFFLINE");
                     }
@@ -420,7 +420,7 @@ public class MainFragment extends Fragment{
 
 
                 }
-                Log.d("LIST ", names.toString());
+//                Log.d("LIST ", names.toString());
                 pingList();
                 runnable = this;
                 handler.postDelayed(runnable, 10000);

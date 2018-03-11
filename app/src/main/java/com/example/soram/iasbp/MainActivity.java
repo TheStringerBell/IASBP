@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         mNewControl = new GetPrivateToken().getNewControl("", "");
 
         generatePrivateToken();
-//        pingIt("https://158.193.254.201");
+
     }
 
     public void getHumiData(String url) {
@@ -303,7 +303,8 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
         rb.subscribe(responseBodyResponse -> {
-            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
+            String key = responseBodyResponse.headers().get("Token");
+//            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
             client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
             getHumiData(HUMIDATA);
         });
@@ -339,15 +340,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    public void pingIt(String url){
-//        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(aBoolean ->
-//                    Log.d("toto", aBoolean.toString())
-//
-//                );
-//        }
+
 
 
 }

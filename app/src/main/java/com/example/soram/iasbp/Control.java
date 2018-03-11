@@ -31,7 +31,8 @@ public class Control{
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
         rb.subscribe(responseBodyResponse -> {
-            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
+//            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
+            String key = responseBodyResponse.headers().get("Token");
             client = new HttpClient(USERNAME,key, mode, mode2).getClient();
             switch (i){
                 case 0: updateControl(); break;
