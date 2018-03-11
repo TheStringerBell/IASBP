@@ -240,7 +240,7 @@ public class MainFragment extends Fragment{
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
 
-
+        floatbut.setIcon(R.mipmap.ic_cancel);
         floatbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
