@@ -16,16 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
+import com.stealthcopter.networktools.Ping;
+import com.stealthcopter.networktools.ping.PingResult;
 
 
 import java.io.BufferedReader;
@@ -37,12 +41,17 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.operators.observable.ObservableFromCallable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -101,6 +110,9 @@ public class MainFragment extends Fragment{
     ArrayList<String> ips;
     ArrayList<String> names;
     FloatingActionButton floatbut;
+    PingResult pingResult;
+    Observable mObservable;
+    Observer mObserver;
 
 
 
@@ -139,6 +151,14 @@ public class MainFragment extends Fragment{
 
         setAnimation();
         getValues();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                pingTime(i);
+            }
+        });
+//        mObservable.subscribe(mObserver);
+
 
 //        //get arraylists from Main Activity
         HumiTime = getArguments().getStringArrayList("HumiTime");
@@ -388,27 +408,27 @@ public class MainFragment extends Fragment{
 
     }
 
-    public void pingIt(int i ,String name, String url){
-        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean ->{
-
-                    if (aBoolean){
-//                        Log.d("toto ",  name + " " +aBoolean.toString());
-//                        arrayList.add(name +"  ->   ONLINE");
-                        arrayList.set(i, name +"  ->   ONLINE");
-
-
-                    }else {
-//                        Log.d("toto ", name + " " + aBoolean.toString());
-//                        arrayList.add(name +"  ->   OFFLINE");
-                        arrayList.set(i, name +"  ->   OFFLINE");
-                    }
-
-                        }
-                );
-    }
+//    public void pingIt(int i ,String name, String url){
+//        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aBoolean ->{
+//
+//                    if (aBoolean){
+////                        Log.d("toto ",  name + " " +aBoolean.toString());
+////                        arrayList.add(name +"  ->   ONLINE");
+//                        arrayList.set(i, name +"  ->   ONLINE");
+//
+//
+//                    }else {
+////                        Log.d("toto ", name + " " + aBoolean.toString());
+////                        arrayList.add(name +"  ->   OFFLINE");
+//                        arrayList.set(i, name +"  ->   OFFLINE");
+//                    }
+//
+//                        }
+//                );
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -417,7 +437,6 @@ public class MainFragment extends Fragment{
             public void run() {
                 for (int i = 0; i < ips.size(); i++){
                     pingIt(i,names.get(i),ips.get(i));
-
 
                 }
 //                Log.d("LIST ", names.toString());
@@ -442,6 +461,7 @@ public class MainFragment extends Fragment{
 
     }
     public void getValues(){
+
         raspberryPi = new ApiKeys().getRaspberryPi();
         ipCam = new ApiKeys().getIpCamIP();
         arrayList = new ArrayList<>();
@@ -450,14 +470,49 @@ public class MainFragment extends Fragment{
         names.add("RaspBerry Pi");
         names.add("IP Cam");
         names.add("LM UNIZA");
+        names.add("Google DNS");
 
         ips = new ArrayList<>();
         ips.add(raspberryPi);
         ips.add(ipCam);
-        ips.add("http://slm.uniza.sk");
+        ips.add("158.193.254.60");
+        ips.add("8.8.8.8");
         for (int i = 0; i < names.size(); i++){
             arrayList.add("");
         }
+
+    }
+
+    public void pingIt(int i ,String name, String url){
+
+        mObservable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return Ping.onAddress(url).setTimeOutMillis(1000).doPing().isReachable();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    if (result){
+                        arrayList.set(i, name +"  ->   ONLINE");
+                    }
+                    else {
+                        arrayList.set(i, name +"  ->   OFFLINE");
+                    }
+                });
+
+    }
+    public void pingTime(int i){
+        mObservable.fromCallable(new Callable<Float>() {
+            @Override
+            public Float call() throws Exception {
+                return Ping.onAddress(ips.get(i)).setTimeOutMillis(1000).doPing().getTimeTaken();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> Toast.makeText(getContext(), "Deley: " + result + " ms", Toast.LENGTH_LONG).show());
 
 
     }
