@@ -376,6 +376,7 @@ public class MainFragment extends Fragment{
 
         ln.addView(first, 100,100);
         ln.addView(second,100,100);
+
         new AlertDialog.Builder(getContext(), R.style.dialogTheme)
                 .setCustomTitle(title)
                 .setView(ln)
@@ -408,27 +409,7 @@ public class MainFragment extends Fragment{
 
     }
 
-//    public void pingIt(int i ,String name, String url){
-//        ReactiveNetwork.observeInternetConnectivity(new SocketInternetObservingStrategy(), url)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(aBoolean ->{
-//
-//                    if (aBoolean){
-////                        Log.d("toto ",  name + " " +aBoolean.toString());
-////                        arrayList.add(name +"  ->   ONLINE");
-//                        arrayList.set(i, name +"  ->   ONLINE");
-//
-//
-//                    }else {
-////                        Log.d("toto ", name + " " + aBoolean.toString());
-////                        arrayList.add(name +"  ->   OFFLINE");
-//                        arrayList.set(i, name +"  ->   OFFLINE");
-//                    }
-//
-//                        }
-//                );
-//    }
+
 
     @Override
     public void onAttach(Context context) {
