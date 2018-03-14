@@ -1,6 +1,7 @@
 package com.example.soram.iasbp;
 import android.content.DialogInterface;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.tonnyl.light.Light;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -24,6 +27,10 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.andrognito.patternlockview.PatternLockView;
+import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 
@@ -60,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client;
     String emptyTag;
     newControl mNewControl;
+    PatternLockView patternLockView;
+    List<PatternLockView.Dot> patternList;
+    String patternString;
 
 
 
@@ -68,12 +78,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tiles = findViewById(R.id.tiles);
+        patternLockView = findViewById(R.id.pattern_lock_view);
         getValues();
         setActionBar();
         setTiles();
-        mNewControl = new GetPrivateToken().getNewControl("", "");
+        patternString = "[(Row = 0, Col = 0), (Row = 0, Col = 1), (Row = 0, Col = 2), (Row = 1, Col = 2), (Row = 2, Col = 2)]";
 
-        generatePrivateToken();
+        mNewControl = new GetPrivateToken().getNewControl("", "");
+        patternLockView.addPatternLockListener(new PatternLockViewListener() {
+            @Override
+            public void onStarted() {
+
+
+            }
+
+            @Override
+            public void onProgress(List<PatternLockView.Dot> progressPattern) {
+
+            }
+
+            @Override
+            public void onComplete(List<PatternLockView.Dot> pattern) {
+                if (pattern.toString().equals(patternString)){
+                    Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
+//                    Light.make(patternLockView, "Correct.", Snackbar.LENGTH_SHORT, R.color.mainPink, R.color.mainPink, R.color.mainPink).show();
+
+                    patternLockView.setVisibility(View.INVISIBLE);
+                    generatePrivateToken();
+                }else {
+                    Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCleared() {
+
+            }
+        });
+
+
 
     }
 
@@ -274,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
         INSIDEDATA = new ApiKeys().getInsideData();
         GETTOKEN = new ApiKeys().getGetToken();
         USERNAME = new ApiKeys().getUsername();
+        Light.info(patternLockView, "Enter password.", Snackbar.LENGTH_LONG).show();
 
     }
     public void generatePrivateToken(){

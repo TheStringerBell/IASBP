@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,6 +48,7 @@ import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+import io.github.tonnyl.light.Light;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -493,7 +495,7 @@ public class MainFragment extends Fragment{
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> Toast.makeText(getContext(), "Deley: " + result + " ms", Toast.LENGTH_LONG).show());
+                .subscribe(result -> Light.normal(listView,"IP: " +  ips.get(i) + "      Delay: " + result + " ms", Snackbar.LENGTH_SHORT).show());
 
 
     }
