@@ -425,7 +425,7 @@ public class MainFragment extends Fragment{
 //                Log.d("LIST ", names.toString());
                 pingList();
                 runnable = this;
-                handler.postDelayed(runnable, 10000);
+                handler.postDelayed(runnable, 3000);
 
             }
         }, 3000);

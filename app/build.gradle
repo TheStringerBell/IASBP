@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
     }
     buildTypes {
@@ -69,6 +70,8 @@ dependencies {
     implementation 'com.github.pwittchen:reactivenetwork-rx2:0.12.3'
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     implementation 'io.github.tonnyl:light:1.0.0'
+    implementation 'com.madgag.spongycastle:bctls-jdk15on:1.58.0.0'
+
     testCompile 'junit:junit:4.12'
     compile files('libs/MagicCrypt.jar')
 

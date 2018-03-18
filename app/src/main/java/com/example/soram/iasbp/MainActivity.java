@@ -8,6 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +38,10 @@ import android.view.View;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -104,7 +114,14 @@ public class MainActivity extends AppCompatActivity {
 //                    Light.make(patternLockView, "Correct.", Snackbar.LENGTH_SHORT, R.color.mainPink, R.color.mainPink, R.color.mainPink).show();
 
                     patternLockView.setVisibility(View.INVISIBLE);
-                    generatePrivateToken();
+                    try {
+                        new ApiKeys().encryptToken();
+                    }catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException | InvalidKeySpecException | NoSuchProviderException o)
+                    {
+                        o.printStackTrace();
+                    }
+
+//                    generatePrivateToken();
                 }else {
                     Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
                 }
@@ -318,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         INSIDEDATA = new ApiKeys().getInsideData();
         GETTOKEN = new ApiKeys().getGetToken();
         USERNAME = new ApiKeys().getUsername();
-        Light.info(patternLockView, "Enter password.", Snackbar.LENGTH_LONG).show();
+//        Light.info(patternLockView, "Enter password.", Snackbar.LENGTH_LONG).show();
 
     }
     public void generatePrivateToken(){
@@ -328,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
         rb.subscribe(responseBodyResponse -> {
             String key = responseBodyResponse.headers().get("Token");
 //            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
+
             client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
             getHumiData(HUMIDATA);
         });
