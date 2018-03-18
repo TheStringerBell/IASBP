@@ -114,14 +114,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Light.make(patternLockView, "Correct.", Snackbar.LENGTH_SHORT, R.color.mainPink, R.color.mainPink, R.color.mainPink).show();
 
                     patternLockView.setVisibility(View.INVISIBLE);
-                    try {
-                        new ApiKeys().encryptToken();
-                    }catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException | InvalidKeySpecException | NoSuchProviderException o)
-                    {
-                        o.printStackTrace();
-                    }
-
-//                    generatePrivateToken();
+                    generatePrivateToken();
                 }else {
                     Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
                 }
