@@ -70,8 +70,7 @@ dependencies {
     implementation 'com.github.pwittchen:reactivenetwork-rx2:0.12.3'
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     implementation 'io.github.tonnyl:light:1.0.0'
-    implementation 'com.madgag.spongycastle:bctls-jdk15on:1.58.0.0'
-
+    implementation 'com.scottyab:aescrypt:0.0.1'
     testCompile 'junit:junit:4.12'
     compile files('libs/MagicCrypt.jar')
 

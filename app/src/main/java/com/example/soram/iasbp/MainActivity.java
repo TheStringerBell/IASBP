@@ -108,13 +108,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onComplete(List<PatternLockView.Dot> pattern) {
+            public void onComplete(List<PatternLockView.Dot> pattern){
                 if (pattern.toString().equals(patternString)){
                     Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
 //                    Light.make(patternLockView, "Correct.", Snackbar.LENGTH_SHORT, R.color.mainPink, R.color.mainPink, R.color.mainPink).show();
 
                     patternLockView.setVisibility(View.INVISIBLE);
-                    generatePrivateToken();
+                    try {
+                        new ApiKeys().decryptReponse();
+                    }catch (Exception o){
+                        o.printStackTrace();
+                    }
+
+//                    generatePrivateToken();
                 }else {
                     Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
                 }
