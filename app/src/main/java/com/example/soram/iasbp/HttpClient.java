@@ -1,5 +1,7 @@
 package com.example.soram.iasbp;
 
+import okhttp3.OkHttpClient;
+
 public class HttpClient {
     String username;
     String password;
@@ -14,11 +16,17 @@ public class HttpClient {
     }
     public okhttp3.OkHttpClient getClient(){
 
-        okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder()
+        return new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new Intercepto(username, password, mode, mode2))
                 .addInterceptor(new Intercepto2())
                 .build();
-        return client;
+
+    }
+    public OkHttpClient getControlClient(){
+        return new okhttp3.OkHttpClient.Builder()
+                .addInterceptor(new Intercepto(username, password, mode, mode2))
+                .build();
+
     }
 
 }

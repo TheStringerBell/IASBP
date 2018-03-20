@@ -21,25 +21,26 @@ public class Control{
     final String humiLowMin = new ApiKeys().getHumiLowMin();
     final String GETTOKEN = new ApiKeys().getGetToken();
     final String USERNAME = new ApiKeys().getUsername();
+    final String PASSWORD = new ApiKeys().getPublicKey();
     newControl mNewControl;
     OkHttpClient client;
 
 
     public void generatePrivateToken(final String mode,final String mode2, final int i){
-        mNewControl = new GetPrivateToken().getNewControl("", "");
-        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
-        rb.subscribe(responseBodyResponse -> {
+//        mNewControl = new GetPrivateToken().getNewControl("", "");
+//        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread());
+//        rb.subscribe(responseBodyResponse -> {
 //            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
-            String key = responseBodyResponse.headers().get("Token");
-            client = new HttpClient(USERNAME,key, mode, mode2).getClient();
+//            String key = responseBodyResponse.headers().get("Token");
+            client = new HttpClient(USERNAME,PASSWORD, mode, mode2).getControlClient();
             switch (i){
                 case 0: updateControl(); break;
                 case 1: updateTemp(); break;
                 case 2: updateHumi(); break;
             }
-        });
+//        });
     }
 
     public void updateControl(){
