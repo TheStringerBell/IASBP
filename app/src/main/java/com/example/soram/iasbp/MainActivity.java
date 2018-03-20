@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     newControl mNewControl;
     PatternLockView patternLockView;
     List<PatternLockView.Dot> patternList;
-    String patternString;
+    String PATTERNSTRING;
 
 
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         getValues();
         setActionBar();
         setTiles();
-        patternString = "[(Row = 0, Col = 0), (Row = 0, Col = 1), (Row = 0, Col = 2), (Row = 1, Col = 2), (Row = 2, Col = 2)]";
+
 
         mNewControl = new GetPrivateToken().getNewControl("", "");
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
@@ -109,18 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern){
-                if (pattern.toString().equals(patternString)){
+                if (pattern.toString().equals(PATTERNSTRING)){
                     Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
-//                    Light.make(patternLockView, "Correct.", Snackbar.LENGTH_SHORT, R.color.mainPink, R.color.mainPink, R.color.mainPink).show();
-
                     patternLockView.setVisibility(View.INVISIBLE);
-                    try {
-                        new ApiKeys().decryptReponse();
-                    }catch (Exception o){
-                        o.printStackTrace();
-                    }
-
-//                    generatePrivateToken();
+                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
+                    getHumiData(HUMIDATA);
                 }else {
                     Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
                 }
@@ -155,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     String date = list.get(i).getDate();
                     String time = list.get(i).getTime();
                     String value = list.get(i).getValue();
+
                     if (!humiOrTemp){
                         arrayValue.add(value);
                         arrayTime.add(time);
@@ -172,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
                     bundle.putStringArrayList("Date", arrayTempDate);
-                    Log.e("Temp", "");
+
 
                     if (cont == 0){
                         getControlData();
@@ -303,7 +297,8 @@ public class MainActivity extends AppCompatActivity {
                 controlLowMax.clear();
                 controlLowMin.clear();
                 controlStatus.clear();
-                generatePrivateToken();
+//                generatePrivateToken();
+                getHumiData(HUMIDATA);
                 tiles.setTabIndex(0, true);
 
                 return true;
@@ -334,22 +329,24 @@ public class MainActivity extends AppCompatActivity {
         INSIDEDATA = new ApiKeys().getInsideData();
         GETTOKEN = new ApiKeys().getGetToken();
         USERNAME = new ApiKeys().getUsername();
+        PASSWORD = new ApiKeys().getPublicKey();
+        PATTERNSTRING = new ApiKeys().getPatternString();
 //        Light.info(patternLockView, "Enter password.", Snackbar.LENGTH_LONG).show();
 
     }
-    public void generatePrivateToken(){
-        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
-        rb.subscribe(responseBodyResponse -> {
-            String key = responseBodyResponse.headers().get("Token");
-//            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
-
-            client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
-            getHumiData(HUMIDATA);
-        });
-
-    }
+//    public void generatePrivateToken(){
+//        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread());
+//        rb.subscribe(responseBodyResponse -> {
+//            String key = responseBodyResponse.headers().get("Token");
+////            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
+//
+//            client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
+//            getHumiData(HUMIDATA);
+//        });
+//
+//    }
     public void setTiles(){
         whichSide = 1;
         tiles.setTitles("Home", "Graphs", "Security");

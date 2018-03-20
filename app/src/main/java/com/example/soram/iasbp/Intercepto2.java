@@ -20,21 +20,19 @@ import okhttp3.ResponseBody;
 
 
 public class Intercepto2 implements Interceptor {
-    private String credentials;
-    private String mode;
-    private String mode2;
-
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Response response = chain.proceed(request);
-        Log.d("dsa", response.body().toString());
 
         try {
-            String str = new ApiKeys().encryptToken(response.body().toString());
-            return response.newBuilder().body(ResponseBody.create(response.body().contentType(), str)).build();
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException | InvalidKeySpecException | NoSuchProviderException o) {
+            String ok = new AESDecrypt().Decrypt(response.body().string());
+//            Log.d("Decrypted", ok);
+            return response.newBuilder().body(ResponseBody.create(response.body().contentType(), ok)).build();
+
+        } catch (Exception o) {
+            o.printStackTrace();
             return response;
 
         }

@@ -16,6 +16,7 @@ public class HttpClient {
 
         okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new Intercepto(username, password, mode, mode2))
+                .addInterceptor(new Intercepto2())
                 .build();
         return client;
     }
