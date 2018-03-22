@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -317,16 +318,16 @@ public class MainFragment extends Fragment{
         first.setTextColor(getResources().getColor(R.color.mainPink));
         second.setTextColor(getResources().getColor(R.color.mainPink));
         title.setTextColor(getResources().getColor(R.color.mainPink));
-        first.setHintTextColor(getResources().getColor(R.color.mainPink));
-        second.setHintTextColor(getResources().getColor(R.color.mainPink));
+        first.setHintTextColor(getResources().getColor(R.color.tiles_inactive));
+        second.setHintTextColor(getResources().getColor(R.color.tiles_inactive));
         first.setPadding(0,15,0,15);
         second.setPadding(0,15,0,15);
         ln.setOrientation(LinearLayout.VERTICAL);
         ln.setGravity(Gravity.CENTER);
         ln.setBackgroundColor(getResources().getColor(R.color.gray));
 
-        ln.addView(first, 100,100);
-        ln.addView(second,100,100);
+        ln.addView(first, 500,100);
+        ln.addView(second,500,100);
         new AlertDialog.Builder(getContext(), R.style.dialogTheme)
                 .setCustomTitle(title)
                 .setView(ln)
@@ -441,7 +442,7 @@ public class MainFragment extends Fragment{
     public void pingList(){
 
         if (getContext() != null) {
-            adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_row, arrayList);
+            adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
             listView.setAdapter(adapter);
         }
 
@@ -483,10 +484,10 @@ public class MainFragment extends Fragment{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if (result){
-                        arrayList.set(i, name +"  ->   ONLINE");
+                        arrayList.set(i, name +"  »   ONLINE");
                     }
                     else {
-                        arrayList.set(i, name +"  ->   OFFLINE");
+                        arrayList.set(i, name +"  |  OFFLINE");
                     }
                 });
 
