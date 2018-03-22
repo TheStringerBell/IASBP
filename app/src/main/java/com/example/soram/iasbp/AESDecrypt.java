@@ -11,7 +11,6 @@ public class AESDecrypt {
     String keygen = new ApiKeys().getKeygen();
 
     public String Decrypt(String response) throws Exception{
-        Log.d("Response ", response);
         byte[] bytes = keygen.getBytes();
         SecretKeySpec secretKeySpec = new SecretKeySpec(bytes, "AES");
 //        Key key = new SecretKeySpec(bytes, "AES");

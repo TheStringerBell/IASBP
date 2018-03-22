@@ -437,10 +437,15 @@ public class MainFragment extends Fragment{
         handler.removeCallbacks(runnable);
         super.onDetach();
     }
+
     public void pingList(){
 
-        adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_row,arrayList);
-        listView.setAdapter(adapter);
+        if (getContext() != null) {
+            adapter = new ArrayAdapter<String>(getContext(), R.layout.simple_row, arrayList);
+            listView.setAdapter(adapter);
+        }
+
+
 
     }
     public void getValues(){

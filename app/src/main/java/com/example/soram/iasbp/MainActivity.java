@@ -3,10 +3,13 @@ import android.content.DialogInterface;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 
 import java.io.IOException;
@@ -30,14 +33,19 @@ import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.yalantis.guillotine.animation.GuillotineAnimation;
+import com.yalantis.guillotine.interfaces.GuillotineListener;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -80,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
     PatternLockView patternLockView;
     List<PatternLockView.Dot> patternList;
     String PATTERNSTRING;
+    Toolbar toolbar;
+    ImageView iasLogo;
+    LinearLayout ln;
 
 
 
@@ -89,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tiles = findViewById(R.id.tiles);
         patternLockView = findViewById(R.id.pattern_lock_view);
+        toolbar = findViewById(R.id.toolbar);
+        iasLogo = findViewById(R.id.IAS);
         getValues();
         setActionBar();
         setTiles();
-
-
         mNewControl = new GetPrivateToken().getNewControl("", "");
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
             @Override
@@ -125,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 
@@ -308,15 +317,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void setActionBar(){
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_logo);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar = getSupportActionBar();
-        actionBar.setElevation(0);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setElevation(0);
+//        toolbar.setLogo(R.mipmap.ic_logo);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_refresh));
+
+
+
+//        actionBar = getSupportActionBar();
+//        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setLogo(R.mipmap.ic_logo);
+//        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar = getSupportActionBar();
+//        actionBar.setElevation(0);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        actionBar.setTitle("");
     }
 
     // generate credentials

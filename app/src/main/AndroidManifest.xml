@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:icon="@mipmap/ic_logo"
-        android:theme="@style/FullscreenTheme">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_intro"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         </activity>
 

@@ -9,6 +9,23 @@
     android:background="@color/gray"
     tools:context="com.example.soram.iasbp.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainActionBg"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+    <ImageView
+        android:id="@+id/IAS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_logo" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+
     <com.gigamole.navigationtabstrip.NavigationTabStrip
         android:id="@+id/tiles"
         android:layout_width="match_parent"

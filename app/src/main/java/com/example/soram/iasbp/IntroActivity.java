@@ -13,7 +13,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         videoView = findViewById(R.id.videoView);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoView.setVideoURI(video);
