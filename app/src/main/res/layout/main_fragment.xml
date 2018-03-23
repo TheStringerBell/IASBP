@@ -184,6 +184,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:fab_colorNormal="@color/mainCenter2"
+        app:fab_icon="@mipmap/add"
         app:fab_colorPressed="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>

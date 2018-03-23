@@ -30,11 +30,10 @@
                 android:id="@+id/menu"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:paddingEnd="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                app:srcCompat="@android:drawable/ic_menu_more" />
+                app:srcCompat="@mipmap/menu" />
 
 
         </RelativeLayout>

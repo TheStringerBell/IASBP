@@ -317,6 +317,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         seconds.setResource(R.mipmap.shutdown);
         seconds.setScaleType(ImageView.ScaleType.CENTER);
         seconds.setBgResource(R.color.mainBlack);
+        seconds.setDividerColor(R.color.mainPink);
         seconds.setMenuTextAppearanceStyle(R.style.TextViewStyle);
         seconds.setTitle("wake-on-LAN");
         menuObjects = new ArrayList<>();
