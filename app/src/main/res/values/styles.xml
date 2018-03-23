@@ -51,5 +51,10 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
+    <style name="TextViewStyle" parent="TextView.DefaultStyle">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">#E8175D</item>
+    </style>
+
 
 </resources>

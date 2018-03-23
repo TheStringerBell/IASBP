@@ -16,13 +16,33 @@
         android:background="@color/mainActionBg"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
-    <ImageView
-        android:id="@+id/IAS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_logo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/IAS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                app:srcCompat="@mipmap/ic_logo" />
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:srcCompat="@android:drawable/ic_menu_more" />
+
+
+        </RelativeLayout>
+
+
 
     </android.support.v7.widget.Toolbar>
+
 
 
 

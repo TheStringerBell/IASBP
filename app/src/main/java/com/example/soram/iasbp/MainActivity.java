@@ -9,23 +9,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.util.Log;
-
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
-
 import io.github.tonnyl.light.Light;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Callback;
@@ -33,26 +20,20 @@ import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.Toast;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.yalantis.guillotine.animation.GuillotineAnimation;
-import com.yalantis.guillotine.interfaces.GuillotineListener;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
+import com.yalantis.contextmenu.lib.MenuObject;
+import com.yalantis.contextmenu.lib.MenuParams;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMenuItemClickListener{
 
     ArrayList<String> arrayTime = new ArrayList<String>();
     ArrayList<String> arrayDate = new ArrayList<String>();
@@ -90,7 +71,12 @@ public class MainActivity extends AppCompatActivity {
     String PATTERNSTRING;
     Toolbar toolbar;
     ImageView iasLogo;
+    ImageView menu;
     LinearLayout ln;
+    List<MenuObject> menuObjects;
+    MenuParams menuParams;
+    ContextMenuDialogFragment mMenuDialogFragment;
+    FragmentManager fragmentManager;
 
 
 
@@ -102,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
         patternLockView = findViewById(R.id.pattern_lock_view);
         toolbar = findViewById(R.id.toolbar);
         iasLogo = findViewById(R.id.IAS);
+        menu = findViewById(R.id.menu);
+        menu.setClickable(false);
+        fragmentManager = getSupportFragmentManager();
         getValues();
         setActionBar();
         setTiles();
@@ -123,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 if (pattern.toString().equals(PATTERNSTRING)){
                     Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
                     patternLockView.setVisibility(View.INVISIBLE);
+                    menu.setClickable(true);
                     client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
                     getHumiData(HUMIDATA);
                 }else {
@@ -136,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        menu.setOnClickListener(view -> mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG));
 
     }
 
@@ -256,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void loadFragment(Fragment fragment, Bundle bundle, int anim1, int anim2){
         fragment.setArguments(bundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(anim1, anim2);
         fragmentTransaction.replace(R.id.relativeView, fragment);
@@ -277,45 +268,11 @@ public class MainActivity extends AppCompatActivity {
                 }).create().show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                humiOrTemp = false;
-                cont = 0;
-                whichSide = 1;
-                controlMode.clear();
-                arrayDate.clear();
-                arrayValue.clear();
-                arrayTime.clear();
-                insideArray.clear();
-                arrayTempDate.clear();
-                arrayTempValue.clear();
-                arrayTempTime.clear();
-                controlMode.clear();
-                controlHighMax.clear();
-                controlHighMin.clear();
-                controlLowMax.clear();
-                controlLowMin.clear();
-                controlStatus.clear();
-//                generatePrivateToken();
-                getHumiData(HUMIDATA);
-                tiles.setTabIndex(0, true);
 
-                return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
     public void setActionBar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -348,7 +305,25 @@ public class MainActivity extends AppCompatActivity {
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPublicKey();
         PATTERNSTRING = new ApiKeys().getPatternString();
-//        Light.info(patternLockView, "Enter password.", Snackbar.LENGTH_LONG).show();
+        MenuObject first = new MenuObject();
+        first.setMenuTextAppearanceStyle(R.style.TextViewStyle);
+        first.setTitle("refresh");
+        first.setResource(R.mipmap.ic_lens_black);
+//        first.setBgColor(R.color.mainBlack);
+        MenuObject seconds = new MenuObject();
+        seconds.setResource(R.mipmap.ic_lens_black);
+        menuObjects = new ArrayList<>();
+        menuObjects.add(first);
+        menuObjects.add(seconds);
+        menuParams = new MenuParams();
+        menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.menu));
+        menuParams.setMenuObjects(menuObjects);
+        menuParams.setClosableOutside(true);
+
+
+        mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
+        mMenuDialogFragment.setItemClickListener(this);
+
 
     }
 //    public void generatePrivateToken(){
@@ -393,8 +368,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void reset(){
+        humiOrTemp = false;
+        cont = 0;
+        whichSide = 1;
+        controlMode.clear();
+        arrayDate.clear();
+        arrayValue.clear();
+        arrayTime.clear();
+        insideArray.clear();
+        arrayTempDate.clear();
+        arrayTempValue.clear();
+        arrayTempTime.clear();
+        controlMode.clear();
+        controlHighMax.clear();
+        controlHighMin.clear();
+        controlLowMax.clear();
+        controlLowMin.clear();
+        controlStatus.clear();
+//                generatePrivateToken();
+        getHumiData(HUMIDATA);
+        tiles.setTabIndex(0, true);
+    }
 
+    @Override
+    public void onMenuItemClick(View clickedView, int position) {
+        switch (position){
+            case 0: reset(); break;
+        }
 
-
-
+    }
 }

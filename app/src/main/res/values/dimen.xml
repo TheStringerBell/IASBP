@@ -2,4 +2,5 @@
 <resources>
     <dimen name="editText">25dp</dimen>
     <dimen name="textview">10dp</dimen>
+    <dimen name="menu">65dp</dimen>
 </resources>

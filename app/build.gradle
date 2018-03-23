@@ -71,7 +71,7 @@ dependencies {
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     implementation 'io.github.tonnyl:light:1.0.0'
     implementation 'com.scottyab:aescrypt:0.0.1'
-    implementation 'com.github.Yalantis:GuillotineMenu-Android:1.2'
+    implementation 'com.yalantis:contextmenu:1.0.7'
     testCompile 'junit:junit:4.12'
     compile files('libs/MagicCrypt.jar')
 
