@@ -308,10 +308,17 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         MenuObject first = new MenuObject();
         first.setMenuTextAppearanceStyle(R.style.TextViewStyle);
         first.setTitle("refresh");
-        first.setResource(R.mipmap.ic_lens_black);
+        first.setDividerColor(R.color.mainPink);
+        first.setBgResource(R.color.mainBlack);
+        first.setScaleType(ImageView.ScaleType.CENTER);
+        first.setResource(R.mipmap.refresh_min);
 //        first.setBgColor(R.color.mainBlack);
         MenuObject seconds = new MenuObject();
-        seconds.setResource(R.mipmap.ic_lens_black);
+        seconds.setResource(R.mipmap.shutdown);
+        seconds.setScaleType(ImageView.ScaleType.CENTER);
+        seconds.setBgResource(R.color.mainBlack);
+        seconds.setMenuTextAppearanceStyle(R.style.TextViewStyle);
+        seconds.setTitle("wake-on-LAN");
         menuObjects = new ArrayList<>();
         menuObjects.add(first);
         menuObjects.add(seconds);
@@ -319,6 +326,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.menu));
         menuParams.setMenuObjects(menuObjects);
         menuParams.setClosableOutside(true);
+
 
 
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
