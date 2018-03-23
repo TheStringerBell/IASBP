@@ -31,7 +31,9 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
 import com.stealthcopter.networktools.Ping;
+import com.stealthcopter.networktools.SubnetDevices;
 import com.stealthcopter.networktools.ping.PingResult;
+import com.stealthcopter.networktools.subnet.Device;
 
 
 import java.io.BufferedReader;
@@ -502,6 +504,7 @@ public class MainFragment extends Fragment{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> Light.normal(listView,"IP: " +  ips.get(i) + "      Delay: " + result + " ms", Snackbar.LENGTH_SHORT).show());
+
 
 
     }

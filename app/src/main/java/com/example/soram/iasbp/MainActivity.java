@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+
 import io.github.tonnyl.light.Light;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,6 +23,7 @@ import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +31,8 @@ import android.widget.Toast;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.stealthcopter.networktools.SubnetDevices;
+import com.stealthcopter.networktools.subnet.Device;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
@@ -320,13 +326,23 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         seconds.setDividerColor(R.color.mainPink);
         seconds.setMenuTextAppearanceStyle(R.style.TextViewStyle);
         seconds.setTitle("wake-on-LAN");
+
+        MenuObject exit = new MenuObject();
+        exit.setResource(R.mipmap.exit);
+        exit.setTitle("exit");
+        exit.setMenuTextAppearanceStyle(R.style.TextViewStyle);
+        exit.setDividerColor(R.color.mainPink);
+        exit.setBgResource(R.color.mainBlack);
+        exit.setScaleType(ImageView.ScaleType.CENTER);
         menuObjects = new ArrayList<>();
         menuObjects.add(first);
         menuObjects.add(seconds);
+        menuObjects.add(exit);
         menuParams = new MenuParams();
         menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.menu));
         menuParams.setMenuObjects(menuObjects);
         menuParams.setClosableOutside(true);
+
 
 
 
@@ -350,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 //    }
     public void setTiles(){
         whichSide = 1;
-        tiles.setTitles("Home", "Graphs", "Security");
+        tiles.setTitles("Home", "Stats", "Security");
         tiles.setBackgroundColor(getResources().getColor(R.color.mainActionBg));
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
@@ -360,10 +376,11 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
             @Override
             public void onStartTabSelected(String title, int index) {
                 switch (title){
-                    case "GRAPHS":  if (whichSide == 0){
+                    case "STATS":  if (whichSide == 0){
                         loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
                     }else{
-                    } loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                        loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                    }
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
                     case "SECURITY":
                         loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
@@ -396,7 +413,10 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         controlLowMin.clear();
         controlStatus.clear();
 //                generatePrivateToken();
-        getHumiData(HUMIDATA);
+        if (client != null){
+            getHumiData(HUMIDATA);
+        }
+
         tiles.setTabIndex(0, true);
     }
 
@@ -404,7 +424,10 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     public void onMenuItemClick(View clickedView, int position) {
         switch (position){
             case 0: reset(); break;
+
+            case 2: finishAndRemoveTask(); break;
         }
 
     }
+
 }
