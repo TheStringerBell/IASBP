@@ -3,7 +3,6 @@ import android.content.DialogInterface;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-
 import io.github.tonnyl.light.Light;
-import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -23,16 +19,12 @@ import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.stealthcopter.networktools.SubnetDevices;
-import com.stealthcopter.networktools.subnet.Device;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
@@ -284,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setElevation(0);
 //        toolbar.setLogo(R.mipmap.ic_logo);
-        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_refresh));
+//        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_refresh));
 
 
 

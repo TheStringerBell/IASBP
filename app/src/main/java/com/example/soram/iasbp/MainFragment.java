@@ -1,62 +1,37 @@
 package com.example.soram.iasbp;
-
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
-import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy;
 import com.stealthcopter.networktools.Ping;
-import com.stealthcopter.networktools.SubnetDevices;
 import com.stealthcopter.networktools.ping.PingResult;
-import com.stealthcopter.networktools.subnet.Device;
-
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
-
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
-import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import io.github.tonnyl.light.Light;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.operators.observable.ObservableFromCallable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -107,6 +82,9 @@ public class MainFragment extends Fragment{
     int mainGray;
     int mainCenter;
     int mainCenter2;
+    int tiles_inactive;
+    int gray;
+    int graph_text;
     Handler handler = new Handler();
     Runnable runnable;
     ArrayAdapter<String> adapter;
@@ -149,19 +127,19 @@ public class MainFragment extends Fragment{
         realL2 = view.findViewById(R.id.relatV2);
 
         // COLORS
-        mainPink = R.color.mainPink;
-        mainGray = R.color.mainGray;
-        mainCenter = R.color.mainCenter;
-        mainCenter2 = R.color.mainCenter2;
+        mainPink = getResources().getColor(R.color.mainPink);
+        mainGray = getResources().getColor(R.color.mainGray);
+        mainCenter =getResources().getColor( R.color.mainCenter);
+        mainCenter2 =getResources().getColor( R.color.mainCenter2);
+        tiles_inactive =getResources().getColor( R.color.tiles_inactive);
+        gray = getResources().getColor(R.color.gray);
+        graph_text =getResources().getColor( R.color.graph_text);
 
         setAnimation();
         getValues();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pingTime(i);
-            }
-        });
+        listView.setOnItemClickListener((adapterView, view1, i, l) ->
+            pingTime(i)
+        );
 //        mObservable.subscribe(mObserver);
 
 
@@ -191,88 +169,67 @@ public class MainFragment extends Fragment{
         labels.add("AUTO");
         labels.add("ON");
         toggleSwitch.setLabels(labels);
-        toggleSwitch.setActiveBgColor(getResources().getColor(mainCenter));
-        toggleSwitch.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
-        toggleSwitch.setInactiveBgColor(getResources().getColor(R.color.gray));
+        toggleSwitch.setActiveBgColor(mainCenter);
+        toggleSwitch.setInactiveTextColor(tiles_inactive);
+        toggleSwitch.setInactiveBgColor(gray);
         toggleSwitch.setCheckedTogglePosition(Integer.parseInt(mode.get(0)));
-        toggleSwitch.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
-            @Override
-            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
-                new Control().generatePrivateToken(Integer.toString(position), mode.get(1) , 0);
-                mode.set(0, Integer.toString(position));
-            }
+        toggleSwitch.setOnToggleSwitchChangeListener((position, isChecked) -> {
+            new Control().generatePrivateToken(Integer.toString(position), mode.get(1) , 0);
+            mode.set(0, Integer.toString(position));
         });
+
         labels = new ArrayList<>();
         labels.add("OFF");
         labels.add("AUTO");
         labels.add("ON");
         toggleSwitch2.setLabels(labels);
-        toggleSwitch2.setActiveBgColor(getResources().getColor(mainCenter2));
-        toggleSwitch2.setInactiveTextColor(getResources().getColor(R.color.tiles_inactive));
-        toggleSwitch2.setInactiveBgColor(getResources().getColor(R.color.gray));
+        toggleSwitch2.setActiveBgColor(mainCenter2);
+        toggleSwitch2.setInactiveTextColor(tiles_inactive);
+        toggleSwitch2.setInactiveBgColor(gray);
         toggleSwitch2.setCheckedTogglePosition(Integer.parseInt(mode.get(1)));
-        toggleSwitch2.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
-            @Override
-            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
-                new Control().generatePrivateToken(mode.get(0), Integer.toString(position), 0);
-                mode.set(1, Integer.toString(position));
-            }
+        toggleSwitch2.setOnToggleSwitchChangeListener((position, isChecked) -> {
+            new Control().generatePrivateToken(mode.get(0), Integer.toString(position), 0);
+            mode.set(1, Integer.toString(position));
         });
 
-        minMax.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog("Update temperature", "21", "23", 0);
-            }
 
-        });
-        humiValues.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog("Update humidity", "40", "60", 1);
-            }
-        });
+        minMax.setOnClickListener(view1 -> openDialog("Update temperature", "21", "23", 0));
+        humiValues.setOnClickListener(view1 -> openDialog("Update humidity", "40", "60", 1));
 
         circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
-        circleProgressView.setBarColor(getResources().getColor(mainPink));
-        circleProgressView.setRimColor(getResources().getColor(R.color.mainGray));
+        circleProgressView.setBarColor(mainPink);
+        circleProgressView.setRimColor(mainGray);
         circleProgressView.setTextSize(52);
         circleProgressView.setUnit("°C");
         circleProgressView.setUnitVisible(true);
         circleProgressView.setUnitSize(25);
         circleProgressView.setBarWidth(5);
         circleProgressView.setRimWidth(7);
-        circleProgressView.setUnitColor(getResources().getColor(R.color.graph_text));
-        circleProgressView.setTextColor(getResources().getColor(mainPink));
+        circleProgressView.setUnitColor(graph_text);
+        circleProgressView.setTextColor(mainPink);
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue3);
 
         circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);
-        circleProgressView2.setBarColor(getResources().getColor(R.color.mainPink));
-        circleProgressView2.setRimColor(getResources().getColor(R.color.mainGray));
+        circleProgressView2.setBarColor(mainPink);
+        circleProgressView2.setRimColor(mainGray);
         circleProgressView2.setTextSize(52);
         circleProgressView2.setBarWidth(5);
         circleProgressView2.setRimWidth(7);
         circleProgressView2.setUnit("%");
         circleProgressView2.setUnitVisible(true);
         circleProgressView2.setUnitSize(25);
-        circleProgressView2.setUnitColor(getResources().getColor(R.color.graph_text));
-        circleProgressView2.setTextColor(getResources().getColor(mainPink));
+        circleProgressView2.setUnitColor(graph_text);
+        circleProgressView2.setTextColor(mainPink);
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
 
-//        floatbut.setIcon(R.mipmap.ic_cancel);
-        floatbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addAddressDialog();
-            }
-        });
 
+        floatbut.setOnClickListener(view1 -> addAddressDialog());
 
         return view;
     }
@@ -445,6 +402,7 @@ public class MainFragment extends Fragment{
 
         if (getContext() != null) {
             adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
+
             listView.setAdapter(adapter);
         }
 
@@ -486,7 +444,7 @@ public class MainFragment extends Fragment{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if (result){
-                        arrayList.set(i, name +"  »   ONLINE");
+                        arrayList.set(i, name +"  |   ONLINE");
                     }
                     else {
                         arrayList.set(i, name +"  |  OFFLINE");
