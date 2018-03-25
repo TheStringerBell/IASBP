@@ -15,9 +15,26 @@
     </style>
     <style name="Default" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textViewStyle">@style/newFont</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:buttonStyle">@style/buttonStyle</item>
+        <item name="android:switchStyle">@style/newFont</item>
+        <item name="android:fontFamily">@font/raleway</item>
 
 
     </style>
+    <style name="newFont" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/raleway</item>
+    </style>
+
+    <style name="newFont2" parent="android:Widget.Holo.TextView">
+        <item name="android:fontFamily">@font/raleway</item>
+    </style>
+
+    <style name="buttonStyle" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/raleway</item>
+    </style>
+
 
     <!--<style name="FullscreenTheme" parent="AppTheme">-->
     <!--<item name="android:logo">@mipmap/ic_logo</item>-->

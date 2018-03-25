@@ -55,7 +55,6 @@
         app:nts_gravity="bottom"
         app:nts_size="15sp"
         app:nts_type="line"
-        app:nts_typeface="fonts/typeface.otf"
         app:nts_weight="3dp"
 
         />

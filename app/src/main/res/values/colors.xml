@@ -9,7 +9,7 @@
     <color name="background">#e5e5e5</color>
     <color name="half_black">#808080</color>
     <color name="newbg">#474747</color>
-    <color name="mainActionBg">#1a1a1a</color>
+
     <color name="white_pressed">#f1f1f1</color>
     <color name="pink">#e91e63</color>
 
@@ -17,13 +17,16 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
-    <!--Main Colors-->
+    Main Colors
     <color name="mainPink">#E8175D</color>
     <color name="mainGray">#2d2d2d</color>
     <color name="mainBlack">#282828</color>
     <color name="mainCenter">#E8175D</color>
     <color name="mainCenter2">#E8175D</color>
     <color name="mainCenter3">#40E8175D</color>
+    <color name="mainActionBg">#1a1a1a</color>
+    <color name="mainTilesBg">#1a1a1a</color>
+
 
 
 

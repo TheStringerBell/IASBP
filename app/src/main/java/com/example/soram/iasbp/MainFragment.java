@@ -172,6 +172,8 @@ public class MainFragment extends Fragment{
         toggleSwitch.setActiveBgColor(mainCenter);
         toggleSwitch.setInactiveTextColor(tiles_inactive);
         toggleSwitch.setInactiveBgColor(gray);
+        toggleSwitch.setActiveBgColor(gray);
+        toggleSwitch.setActiveTextColor(mainPink);
         toggleSwitch.setCheckedTogglePosition(Integer.parseInt(mode.get(0)));
         toggleSwitch.setOnToggleSwitchChangeListener((position, isChecked) -> {
             new Control().generatePrivateToken(Integer.toString(position), mode.get(1) , 0);
@@ -182,10 +184,13 @@ public class MainFragment extends Fragment{
         labels.add("OFF");
         labels.add("AUTO");
         labels.add("ON");
+
         toggleSwitch2.setLabels(labels);
         toggleSwitch2.setActiveBgColor(mainCenter2);
         toggleSwitch2.setInactiveTextColor(tiles_inactive);
+        toggleSwitch2.setActiveBgColor(gray);
         toggleSwitch2.setInactiveBgColor(gray);
+        toggleSwitch2.setActiveTextColor(mainPink);
         toggleSwitch2.setCheckedTogglePosition(Integer.parseInt(mode.get(1)));
         toggleSwitch2.setOnToggleSwitchChangeListener((position, isChecked) -> {
             new Control().generatePrivateToken(mode.get(0), Integer.toString(position), 0);
@@ -211,6 +216,7 @@ public class MainFragment extends Fragment{
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue3);
+
 
         circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);

@@ -155,22 +155,22 @@
         android:text="@string/devices" />
 
     <!--<TextView-->
-        <!--android:id="@+id/device1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/devices"-->
-        <!--android:textColor="@color/mainCenter2"-->
-        <!--android:layout_centerHorizontal="true"-->
-         <!--/>-->
+    <!--android:id="@+id/device1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/devices"-->
+    <!--android:textColor="@color/mainCenter2"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--/>-->
     <!--<TextView-->
-        <!--android:id="@+id/device2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/device1"-->
-        <!--android:paddingBottom="10dp"-->
-        <!--android:textColor="@color/mainCenter2"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--/>-->
+    <!--android:id="@+id/device2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/device1"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:textColor="@color/mainCenter2"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--/>-->
 
     <ListView
         android:id="@+id/listview"
@@ -182,7 +182,7 @@
 
         android:layout_below="@+id/devices"
         android:layout_centerHorizontal="true"
- />
+        />
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatbut"
         android:layout_width="match_parent"

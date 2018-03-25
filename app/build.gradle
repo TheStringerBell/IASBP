@@ -63,16 +63,14 @@ dependencies {
     compile 'devlight.io:arcprogressstackview:1.0.4'
     compile 'us.belka:androidtoggleswitch:1.2.2'
     compile 'com.github.stealthcopter:AndroidNetworkTools:0.3.0'
-    compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
-    compile 'com.google.android.exoplayer:exoplayer-dash:2.6.0'
-    compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.pwittchen:reactivenetwork-rx2:0.12.3'
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
     implementation 'io.github.tonnyl:light:1.0.0'
     implementation 'com.scottyab:aescrypt:0.0.1'
     implementation 'com.yalantis:contextmenu:1.0.7'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/MagicCrypt.jar')
+
 
 }

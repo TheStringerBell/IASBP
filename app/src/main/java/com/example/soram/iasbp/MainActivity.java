@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     public void setTiles(){
         whichSide = 1;
         tiles.setTitles("Home", "Stats", "Security");
-        tiles.setBackgroundColor(getResources().getColor(R.color.mainActionBg));
+        tiles.setBackgroundColor(getResources().getColor(R.color.mainTilesBg));
         tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
         tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
         tiles.setTabIndex(0, true);
