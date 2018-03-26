@@ -85,11 +85,18 @@ public class MainFragment extends Fragment{
     int tiles_inactive;
     int gray;
     int graph_text;
+    int naviGreen;
+    int white;
+    int naviGreen2;
+    int mainCenter3;
     Handler handler = new Handler();
     Runnable runnable;
     ArrayAdapter<String> adapter;
+    ArrayAdapter<String> adapter2;
     ListView listView;
+    ListView listView2;
     ArrayList<String> arrayList;
+    ArrayList<String> arrayList2;
     ArrayList<String> ips;
     ArrayList<String> names;
     FloatingActionButton floatbut;
@@ -110,6 +117,7 @@ public class MainFragment extends Fragment{
 //        device2 = view.findViewById(R.id.device2);
         listView = view.findViewById(R.id.listview);
         floatbut = view.findViewById(R.id.floatbut);
+        listView2 = view.findViewById(R.id.listview2);
 
         humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
@@ -133,13 +141,20 @@ public class MainFragment extends Fragment{
         mainCenter2 =getResources().getColor( R.color.mainCenter2);
         tiles_inactive =getResources().getColor( R.color.tiles_inactive);
         gray = getResources().getColor(R.color.gray);
-        graph_text =getResources().getColor( R.color.graph_text);
+        graph_text = getResources().getColor( R.color.graph_text);
+        naviGreen = getResources().getColor(R.color.greenNavi);
+        white = getResources().getColor(R.color.background);
+        naviGreen2 = getResources().getColor(R.color.greenNavi2);
+        mainCenter3 = getResources().getColor(R.color.mainCenter3);
 
         setAnimation();
         getValues();
         listView.setOnItemClickListener((adapterView, view1, i, l) ->
             pingTime(i)
         );
+//        listView2.setOnItemClickListener((adapterView, view1, i, l) ->
+//                pingTime(i)
+//        );
 //        mObservable.subscribe(mObserver);
 
 
@@ -169,7 +184,6 @@ public class MainFragment extends Fragment{
         labels.add("AUTO");
         labels.add("ON");
         toggleSwitch.setLabels(labels);
-        toggleSwitch.setActiveBgColor(mainCenter);
         toggleSwitch.setInactiveTextColor(tiles_inactive);
         toggleSwitch.setInactiveBgColor(gray);
         toggleSwitch.setActiveBgColor(gray);
@@ -302,7 +316,8 @@ public class MainFragment extends Fragment{
                         String name = first.getText().toString();
                         String ip = second.getText().toString();
                         arrayList.add("");
-                        names.add( name);
+                        arrayList2.add("");
+                        names.add(name);
                         ips.add(ip);
 
 
@@ -407,8 +422,10 @@ public class MainFragment extends Fragment{
     public void pingList(){
 
         if (getContext() != null) {
-            adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
 
+            adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
+            adapter2 = new ArrayAdapter<>(getContext(), R.layout.simple_row2, arrayList2);
+            listView2.setAdapter(adapter2);
             listView.setAdapter(adapter);
         }
 
@@ -420,6 +437,7 @@ public class MainFragment extends Fragment{
         raspberryPi = new ApiKeys().getRaspberryPi();
         ipCam = new ApiKeys().getIpCamIP();
         arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
 
         names = new ArrayList<>();
         names.add("RaspBerry Pi");
@@ -434,6 +452,7 @@ public class MainFragment extends Fragment{
         ips.add("8.8.8.8");
         for (int i = 0; i < names.size(); i++){
             arrayList.add("");
+            arrayList2.add("");
         }
 
     }
@@ -450,10 +469,12 @@ public class MainFragment extends Fragment{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if (result){
-                        arrayList.set(i, name +"  |   ONLINE");
+                        arrayList.set(i, name);
+                        arrayList2.set(i, "  |   ONLINE");
                     }
                     else {
-                        arrayList.set(i, name +"  |  OFFLINE");
+                        arrayList.set(i, name);
+                        arrayList2.set(i, "  |  OFFLINE");
                     }
                 });
 

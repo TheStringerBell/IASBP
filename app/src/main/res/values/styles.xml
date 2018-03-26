@@ -33,6 +33,12 @@
 
     <style name="buttonStyle" parent="android:Widget.Button">
         <item name="android:fontFamily">@font/raleway</item>
+
+    </style>
+
+    <style name="boldtext">
+        <!--<item name="android:textStyle">bold</item>-->
+        <item name="android:textColor">@color/greenNavi</item>
     </style>
 
 

@@ -69,7 +69,7 @@ dependencies {
     implementation 'io.github.tonnyl:light:1.0.0'
     implementation 'com.scottyab:aescrypt:0.0.1'
     implementation 'com.yalantis:contextmenu:1.0.7'
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.commonsware.cwac:merge:1.1.2'
     testCompile 'junit:junit:4.12'
 
 

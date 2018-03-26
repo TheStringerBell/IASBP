@@ -337,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
 
 
-
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
         mMenuDialogFragment.setItemClickListener(this);
 
@@ -360,10 +359,10 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         whichSide = 1;
         tiles.setTitles("Home", "Stats", "Security");
         tiles.setBackgroundColor(getResources().getColor(R.color.mainTilesBg));
-        tiles.setInactiveColor(getResources().getColor(R.color.tiles_inactive));
-        tiles.setActiveColor(getResources().getColor(R.color.tiles_active));
+        tiles.setInactiveColor(getResources().getColor(R.color.greenNavi));
+        tiles.setActiveColor(getResources().getColor(R.color.greenNavi));
         tiles.setTabIndex(0, true);
-        tiles.setStripColor(getResources().getColor(R.color.mainPink));
+        tiles.setStripColor(getResources().getColor(R.color.greenNavi));
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
