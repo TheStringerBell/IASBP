@@ -93,6 +93,8 @@ public class MainFragment extends Fragment{
     Runnable runnable;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter2;
+    ArrayList<ListModel> listModel;
+
     ListView listView;
     ListView listView2;
     ArrayList<String> arrayList;
@@ -117,7 +119,7 @@ public class MainFragment extends Fragment{
 //        device2 = view.findViewById(R.id.device2);
         listView = view.findViewById(R.id.listview);
         floatbut = view.findViewById(R.id.floatbut);
-        listView2 = view.findViewById(R.id.listview2);
+
 
         humiValues = view.findViewById(R.id.humiValues);
         toggleSwitch = view.findViewById(R.id.toggleswitch);
@@ -315,8 +317,9 @@ public class MainFragment extends Fragment{
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = first.getText().toString();
                         String ip = second.getText().toString();
-                        arrayList.add("");
-                        arrayList2.add("");
+//                        arrayList.add("");
+//                        arrayList2.add("");
+                        listModel.add(new ListModel("", ""));
                         names.add(name);
                         ips.add(ip);
 
@@ -423,10 +426,9 @@ public class MainFragment extends Fragment{
 
         if (getContext() != null) {
 
+            CustomAdapter customAdapter = new CustomAdapter(getContext(), R.layout.listview_layout, listModel);
             adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
-            adapter2 = new ArrayAdapter<>(getContext(), R.layout.simple_row2, arrayList2);
-            listView2.setAdapter(adapter2);
-            listView.setAdapter(adapter);
+            listView.setAdapter(customAdapter);
         }
 
 
@@ -436,8 +438,11 @@ public class MainFragment extends Fragment{
 
         raspberryPi = new ApiKeys().getRaspberryPi();
         ipCam = new ApiKeys().getIpCamIP();
-        arrayList = new ArrayList<>();
-        arrayList2 = new ArrayList<>();
+        listModel = new ArrayList<>();
+//        listModel.add(new ListModel("RaspBerry Pi", raspberryPi));
+//        listModel.add(new ListModel("IP Cam", ipCam));
+//        listModel.add(new ListModel("LM UNIZA", "158.193.254.60"));
+//        listModel.add(new ListModel("Google DNS", "8.8.8.8"));
 
         names = new ArrayList<>();
         names.add("RaspBerry Pi");
@@ -451,8 +456,9 @@ public class MainFragment extends Fragment{
         ips.add("158.193.254.60");
         ips.add("8.8.8.8");
         for (int i = 0; i < names.size(); i++){
-            arrayList.add("");
-            arrayList2.add("");
+//            arrayList.add("");
+//            arrayList2.add("");
+                    listModel.add(new ListModel("", ""));
         }
 
     }
@@ -469,12 +475,15 @@ public class MainFragment extends Fragment{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if (result){
-                        arrayList.set(i, name);
-                        arrayList2.set(i, "  |   ONLINE");
+//                        arrayList.set(i, name);
+//                        arrayList2.set(i, "  |   ONLINE");
+                        listModel.set(i, new ListModel(name , "  |   ONLINE"));
+
                     }
                     else {
-                        arrayList.set(i, name);
-                        arrayList2.set(i, "  |  OFFLINE");
+//                        arrayList.set(i, name);
+//                        arrayList2.set(i, "  |  OFFLINE");
+                        listModel.set(i, new ListModel(name , "  |   OFFLINE"));
                     }
                 });
 
