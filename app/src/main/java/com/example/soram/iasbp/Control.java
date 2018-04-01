@@ -22,19 +22,20 @@ public class Control{
     final String GETTOKEN = new ApiKeys().getGetToken();
     final String USERNAME = new ApiKeys().getUsername();
     final String PASSWORD = new ApiKeys().getPublicKey();
-    newControl mNewControl;
     OkHttpClient client;
+    RetrofitModel service;
 
 
     public void generatePrivateToken(final String mode,final String mode2, final int i){
-//        mNewControl = new GetPrivateToken().getNewControl("", "");
-//        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread());
-//        rb.subscribe(responseBodyResponse -> {
-//            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
-//            String key = responseBodyResponse.headers().get("Token");
-            client = new HttpClient(USERNAME,PASSWORD, mode, mode2).getControlClient();
+        client = new HttpClient(USERNAME,PASSWORD, mode, mode2).getControlClient();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(RetrofitModel.class);
+
+
             switch (i){
                 case 0: updateControl(); break;
                 case 1: updateTemp(); break;
@@ -43,15 +44,11 @@ public class Control{
 //        });
     }
 
+
     public void updateControl(){
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
+
         retrofit2.Call<Void> call = service.control(addition);
         call.enqueue(new retrofit2.Callback<Void>() {
             @Override
@@ -66,12 +63,6 @@ public class Control{
     }
     public void updateTemp(){
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
         retrofit2.Call<Void> call = service.control(tempLowMin);
         call.enqueue(new retrofit2.Callback<Void>() {
             @Override
@@ -85,13 +76,6 @@ public class Control{
         });
     }
     public void updateHumi(){
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
         retrofit2.Call<Void> call = service.control(humiLowMin);
         call.enqueue(new retrofit2.Callback<Void>() {
             @Override
@@ -103,25 +87,25 @@ public class Control{
             }
         });
     }
-    public void updateDefault(){
+//    public void updateDefault(){
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(URL)
+//                .client(client)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
-        retrofit2.Call<Void> call = service.control(addition);
-        call.enqueue(new retrofit2.Callback<Void>() {
-            @Override
-            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
-            }
-            @Override
-            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
-
-            }
-        });
-    }
+//        retrofit2.Call<Void> call = service.control(addition);
+//        call.enqueue(new retrofit2.Callback<Void>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+//            }
+//            @Override
+//            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
 
 }

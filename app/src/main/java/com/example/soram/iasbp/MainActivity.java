@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     int whichSide;
     OkHttpClient client;
     String emptyTag;
-    newControl mNewControl;
     PatternLockView patternLockView;
     List<PatternLockView.Dot> patternList;
     String PATTERNSTRING;
@@ -75,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     MenuParams menuParams;
     ContextMenuDialogFragment mMenuDialogFragment;
     FragmentManager fragmentManager;
+    RetrofitModel retrofitModel;
+    Retrofit retrofit;
 
 
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         getValues();
         setActionBar();
         setTiles();
-        mNewControl = new GetPrivateToken().getNewControl("", "");
+
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
             @Override
             public void onStarted() {
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
                     patternLockView.setVisibility(View.INVISIBLE);
                     menu.setClickable(true);
-                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
+//                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
                     getHumiData(HUMIDATA);
                 }else {
                     Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
@@ -129,14 +130,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     }
 
     public void getHumiData(String url) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HOST_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        newControl service = retrofit.create(newControl.class);
-        Call<List<GetHumiData>> call = service.sqlData(url);
+        Call<List<GetHumiData>> call = retrofitModel.sqlData(url);
         call.enqueue(new Callback<List<GetHumiData>>() {
             @Override
             public void onResponse(Call<List<GetHumiData>> call, Response<List<GetHumiData>> response) {
@@ -182,13 +177,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     }
     public void getControlData(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HOST_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
-        Call<List<GetControlData>> call = service.controlData(CONTROL);
+
+        Call<List<GetControlData>> call = retrofitModel.controlData(CONTROL);
         call.enqueue(new Callback<List<GetControlData>>() {
             @Override
             public void onResponse(Call<List<GetControlData>> call, Response<List<GetControlData>> response) {
@@ -218,13 +208,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     }
     public void getInsideData(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HOST_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        newControl service = retrofit.create(newControl.class);
-        Call<List<GetInsideData>> call = service.insideData(INSIDEDATA);
+
+        Call<List<GetInsideData>> call = retrofitModel.insideData(INSIDEDATA);
         call.enqueue(new Callback<List<GetInsideData>>() {
             @Override
             public void onResponse(Call<List<GetInsideData>> call, Response<List<GetInsideData>> response) {
@@ -303,6 +288,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         USERNAME = new ApiKeys().getUsername();
         PASSWORD = new ApiKeys().getPublicKey();
         PATTERNSTRING = new ApiKeys().getPatternString();
+        retrofitModel = new RetrofitClient().getRetrofitClient(emptyTag, emptyTag);
+
         MenuObject first = new MenuObject();
         first.setMenuTextAppearanceStyle(R.style.TextViewStyle);
         first.setTitle("refresh");
@@ -404,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         controlLowMin.clear();
         controlStatus.clear();
 //                generatePrivateToken();
-        if (client != null){
+        if (retrofitModel != null){
             getHumiData(HUMIDATA);
         }
 

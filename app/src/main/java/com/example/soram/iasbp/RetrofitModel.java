@@ -9,7 +9,7 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Url;
 
-public interface newControl{
+public interface RetrofitModel{
     @GET
     retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
     );

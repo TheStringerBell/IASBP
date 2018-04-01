@@ -6,16 +6,14 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class GetPrivateToken {
+public class RetrofitClient {
     final String URL = new ApiKeys().getLink();
-    final String addition = new ApiKeys().getGetToken();
     OkHttpClient client;
     String USERNAME = new ApiKeys().getUsername();
     String PASSWORD =  new ApiKeys().getPublicKey();
-    String token;
-    String key;
 
-    public RetrofitModel getNewControl(String mode, String mode2){
+
+    public RetrofitModel getRetrofitClient(String mode, String mode2){
 
         final Retrofit retrofit = getRetrofit(mode, mode2);
 

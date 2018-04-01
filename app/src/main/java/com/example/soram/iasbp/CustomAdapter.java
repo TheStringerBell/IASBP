@@ -13,16 +13,8 @@ import java.util.ArrayList;
 
 
 public class CustomAdapter extends ArrayAdapter<ListModel> {
-    Context mConext;
-    ArrayList<ListModel> listModel = new ArrayList<>();
+
     int layoutRes;
-
-//    public CustomAdapter(Context context, ArrayAdapter<ListModel> model){
-//        this.mConext = context;
-//        this.listModelArrayAdapter = model;
-//
-//    }
-
 
     public CustomAdapter(@NonNull Context context, int resource, ArrayList<ListModel> listModel) {
         super(context, resource, listModel);
