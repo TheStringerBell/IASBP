@@ -85,7 +85,7 @@
 
         android:textAlignment="textEnd"
 
-        android:textColor="@color/mainCenter" />
+        android:textColor="@color/mainPink" />
 
     <!--SETTINGS HUMIDITY-->
     <LinearLayout
@@ -113,7 +113,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/humiditySettings"
         android:textAlignment="textEnd"
-        android:textColor="@color/mainCenter2" />
+        android:textColor="@color/mainPink" />
 
     <TextView
         android:id="@+id/humiditySettings"

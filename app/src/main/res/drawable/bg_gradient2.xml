@@ -5,7 +5,7 @@
     <gradient
 
         android:endColor="@color/gray"
-        android:centerColor="@color/mainCenter2"
+        android:centerColor="@color/mainPink"
         android:centerX="50%"
         android:centerY="50%"
 

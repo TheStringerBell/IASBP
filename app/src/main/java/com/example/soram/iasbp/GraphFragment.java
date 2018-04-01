@@ -33,6 +33,10 @@ public class GraphFragment extends Fragment {
     LineChart lineChart2;
     ArrayList<Entry> entries;
     ArrayList<Entry> entries2;
+    int mainPink;
+    int naviGreen;
+    int graph_text;
+    int graph_setColor;
 
     @Nullable
     @Override
@@ -47,6 +51,12 @@ public class GraphFragment extends Fragment {
         TempValues = getArguments().getStringArrayList("TempValues");
         TempTime = getArguments().getStringArrayList("TempTime");
 
+        mainPink = getResources().getColor(R.color.mainPink);
+
+        graph_setColor = getResources().getColor(R.color.graph_setColor);
+        graph_text = getResources().getColor( R.color.graph_text);
+        naviGreen = getResources().getColor(R.color.greenNavi);
+
         entries = new ArrayList<>();
         Drawable gradient = ContextCompat.getDrawable(getContext(), R.drawable.graph_bg);
 
@@ -56,7 +66,7 @@ public class GraphFragment extends Fragment {
         xAxis.setDrawAxisLine(false);
         xAxis.setLabelRotationAngle(-45);
         xAxis.setTextSize(9);
-        xAxis.setTextColor(getResources().getColor(R.color.graph_text));
+        xAxis.setTextColor(graph_text);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -72,10 +82,10 @@ public class GraphFragment extends Fragment {
         YAxis leftYaxis = lineChart.getAxisLeft();
         leftYaxis.setDrawAxisLine(false);
         leftYaxis.setDrawGridLines(false);
-        leftYaxis.setGridColor(getResources().getColor(R.color.graph_text));
-        leftYaxis.setTextColor(getResources().getColor(R.color.graph_text));
+        leftYaxis.setGridColor(graph_text);
+        leftYaxis.setTextColor(graph_text);
         LineDataSet lineDataSet = new LineDataSet(entries, "Humidity");
-        lineDataSet.setColor(getResources().getColor(R.color.graph_setColor));
+        lineDataSet.setColor(graph_setColor);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setLineWidth(1);
         lineDataSet.setDrawValues(false);
@@ -95,7 +105,7 @@ public class GraphFragment extends Fragment {
         lineChart.getDescription().setEnabled(false);
         lineChart.getXAxis().setLabelCount(6, true);
 //        lineChart.getLegend().setEnabled(false);
-        lineChart.getLegend().setTextColor(getResources().getColor(R.color.graph_text));
+        lineChart.getLegend().setTextColor(naviGreen);
         lineChart.animateX(1500);
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -116,7 +126,7 @@ public class GraphFragment extends Fragment {
         xAxis2.setDrawAxisLine(false);
         xAxis2.setLabelRotationAngle(-45);
         xAxis2.setTextSize(9);
-        xAxis2.setTextColor(getResources().getColor(R.color.graph_text));
+        xAxis2.setTextColor(graph_text);
         xAxis2.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -132,10 +142,10 @@ public class GraphFragment extends Fragment {
         YAxis leftYaxis2 = lineChart2.getAxisLeft();
         leftYaxis2.setDrawAxisLine(false);
         leftYaxis2.setDrawGridLines(false);
-        leftYaxis2.setTextColor(getResources().getColor(R.color.graph_text));
-        leftYaxis2.setGridColor(getResources().getColor(R.color.graph_text));
+        leftYaxis2.setTextColor(graph_text);
+        leftYaxis2.setGridColor(graph_text);
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "Temperature");
-        lineDataSet2.setColor(getResources().getColor(R.color.graph_setColor));
+        lineDataSet2.setColor(graph_setColor);
         lineDataSet2.setDrawCircles(false);
         lineDataSet2.setLineWidth(1);
         lineDataSet2.setDrawValues(false);
@@ -148,7 +158,7 @@ public class GraphFragment extends Fragment {
         lineChart2.getXAxis().setLabelCount(6, true);
         lineChart2.getDescription().setEnabled(false);
         lineChart2.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        lineChart2.getLegend().setTextColor(getResources().getColor(R.color.graph_text));
+        lineChart2.getLegend().setTextColor(graph_text);
         lineChart2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {

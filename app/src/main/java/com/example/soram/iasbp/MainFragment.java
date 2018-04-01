@@ -227,7 +227,7 @@ public class MainFragment extends Fragment{
         circleProgressView.setUnitSize(25);
         circleProgressView.setBarWidth(5);
         circleProgressView.setRimWidth(7);
-        circleProgressView.setUnitColor(graph_text);
+        circleProgressView.setUnitColor(mainPink);
         circleProgressView.setTextColor(mainPink);
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView.setTextMode(TextMode.VALUE);
@@ -244,7 +244,7 @@ public class MainFragment extends Fragment{
         circleProgressView2.setUnit("%");
         circleProgressView2.setUnitVisible(true);
         circleProgressView2.setUnitSize(25);
-        circleProgressView2.setUnitColor(graph_text);
+        circleProgressView2.setUnitColor(mainPink);
         circleProgressView2.setTextColor(mainPink);
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
@@ -447,13 +447,13 @@ public class MainFragment extends Fragment{
         names = new ArrayList<>();
         names.add("RaspBerry Pi");
         names.add("IP Cam");
-        names.add("LM UNIZA");
-        names.add("Google DNS");
+        names.add("Home PC");
+        names.add("Smart TV");
 
         ips = new ArrayList<>();
         ips.add(raspberryPi);
         ips.add(ipCam);
-        ips.add("158.193.254.60");
+        ips.add("8.8.4.4");
         ips.add("8.8.8.8");
         for (int i = 0; i < names.size(); i++){
 //            arrayList.add("");
