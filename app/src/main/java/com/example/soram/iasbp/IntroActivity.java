@@ -13,16 +13,10 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-//        getSupportActionBar().hide();
         videoView = findViewById(R.id.videoView);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoView.setVideoURI(video);
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                switchScreen();
-            }
-        });
+        videoView.setOnCompletionListener(mediaPlayer -> switchScreen());
         videoView.start();
     }
     public void switchScreen() {

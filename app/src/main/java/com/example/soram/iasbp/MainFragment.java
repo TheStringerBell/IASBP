@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.stealthcopter.networktools.Ping;
-import com.stealthcopter.networktools.ping.PingResult;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -30,7 +29,6 @@ import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import io.github.tonnyl.light.Light;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,7 +43,6 @@ public class MainFragment extends Fragment{
     ArrayList<String> inside;
     ArrayList<String> controlLowMax;
     ArrayList<String> controlHighMin;
-    ArrayList<String> deviceStatus;
     CircleProgressView circleProgressView;
     CircleProgressView circleProgressView2;
     Float maxValue;
@@ -63,8 +60,6 @@ public class MainFragment extends Fragment{
     TextView heating;
     TextView humidication;
     TextView devices;
-    TextView device1;
-    TextView device2;
     ToggleSwitch toggleSwitch;
     ToggleSwitch toggleSwitch2;
     ArrayList<String> labels;
@@ -92,31 +87,22 @@ public class MainFragment extends Fragment{
     Handler handler = new Handler();
     Runnable runnable;
     ArrayAdapter<String> adapter;
-    ArrayAdapter<String> adapter2;
     ArrayList<ListModel> listModel;
-
     ListView listView;
-    ListView listView2;
     ArrayList<String> arrayList;
-    ArrayList<String> arrayList2;
     ArrayList<String> ips;
     ArrayList<String> names;
     FloatingActionButton floatbut;
-    PingResult pingResult;
     Observable mObservable;
-    Observer mObserver;
 
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.main_fragment, container, false);
 
+        view = inflater.inflate(R.layout.main_fragment, container, false);
         devices = view.findViewById(R.id.devices);
-//        device1 = view.findViewById(R.id.device1);
-//        device2 = view.findViewById(R.id.device2);
         listView = view.findViewById(R.id.listview);
         floatbut = view.findViewById(R.id.floatbut);
 
@@ -154,10 +140,7 @@ public class MainFragment extends Fragment{
         listView.setOnItemClickListener((adapterView, view1, i, l) ->
             pingTime(i)
         );
-//        listView2.setOnItemClickListener((adapterView, view1, i, l) ->
-//                pingTime(i)
-//        );
-//        mObservable.subscribe(mObserver);
+
 
 
 //        //get arraylists from Main Activity

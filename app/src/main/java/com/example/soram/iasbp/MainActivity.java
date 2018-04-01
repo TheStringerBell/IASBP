@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     ArrayList<String> arrayTempDate = new ArrayList<String>();
     ArrayList<String> arrayTempTime = new ArrayList<String>();
     ArrayList<String> arrayTempValue = new ArrayList<String>();
-    //Control
     ArrayList<String> controlMode = new ArrayList<>();
     ArrayList<String> controlStatus = new ArrayList<String>();
     ArrayList<String> controlLowMin = new ArrayList<String>();
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     ArrayList<String> controlHighMin = new ArrayList<String>();
     ArrayList<String> controlHighMax = new ArrayList<String>();
     Integer cont = 0;
-    ActionBar actionBar;
     Boolean humiOrTemp = false;
     Bundle bundle;
     NavigationTabStrip tiles;
@@ -61,21 +59,17 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     String INSIDEDATA;
     String GETTOKEN;
     int whichSide;
-    OkHttpClient client;
     String emptyTag;
     PatternLockView patternLockView;
-    List<PatternLockView.Dot> patternList;
     String PATTERNSTRING;
     Toolbar toolbar;
     ImageView iasLogo;
     ImageView menu;
-    LinearLayout ln;
     List<MenuObject> menuObjects;
     MenuParams menuParams;
     ContextMenuDialogFragment mMenuDialogFragment;
     FragmentManager fragmentManager;
     RetrofitModel retrofitModel;
-    Retrofit retrofit;
 
 
 
@@ -251,11 +245,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                 }).create().show();
     }
 
-
-
-
-
-
     public void setActionBar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -329,19 +318,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
 
     }
-//    public void generatePrivateToken(){
-//        Observable<Response<ResponseBody>> rb = mNewControl.obstest(GETTOKEN)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread());
-//        rb.subscribe(responseBodyResponse -> {
-//            String key = responseBodyResponse.headers().get("Token");
-////            String key = new ApiKeys().encryptToken(responseBodyResponse.headers().get("Token"));
-//
-//            client = new HttpClient(USERNAME,key, emptyTag, emptyTag).getClient();
-//            getHumiData(HUMIDATA);
-//        });
-//
-//    }
+
     public void setTiles(){
         whichSide = 1;
         tiles.setTitles("Home", "Stats", "Security");
