@@ -448,7 +448,10 @@ public class MainFragment extends Fragment{
 
     public void pingIt(int i ,String name, String url){
 
-        mObservable.fromCallable(new Callable<Boolean>() {
+
+
+
+        Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 return Ping.onAddress(url).setTimeOutMillis(1000).doPing().isReachable();
@@ -472,7 +475,7 @@ public class MainFragment extends Fragment{
 
     }
     public void pingTime(int i){
-        mObservable.fromCallable(new Callable<Float>() {
+        Observable.fromCallable(new Callable<Float>() {
             @Override
             public Float call() throws Exception {
                 return Ping.onAddress(ips.get(i)).setTimeOutMillis(1000).doPing().getTimeTaken();
@@ -485,4 +488,5 @@ public class MainFragment extends Fragment{
 
 
     }
+
 }

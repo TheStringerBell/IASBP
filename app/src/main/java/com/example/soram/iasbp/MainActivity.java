@@ -3,7 +3,6 @@ import android.content.DialogInterface;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,17 +10,18 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 import io.github.tonnyl.light.Light;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.converter.gson.GsonConverterFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     public void setTiles(){
         whichSide = 1;
-        tiles.setTitles("Home", "Stats", "Security");
+        tiles.setTitles("Home", "Stats", "Energy", "Security");
         tiles.setBackgroundColor(getResources().getColor(R.color.mainTilesBg));
         tiles.setInactiveColor(getResources().getColor(R.color.greenNavi));
         tiles.setActiveColor(getResources().getColor(R.color.greenNavi));
@@ -339,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
                     case "SECURITY":
                         loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+                    case "ENERGY":  break;
 
                 }
             }
@@ -379,9 +380,104 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     public void onMenuItemClick(View clickedView, int position) {
         switch (position){
             case 0: reset(); break;
+            case 1: wakeOnLanDialog(); break;
 
             case 2: finishAndRemoveTask(); break;
         }
+
+    }
+    public void addAddressDialog(){
+        final EditText first = new EditText(this);
+        final EditText second = new EditText(this);
+        final LinearLayout ln = new LinearLayout(this);
+        final TextView title = new TextView(this);
+        title.setText(R.string.SendMP);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0,25,0,0);
+
+        first.setHint("IP address");
+        second.setHint("MAC address");
+        first.setGravity(Gravity.CENTER_HORIZONTAL);
+        second.setGravity(Gravity.CENTER_HORIZONTAL);
+        first.setTextColor(getResources().getColor(R.color.mainPink));
+        second.setTextColor(getResources().getColor(R.color.mainPink));
+        title.setTextColor(getResources().getColor(R.color.mainPink));
+        first.setHintTextColor(getResources().getColor(R.color.tiles_inactive));
+        second.setHintTextColor(getResources().getColor(R.color.tiles_inactive));
+        first.setPadding(0,15,0,15);
+        second.setPadding(0,15,0,15);
+        ln.setOrientation(LinearLayout.VERTICAL);
+        ln.setGravity(Gravity.CENTER);
+        ln.setBackgroundColor(getResources().getColor(R.color.gray));
+
+        ln.addView(first, 500,100);
+        ln.addView(second,500,100);
+        new android.app.AlertDialog.Builder(this, R.style.dialogTheme)
+                .setCustomTitle(title)
+                .setView(ln)
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String ip = first.getText().toString();
+                        String mac = second.getText().toString();
+                        if (ip.equals("1")){
+                            new Control().wakeOnLan("192.168.1.104", "D0:50:99:88:E1:38");
+                        }else if(ip.equals("2"))
+                            {
+                                new Control().wakeOnLan("192.168.1.103", "00:26:5e:42:1b:fe");
+
+                            }else {
+                            if (ip.isEmpty() || mac.isEmpty()){
+                                Light.warning(patternLockView, "Wrong format.", Snackbar.LENGTH_SHORT).show();
+                            }else {
+                                new Control().wakeOnLan(ip, mac);
+                            }
+
+                        }
+
+
+
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .show();
+
+    }
+
+    public void wakeOnLanDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogStyle);
+//        alertDialog.setTitle("Tap to send Magic packet.");
+        TextView title = new TextView(this);
+        title.setText(R.string.wakeUp);
+        title.setTextColor(getResources().getColor(R.color.greenNavi));
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(10, 10, 10, 10);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        String[] list = {"Home PC", "Acer Laptop", "Lenovo Laptop", "Custom"};
+
+
+        alertDialog.setItems(list, (dialogInterface, i) -> {
+            switch (i){
+                case 0: new Control().wakeOnLan("192.168.1.103", "00:26:5e:42:1b:fe"); break;
+                case 1: new Control().wakeOnLan("192.168.1.103", "00:26:5e:42:1b:fe"); break;
+                case 2: break;
+                case 3: addAddressDialog(); break;
+
+            }
+        });
+
+        AlertDialog dialog = alertDialog.create();
+
+        dialog.show();
+
 
     }
 

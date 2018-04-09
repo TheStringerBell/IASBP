@@ -1,4 +1,11 @@
 package com.example.soram.iasbp;
+import com.stealthcopter.networktools.WakeOnLan;
+
+import java.util.concurrent.Callable;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,6 +21,7 @@ public class Control{
     final String PASSWORD = new ApiKeys().getPublicKey();
     OkHttpClient client;
     RetrofitModel service;
+    Observable observable;
 
 
     public void generatePrivateToken(final String mode,final String mode2, final int i){
@@ -73,6 +81,21 @@ public class Control{
 
             }
         });
+    }
+
+    public void wakeOnLan(String ip, String mac){
+        Observable.fromCallable(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+               WakeOnLan.sendWakeOnLan(ip, mac);
+               return 1;
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+
+
     }
 
 }

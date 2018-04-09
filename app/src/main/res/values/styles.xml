@@ -23,6 +23,16 @@
 
 
     </style>
+
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/gray</item>
+        <item name="android:textColor">@color/mainPink</item>
+        <item name="android:textColorAlertDialogListItem">@color/list1</item>
+        <item name="android:textAppearanceListItem">@color/list1</item>
+
+    </style>
+
+
     <style name="newFont" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/raleway</item>
     </style>
