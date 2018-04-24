@@ -267,16 +267,17 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     // generate credentials
     public void getValues(){
+        ApiKeys apiKeys = new ApiKeys();
         emptyTag = "";
-        HOST_URL = new ApiKeys().getLink();
-        HUMIDATA = new ApiKeys().getHumiData();
-        TEMPDATA = new ApiKeys().getTempData();
-        CONTROL  = new ApiKeys().getControl();
-        INSIDEDATA = new ApiKeys().getInsideData();
-        GETTOKEN = new ApiKeys().getGetToken();
-        USERNAME = new ApiKeys().getUsername();
-        PASSWORD = new ApiKeys().getPublicKey();
-        PATTERNSTRING = new ApiKeys().getPatternString();
+        HUMIDATA = apiKeys.getHumiData();
+        HOST_URL = apiKeys.getLink();
+        TEMPDATA = apiKeys.getTempData();
+        CONTROL  = apiKeys.getControl();
+        INSIDEDATA = apiKeys.getInsideData();
+        GETTOKEN = apiKeys.getGetToken();
+        USERNAME = apiKeys.getUsername();
+        PASSWORD = apiKeys.getPublicKey();
+        PATTERNSTRING = apiKeys.getPatternString();
         retrofitModel = new RetrofitClient().getRetrofitClient(emptyTag, emptyTag);
 
         MenuObject first = new MenuObject();

@@ -93,7 +93,6 @@ public class MainFragment extends Fragment{
     ArrayList<String> ips;
     ArrayList<String> names;
     FloatingActionButton floatbut;
-    Observable mObservable;
 
 
 
