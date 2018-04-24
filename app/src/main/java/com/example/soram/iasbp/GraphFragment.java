@@ -54,8 +54,8 @@ public class GraphFragment extends Fragment {
         mainPink = getResources().getColor(R.color.mainPink);
 
         graph_setColor = getResources().getColor(R.color.graph_setColor);
-        graph_text = getResources().getColor( R.color.graph_text);
-        naviGreen = getResources().getColor(R.color.greenNavi);
+        graph_text = getResources().getColor( R.color.mainPink);
+        naviGreen = getResources().getColor(R.color.graph_text);
 
         entries = new ArrayList<>();
         Drawable gradient = ContextCompat.getDrawable(getContext(), R.drawable.graph_bg);
@@ -85,7 +85,7 @@ public class GraphFragment extends Fragment {
         leftYaxis.setGridColor(graph_text);
         leftYaxis.setTextColor(graph_text);
         LineDataSet lineDataSet = new LineDataSet(entries, "Humidity");
-        lineDataSet.setColor(graph_setColor);
+        lineDataSet.setColor(naviGreen);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setLineWidth(1);
         lineDataSet.setDrawValues(false);
@@ -145,7 +145,7 @@ public class GraphFragment extends Fragment {
         leftYaxis2.setTextColor(graph_text);
         leftYaxis2.setGridColor(graph_text);
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "Temperature");
-        lineDataSet2.setColor(graph_setColor);
+        lineDataSet2.setColor(naviGreen);
         lineDataSet2.setDrawCircles(false);
         lineDataSet2.setLineWidth(1);
         lineDataSet2.setDrawValues(false);
@@ -158,7 +158,7 @@ public class GraphFragment extends Fragment {
         lineChart2.getXAxis().setLabelCount(6, true);
         lineChart2.getDescription().setEnabled(false);
         lineChart2.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        lineChart2.getLegend().setTextColor(graph_text);
+        lineChart2.getLegend().setTextColor(naviGreen);
         lineChart2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {

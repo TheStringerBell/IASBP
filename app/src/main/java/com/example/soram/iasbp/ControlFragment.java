@@ -20,6 +20,7 @@ public class ControlFragment extends Fragment {
     ImageView imageView;
     ImageView imageView2;
     String url2;
+    String url;
     Handler handler = new Handler();
     Runnable runnable;
 
@@ -29,18 +30,27 @@ public class ControlFragment extends Fragment {
         view = inflater.inflate(R.layout.test, container, false);
         imageView = view.findViewById(R.id.imageView1);
         imageView2 = view.findViewById(R.id.imageView2);
-
-        String url = "http://188.123.101.50:8083/mjpg/video.mjpg";
+        url = new ApiKeys().getIpCam2();
         url2 = new ApiKeys().getIpCam();
         return view;
     }
     public void loadCam(){
         Picasso.with(getContext())
                 .load(url2)
+                .fit()
                 .noPlaceholder()
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(imageView);
+    }
+    public void loadCam2(){
+        Picasso.with(getContext())
+                .load(url)
+                .fit()
+                .noPlaceholder()
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .into(imageView2);
     }
 
     @Override
@@ -49,8 +59,9 @@ public class ControlFragment extends Fragment {
             @Override
             public void run() {
                 loadCam();
+                loadCam2();
                 runnable = this;
-                handler.postDelayed(runnable, 1000);
+                handler.postDelayed(runnable, 1500);
 
             }
         }, 100);

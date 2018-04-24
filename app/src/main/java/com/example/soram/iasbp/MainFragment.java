@@ -171,8 +171,8 @@ public class MainFragment extends Fragment{
         toggleSwitch.setLabels(labels);
         toggleSwitch.setInactiveTextColor(tiles_inactive);
         toggleSwitch.setInactiveBgColor(gray);
-        toggleSwitch.setActiveBgColor(gray);
-        toggleSwitch.setActiveTextColor(mainPink);
+        toggleSwitch.setActiveBgColor(mainCenter2);
+        toggleSwitch.setActiveTextColor(naviGreen);
         toggleSwitch.setCheckedTogglePosition(Integer.parseInt(mode.get(0)));
         toggleSwitch.setOnToggleSwitchChangeListener((position, isChecked) -> {
             new Control().generatePrivateToken(Integer.toString(position), mode.get(1) , 0);
@@ -187,9 +187,9 @@ public class MainFragment extends Fragment{
         toggleSwitch2.setLabels(labels);
         toggleSwitch2.setActiveBgColor(mainCenter2);
         toggleSwitch2.setInactiveTextColor(tiles_inactive);
-        toggleSwitch2.setActiveBgColor(gray);
+
         toggleSwitch2.setInactiveBgColor(gray);
-        toggleSwitch2.setActiveTextColor(mainPink);
+        toggleSwitch2.setActiveTextColor(naviGreen);
         toggleSwitch2.setCheckedTogglePosition(Integer.parseInt(mode.get(1)));
         toggleSwitch2.setOnToggleSwitchChangeListener((position, isChecked) -> {
             new Control().generatePrivateToken(mode.get(0), Integer.toString(position), 0);
@@ -202,14 +202,14 @@ public class MainFragment extends Fragment{
 
         circleProgressView.setMaxValue(45);
         circleProgressView.setValue(0);
-        circleProgressView.setBarColor(mainPink);
+        circleProgressView.setBarColor(mainCenter);
         circleProgressView.setRimColor(mainGray);
         circleProgressView.setTextSize(52);
         circleProgressView.setUnit("°C");
         circleProgressView.setUnitVisible(true);
         circleProgressView.setUnitSize(25);
-        circleProgressView.setBarWidth(5);
-        circleProgressView.setRimWidth(7);
+        circleProgressView.setBarWidth(7);
+        circleProgressView.setRimWidth(0);
         circleProgressView.setUnitColor(mainPink);
         circleProgressView.setTextColor(mainPink);
         circleProgressView.setDecimalFormat(new DecimalFormat("#.#"));
@@ -219,11 +219,11 @@ public class MainFragment extends Fragment{
 
         circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);
-        circleProgressView2.setBarColor(mainPink);
+        circleProgressView2.setBarColor(mainCenter);
         circleProgressView2.setRimColor(mainGray);
         circleProgressView2.setTextSize(52);
-        circleProgressView2.setBarWidth(5);
-        circleProgressView2.setRimWidth(7);
+        circleProgressView2.setBarWidth(7);
+        circleProgressView2.setRimWidth(0);
         circleProgressView2.setUnit("%");
         circleProgressView2.setUnitVisible(true);
         circleProgressView2.setUnitSize(25);

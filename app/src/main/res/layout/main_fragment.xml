@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
 
-            android:textColor="@color/mainPink" />
+            style="@style/boldtext" />
 
 
     </LinearLayout>
@@ -85,7 +85,7 @@
 
         android:textAlignment="textEnd"
 
-        android:textColor="@color/mainPink" />
+        style="@style/boldtext" />
 
     <!--SETTINGS HUMIDITY-->
     <LinearLayout
@@ -113,7 +113,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/humiditySettings"
         android:textAlignment="textEnd"
-        android:textColor="@color/mainPink" />
+        style="@style/boldtext" />
 
     <TextView
         android:id="@+id/humiditySettings"
@@ -203,7 +203,7 @@
         android:id="@+id/floatbut"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:fab_colorNormal="@color/greenNavi"
+        app:fab_colorNormal="@color/mainActionBg"
         app:fab_icon="@mipmap/add"
         app:fab_colorPressed="@color/white"
         android:layout_alignParentBottom="true"

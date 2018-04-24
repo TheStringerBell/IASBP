@@ -455,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 //        alertDialog.setTitle("Tap to send Magic packet.");
         TextView title = new TextView(this);
         title.setText(R.string.wakeUp);
-        title.setTextColor(getResources().getColor(R.color.greenNavi));
+        title.setTextColor(getResources().getColor(R.color.mainActionBg));
         title.setGravity(Gravity.CENTER);
         title.setPadding(10, 10, 10, 10);
         title.setTextSize(20);

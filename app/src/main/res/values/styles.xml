@@ -25,8 +25,8 @@
     </style>
 
     <style name="DialogStyle" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:background">@color/gray</item>
-        <item name="android:textColor">@color/mainPink</item>
+        <item name="android:background">@color/mainPink</item>
+        <item name="android:textColor">@color/mainActionBg</item>
         <item name="android:textColorAlertDialogListItem">@color/list1</item>
         <item name="android:textAppearanceListItem">@color/list1</item>
 
@@ -48,7 +48,8 @@
 
     <style name="boldtext">
         <!--<item name="android:textStyle">bold</item>-->
-        <item name="android:textColor">@color/greenNavi</item>
+        <item name="android:textColor">@color/mainPink</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 
@@ -91,7 +92,7 @@
 
     <style name="TextViewStyle" parent="TextView.DefaultStyle">
         <item name="android:textStyle">italic</item>
-        <item name="android:textColor">#E8175D</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
 
 

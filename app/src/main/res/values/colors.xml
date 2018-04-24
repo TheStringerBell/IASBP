@@ -17,23 +17,36 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
     Main Colors
-    <color name="mainPink">#e24b6c</color>
-    <color name="greenNavi">#e24b6c</color>
-    <color name="mainActionBg">#140E2a</color>
-    <color name="mainTilesBg">#140E2a</color>
-    <color name="mainGray">#20e24b6c</color>
+    <color name="mainPink">#232323</color>
+    <color name="greenNavi">#fef7dd</color>
+    <color name="mainActionBg">#e25b4b</color>
+
+    <color name="mainTilesBg">#e25b4b</color>
+    <color name="mainGray">#ffaba1</color>
+    <color name="mainCenter">#e25b4b</color>
     Gradient
-    <color name="gray">#0e0921</color>
-    <color name="list1">#73c094</color>
+    <color name="gray">#fef7dd</color>
+    <color name="list1">#e25b4b</color>
+
+    <!--<color name="mainPink">#e24b6c</color>-->
+    <!--<color name="greenNavi">#e24b6c</color>-->
+    <!--<color name="mainActionBg">#140E2a</color>-->
+    <!--<color name="mainTilesBg">#140E2a</color>-->
+    <!--<color name="mainGray">#20e24b6c</color>-->
+    <!--Gradient-->
+    <!--<color name="gray">#0e0921</color>-->
+    <!--<color name="list1">#73c094</color>-->
+
+
     <!--<color name="mainPink">#E8175D</color>-->
     <!--<color name="greenNavi">#39ad8b</color>-->
     <!--<color name="mainActionBg">#1a1a1a</color>-->
     <!--<color name="mainTilesBg">#1a1a1a</color>-->
     <!--<color name="mainGray">#2d2d2d</color>-->
     <color name="mainBlack">#282828</color>
-    <color name="mainCenter">#E8175D</color>
-    <color name="mainCenter2">#E8175D</color>
-    <color name="mainCenter3">#80E8175D</color>
+
+    <color name="mainCenter2">#e25b4b</color>
+    <color name="mainCenter3">#ffaba1</color>
 
 
     <color name="greenNavi2">#50e24b6c</color>
@@ -43,11 +56,11 @@
 
 
     <!--Graph Colors-->
-    <color name="graph_text">#e8175d</color>
+    <color name="graph_text">#ff1b00</color>
     <color name="graph_setColor">#E8175D</color>
 
     <!--tiles colors-->
-    <color name="tiles_inactive">#506168da</color>
+    <color name="tiles_inactive">#232323</color>
     <color name="tiles_active">#E8175D</color>
     <color name="tiles_bg">#0d0d0d</color>
 
