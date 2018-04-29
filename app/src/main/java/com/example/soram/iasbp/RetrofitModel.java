@@ -20,6 +20,9 @@ public interface RetrofitModel{
     Call<List<GetInsideData>> insideData(@Url String url
     );
     @GET
+    Call<List<GetEnergyData>> energyData(@Url String url
+    );
+    @GET
     Call<Void> control(@Url String url
     );
     @GET

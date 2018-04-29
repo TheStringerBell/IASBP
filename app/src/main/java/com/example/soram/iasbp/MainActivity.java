@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     ArrayList<String> controlLowMax = new ArrayList<String>();
     ArrayList<String> controlHighMin = new ArrayList<String>();
     ArrayList<String> controlHighMax = new ArrayList<String>();
+    ArrayList<String> energyTime = new ArrayList<>();
+    ArrayList<String> energyValue = new ArrayList<>();
     Integer cont = 0;
     Boolean humiOrTemp = false;
     Bundle bundle;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     String CONTROL;
     String INSIDEDATA;
     String GETTOKEN;
+    String ENERGYDATA;
     int whichSide;
     String emptyTag;
     PatternLockView patternLockView;
@@ -212,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     insideArray.add(list.get(i).getValue());
                 }
                 bundle.putStringArrayList("Inside", insideArray);
-                loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
+                getEnergyData();
             }
 
             @Override
@@ -222,6 +225,27 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
 
     }
+    public void getEnergyData(){
+        Call<List<GetEnergyData>> call = retrofitModel.energyData(ENERGYDATA);
+        call.enqueue(new Callback<List<GetEnergyData>>() {
+            @Override
+            public void onResponse(Call<List<GetEnergyData>> call, Response<List<GetEnergyData>> response) {
+                List<GetEnergyData> list = response.body();
+                for (int i = 0; i < list.size(); i++){
+                    energyTime.add(list.get(i).getTime());
+                    energyValue.add(list.get(i).getValue());
+                }
+                bundle.putStringArrayList("EnergyTime", energyTime);
+                bundle.putStringArrayList("EnergyValue", energyValue);
+                loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
+            }
+
+            @Override
+            public void onFailure(Call<List<GetEnergyData>> call, Throwable t) {
+            }
+        });
+    }
+
     public void loadFragment(Fragment fragment, Bundle bundle, int anim1, int anim2){
         fragment.setArguments(bundle);
 
@@ -273,6 +297,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         HOST_URL = apiKeys.getLink();
         TEMPDATA = apiKeys.getTempData();
         CONTROL  = apiKeys.getControl();
+        ENERGYDATA = apiKeys.getEnergy();
         INSIDEDATA = apiKeys.getInsideData();
         GETTOKEN = apiKeys.getGetToken();
         USERNAME = apiKeys.getUsername();
@@ -340,7 +365,11 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
                     case "SECURITY":
                         loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
-                    case "ENERGY":  break;
+                    case "ENERGY":if (whichSide == 0){
+                        loadFragment(new EnergyFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
+                    }else{
+                        loadFragment(new EnergyFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                    }
 
                 }
             }
