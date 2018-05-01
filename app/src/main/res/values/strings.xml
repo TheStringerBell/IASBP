@@ -12,6 +12,8 @@
     <string name="AddIPAddress">Add IP Address</string>
     <string name="SendMP">Send magic packet</string>
     <string name="wakeUp">Tap to wake up.</string>
+    <string name="Cam1">Cam 1</string>\
+    <string name="Cam2">Cam 2</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

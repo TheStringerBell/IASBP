@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     String GETTOKEN;
     String ENERGYDATA;
     int whichSide;
+    boolean confirmed;
     String emptyTag;
     PatternLockView patternLockView;
     String PATTERNSTRING;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
                     patternLockView.setVisibility(View.INVISIBLE);
                     menu.setClickable(true);
+                    tiles.setTabIndex(0, true);
+                    confirmed = true;
 //                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
                     getHumiData(HUMIDATA);
                 }else {
@@ -293,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     public void getValues(){
         ApiKeys apiKeys = new ApiKeys();
         emptyTag = "";
+        confirmed = false;
         HUMIDATA = apiKeys.getHumiData();
         HOST_URL = apiKeys.getLink();
         TEMPDATA = apiKeys.getTempData();
@@ -356,22 +360,27 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         tiles.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
             public void onStartTabSelected(String title, int index) {
-                switch (title){
-                    case "STATS":  if (whichSide == 0){
-                        loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
-                    }else{
-                        loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
-                    }
-                    case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
-                    case "SECURITY":
-                        loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
-                    case "ENERGY":if (whichSide == 0){
-                        loadFragment(new EnergyFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
-                    }else{
-                        loadFragment(new EnergyFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
-                    }
+                if (!confirmed){
+                    Light.warning(patternLockView, "Please enter password", Snackbar.LENGTH_SHORT).show();
+                }else {
+                    switch (title){
+                        case "STATS":  if (whichSide == 0){
+                            loadFragment(new GraphFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
+                        }else{
+                            loadFragment(new GraphFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                        }
+                        case "HOME":    loadFragment(new MainFragment(), bundle, R.anim.from_left, R.anim.to_right); whichSide = 1;  break;
+                        case "SECURITY":
+                            loadFragment(new ControlFragment(), bundle, R.anim.from_right, R.anim.to_left); whichSide = 0;  break;
+                        case "ENERGY":if (whichSide == 0){
+                            loadFragment(new EnergyFragment(), bundle, R.anim.from_left, R.anim.to_right); break;
+                        }else{
+                            loadFragment(new EnergyFragment(), bundle, R.anim.from_right, R.anim.to_left); break;
+                        }
 
+                    }
                 }
+
             }
 
             @Override
