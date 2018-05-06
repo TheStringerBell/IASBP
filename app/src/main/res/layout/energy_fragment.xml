@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
@@ -9,19 +10,94 @@
     android:padding="15dp">
 
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/relatV2"
+    android:layout_marginBottom="25dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+
+    >
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/mainActionBg"
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"
+
+        android:text="@string/current"
+        />
+    <TextView
+        android:layout_below="@id/textView8"
+        android:id="@+id/energyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/myImageView"
+        android:layout_alignTop="@+id/myImageView"
+        android:layout_alignEnd="@+id/myImageView"
+        android:layout_alignBottom="@+id/myImageView"
+        android:layout_margin="1dp"
+        android:paddingEnd="25dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/mainActionBg"/>
+
+    <ImageView
+        android:id="@+id/myImageView"
+        android:layout_below="@id/textView8"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/energy"
+        android:layout_marginBottom="25dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/relatV"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/chart2"
-        android:layout_marginTop="10dp"
+        android:id="@+id/relatk"
+
+        android:layout_marginBottom="25dp"
         android:background="@drawable/bg_gradient"
-        >
+        android:layout_below="@id/myImageView">
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/mainActionBg"
+        android:textStyle="bold"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@id/relatk"
+        android:text="@string/last"
+        />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart3"
+        android:layout_width="330dp"
+        android:layout_centerInParent="true"
+        android:layout_height="215dp"
+        android:layout_below="@id/textView7"
+        android:layout_marginTop="8dp"
+
+        />
+
+</RelativeLayout>
+
+
+
+
+
+
     </RelativeLayout>
 
 
 
 
 
-</RelativeLayout>
