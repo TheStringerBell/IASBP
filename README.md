@@ -1,4 +1,4 @@
 Bakalárska práca
 
 
-<img src="https://imgur.com/a/MnVdMAX" width="40" height="40" />
+![Alt Text](https://imgur.com/a/MnVdMAX)
