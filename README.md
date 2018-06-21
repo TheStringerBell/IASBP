@@ -1,4 +1,4 @@
 Bakalárska práca
 
 
-![](http://i.imgur.com/OUkLi.gif)
+![](https://media.giphy.com/media/28GFzXcXRg1JDcqZzX/giphy.gif)
