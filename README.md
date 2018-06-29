@@ -1,4 +1,4 @@
-Bakalárska práca
+Bakalárska práca - Aplikačné rozhranie monitorovacieho systému
 
 
 ![](https://media.giphy.com/media/3h2MfIiJI5ZVhuVftR/giphy.gif)
