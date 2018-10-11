@@ -1,4 +1,7 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.network;
+
+import com.example.soram.iasbp.utils.DecryptInterceptor;
+import com.example.soram.iasbp.utils.Intercepto;
 
 import okhttp3.OkHttpClient;
 
@@ -18,7 +21,7 @@ public class HttpClient {
 
         return new okhttp3.OkHttpClient.Builder()
                 .addInterceptor(new Intercepto(username, password, mode, mode2))
-                .addInterceptor(new Intercepto2())
+                .addInterceptor(new DecryptInterceptor())
                 .build();
 
     }

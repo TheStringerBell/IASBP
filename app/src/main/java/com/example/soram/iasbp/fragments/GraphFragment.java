@@ -1,4 +1,4 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;

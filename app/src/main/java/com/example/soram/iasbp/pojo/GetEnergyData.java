@@ -1,4 +1,4 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.pojo;
 
 /**
  * Created by sOram on 29. 4. 2018.

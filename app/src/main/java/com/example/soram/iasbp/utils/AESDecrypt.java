@@ -1,6 +1,8 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.utils;
 import android.util.Base64;
 import android.util.Log;
+
+import com.example.soram.iasbp.ApiKeys;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

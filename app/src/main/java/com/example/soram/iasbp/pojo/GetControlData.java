@@ -1,4 +1,4 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.pojo;
 
 
 import java.io.Serializable;

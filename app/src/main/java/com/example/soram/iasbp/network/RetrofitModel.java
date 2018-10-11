@@ -1,4 +1,9 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.network;
+
+import com.example.soram.iasbp.pojo.GetControlData;
+import com.example.soram.iasbp.pojo.GetEnergyData;
+import com.example.soram.iasbp.pojo.GetHumiData;
+import com.example.soram.iasbp.pojo.GetInsideData;
 
 import java.util.List;
 

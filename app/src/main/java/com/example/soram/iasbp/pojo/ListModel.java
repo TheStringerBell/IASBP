@@ -1,8 +1,6 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.pojo;
 
-/**
- * Created by sOram on 1. 4. 2018.
- */
+
 
 public class ListModel {
     String hostname;

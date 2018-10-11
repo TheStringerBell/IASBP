@@ -24,6 +24,17 @@ import android.widget.TextView;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
+import com.example.soram.iasbp.fragments.ControlFragment;
+import com.example.soram.iasbp.fragments.EnergyFragment;
+import com.example.soram.iasbp.fragments.GraphFragment;
+import com.example.soram.iasbp.fragments.MainFragment;
+import com.example.soram.iasbp.network.Control;
+import com.example.soram.iasbp.network.RetrofitClient;
+import com.example.soram.iasbp.network.RetrofitModel;
+import com.example.soram.iasbp.pojo.GetControlData;
+import com.example.soram.iasbp.pojo.GetEnergyData;
+import com.example.soram.iasbp.pojo.GetHumiData;
+import com.example.soram.iasbp.pojo.GetInsideData;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;

@@ -1,5 +1,7 @@
-package com.example.soram.iasbp;
-import android.util.Log;
+package com.example.soram.iasbp.network;
+
+import com.example.soram.iasbp.ApiKeys;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

@@ -1,4 +1,4 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.soram.iasbp.ApiKeys;
+import com.example.soram.iasbp.utils.CustomAdapter;
+import com.example.soram.iasbp.network.Control;
+import com.example.soram.iasbp.pojo.ListModel;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.stealthcopter.networktools.Ping;
 import java.text.DecimalFormat;

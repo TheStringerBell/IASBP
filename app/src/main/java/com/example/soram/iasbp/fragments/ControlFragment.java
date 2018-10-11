@@ -1,4 +1,4 @@
-package com.example.soram.iasbp;
+package com.example.soram.iasbp.fragments;
 
 
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.soram.iasbp.ApiKeys;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
