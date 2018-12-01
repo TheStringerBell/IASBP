@@ -26,7 +26,7 @@ public class Control{
 
 
     public void generatePrivateToken(final String mode,final String mode2, final int i){
-        client = new HttpClient(USERNAME,PASSWORD, mode, mode2).getControlClient();
+        client = new HttpClient(USERNAME,PASSWORD).getControlClient(mode, mode2);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .client(client)

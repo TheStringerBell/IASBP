@@ -15,6 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import com.example.soram.iasbp.fragments.EnergyFragment;
 import com.example.soram.iasbp.fragments.GraphFragment;
 import com.example.soram.iasbp.fragments.MainFragment;
 import com.example.soram.iasbp.network.Control;
+import com.example.soram.iasbp.network.GetHumiClient;
 import com.example.soram.iasbp.network.RetrofitClient;
 import com.example.soram.iasbp.network.RetrofitModel;
 import com.example.soram.iasbp.pojo.GetControlData;
@@ -142,123 +144,83 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
     public void getHumiData(String url) {
 
-        Call<List<GetHumiData>> call = retrofitModel.sqlData(url);
-        call.enqueue(new Callback<List<GetHumiData>>() {
-            @Override
-            public void onResponse(Call<List<GetHumiData>> call, Response<List<GetHumiData>> response) {
+        GetHumiClient getHumiClient = new GetHumiClient();
+        getHumiClient.getHumiDataSingle()
+                .flatMap(getHumiData -> {
 
-                List<GetHumiData> list = response.body();
-                for (int i = 0; i < list.size(); i++) {
-                    String date = list.get(i).getDate();
-                    String time = list.get(i).getTime();
-                    String value = list.get(i).getValue();
+                for (int i = 0; i < getHumiData.size(); i++) {
+                    String date = getHumiData.get(i).getDate();
+                    String time = getHumiData.get(i).getTime();
+                    String value = getHumiData.get(i).getValue();
+                    arrayValue.add(value);
+                    arrayTime.add(time);
+                    arrayDate.add(date);
+                }
+                    bundle = new Bundle();
+                    bundle.putStringArrayList("HumiValues", arrayValue);
+                    bundle.putStringArrayList("HumiTime", arrayTime);
 
-                    if (!humiOrTemp){
-                        arrayValue.add(value);
-                        arrayTime.add(time);
-                        arrayDate.add(date);
-                    }else {
+                    return getHumiClient.getTempDataSingle();
+
+
+                })
+                .flatMap(getHumiData -> {
+                    for (int i = 0; i < getHumiData.size(); i++) {
+                        String date = getHumiData.get(i).getDate();
+                        String time = getHumiData.get(i).getTime();
+                        String value = getHumiData.get(i).getValue();
                         arrayTempDate.add(date);
                         arrayTempValue.add(value);
                         arrayTempTime.add(time);
                     }
-                }
-                if (humiOrTemp){
-                    bundle = new Bundle();
-                    bundle.putStringArrayList("HumiValues", arrayValue);
-                    bundle.putStringArrayList("HumiTime", arrayTime);
                     bundle.putStringArrayList("TempValues", arrayTempValue);
                     bundle.putStringArrayList("TempTime", arrayTempTime);
                     bundle.putStringArrayList("Date", arrayTempDate);
 
-
-                    if (cont == 0){
-                        getControlData();
+                    return getHumiClient.getControlDataSingle();
+                })
+                .flatMap(getControlData -> {
+                    for (int i = 0; i < getControlData.size(); i++){
+                        controlMode.add(getControlData.get(i).getMode());
+                        controlHighMax.add(getControlData.get(i).getHighMax());
+                        controlHighMin.add(getControlData.get(i).getHighMin());
+                        controlLowMax.add(getControlData.get(i).getLowMax());
+                        controlLowMin.add(getControlData.get(i).getLowMin());
+                        controlStatus.add(getControlData.get(i).getStatus());
                     }
-                    cont++;
-                }else {
-                    humiOrTemp = true;
-                    getHumiData(TEMPDATA);
-                }
-            }
-            @Override
-            public void onFailure(Call<List<GetHumiData>> call, Throwable t) {
-            }
-        });
+
+                    bundle.putStringArrayList("HighMax", controlHighMax);
+                    bundle.putStringArrayList("HighMin", controlHighMin);
+                    bundle.putStringArrayList("LowMax", controlLowMax);
+                    bundle.putStringArrayList("LowMin", controlLowMin);
+                    bundle.putStringArrayList("Status", controlStatus);
+                    bundle.putStringArrayList("Mode", controlMode);
+
+                    return getHumiClient.getInsideDataSingle();
+
+                })
+                .flatMap(getInsideData -> {
+                    for (int i = 0; i < getInsideData.size(); i++){
+                        insideArray.add(getInsideData.get(i).getValue());
+                    }
+                    bundle.putStringArrayList("Inside", insideArray);
+
+                    return getHumiClient.getEnergyDataSingle();
+
+                })
+                .subscribe(getEnergyData -> {
+                    for (int i = 0; i < getEnergyData.size(); i++){
+                        energyTime.add(getEnergyData.get(i).getTime());
+                        energyValue.add(getEnergyData.get(i).getValue());
+                    }
+                    bundle.putStringArrayList("EnergyTime", energyTime);
+                    bundle.putStringArrayList("EnergyValue", energyValue);
+                    loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
+                });
 
     }
-    public void getControlData(){
-
-        Call<List<GetControlData>> call = retrofitModel.controlData(CONTROL);
-        call.enqueue(new Callback<List<GetControlData>>() {
-            @Override
-            public void onResponse(Call<List<GetControlData>> call, Response<List<GetControlData>> response) {
-                List<GetControlData> list = response.body();
-
-                for (int i = 0; i < list.size(); i++){
-
-                    controlMode.add(list.get(i).getMode());
-                    controlHighMax.add(list.get(i).getHighMax());
-                    controlHighMin.add(list.get(i).getHighMin());
-                    controlLowMax.add(list.get(i).getLowMax());
-                    controlLowMin.add(list.get(i).getLowMin());
-                    controlStatus.add(list.get(i).getStatus());
-                }
-                bundle.putStringArrayList("HighMax", controlHighMax);
-                bundle.putStringArrayList("HighMin", controlHighMin);
-                bundle.putStringArrayList("LowMax", controlLowMax);
-                bundle.putStringArrayList("LowMin", controlLowMin);
-                bundle.putStringArrayList("Status", controlStatus);
-                bundle.putStringArrayList("Mode", controlMode);
-                getInsideData();
-            }
-            @Override
-            public void onFailure(Call<List<GetControlData>> call, Throwable t) {
-            }
-        });
-
-    }
-    public void getInsideData(){
-
-        Call<List<GetInsideData>> call = retrofitModel.insideData(INSIDEDATA);
-        call.enqueue(new Callback<List<GetInsideData>>() {
-            @Override
-            public void onResponse(Call<List<GetInsideData>> call, Response<List<GetInsideData>> response) {
-                List<GetInsideData> list = response.body();
-                for (int i = 0; i < list.size(); i++){
-                    insideArray.add(list.get(i).getValue());
-                }
-                bundle.putStringArrayList("Inside", insideArray);
-                getEnergyData();
-            }
-
-            @Override
-            public void onFailure(Call<List<GetInsideData>> call, Throwable t) {
-            }
-        });
 
 
-    }
-    public void getEnergyData(){
-        Call<List<GetEnergyData>> call = retrofitModel.energyData(ENERGYDATA);
-        call.enqueue(new Callback<List<GetEnergyData>>() {
-            @Override
-            public void onResponse(Call<List<GetEnergyData>> call, Response<List<GetEnergyData>> response) {
-                List<GetEnergyData> list = response.body();
-                for (int i = 0; i < list.size(); i++){
-                    energyTime.add(list.get(i).getTime());
-                    energyValue.add(list.get(i).getValue());
-                }
-                bundle.putStringArrayList("EnergyTime", energyTime);
-                bundle.putStringArrayList("EnergyValue", energyValue);
-                loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
-            }
-
-            @Override
-            public void onFailure(Call<List<GetEnergyData>> call, Throwable t) {
-            }
-        });
-    }
 
     public void loadFragment(Fragment fragment, Bundle bundle, int anim1, int anim2){
         fragment.setArguments(bundle);

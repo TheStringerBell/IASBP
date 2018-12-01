@@ -34,7 +34,7 @@
                 android:layout_height="50dp"
 
 
-                app:srcCompat="@mipmap/menu" />
+                app:srcCompat="@mipmap/ic_menu" />
 
 
         </RelativeLayout>

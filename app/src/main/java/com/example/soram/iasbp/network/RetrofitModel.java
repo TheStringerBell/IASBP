@@ -8,6 +8,7 @@ import com.example.soram.iasbp.pojo.GetInsideData;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -16,16 +17,16 @@ import retrofit2.http.Url;
 
 public interface RetrofitModel{
     @GET
-    retrofit2.Call<List<GetHumiData>> sqlData(@Url String url
+    Single<List<GetHumiData>> sqlData(@Url String url
     );
     @GET
-    Call<List<GetControlData>> controlData(@Url String url
+    Single<List<GetControlData>> controlData(@Url String url
     );
     @GET
-    Call<List<GetInsideData>> insideData(@Url String url
+    Single<List<GetInsideData>> insideData(@Url String url
     );
     @GET
-    Call<List<GetEnergyData>> energyData(@Url String url
+    Single<List<GetEnergyData>> energyData(@Url String url
     );
     @GET
     Call<Void> control(@Url String url

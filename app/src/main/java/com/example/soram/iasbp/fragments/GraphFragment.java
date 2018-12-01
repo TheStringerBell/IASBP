@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import com.example.soram.iasbp.R;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.LineChart;
