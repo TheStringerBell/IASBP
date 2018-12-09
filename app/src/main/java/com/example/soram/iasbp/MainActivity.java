@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.tonnyl.light.Light;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.disposables.CompositeDisposable;
 
 
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.andrognito.patternlockview.PatternLockView;
@@ -108,7 +110,9 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern){
                 if (pattern.toString().equals(PATTERNSTRING)){
-                    Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT);
+                    Toasty.success(getApplicationContext(), "Correct.",Toast.LENGTH_SHORT).show();
+
+
                     patternLockView.setVisibility(View.INVISIBLE);
                     menu.setClickable(true);
                     tiles.setTabIndex(0, true);
@@ -116,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 //                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
                     getHumiData();
                 }else {
-                    Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT);
+                    Toasty.warning(getApplicationContext(), "Wrong password.", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -302,7 +307,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
             @Override
             public void onStartTabSelected(String title, int index) {
                 if (!confirmed){
-                    Light.warning(patternLockView, "Please enter password", Snackbar.LENGTH_SHORT);
+                    Toasty.warning(getApplicationContext(), "Please enter password.", Toast.LENGTH_SHORT).show();
+
                 }else {
                     switch (title){
                         case "STATS":  if (whichSide == 0){
@@ -408,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
                             }else {
                             if (ip.isEmpty() || mac.isEmpty()){
-                                Light.warning(patternLockView, "Wrong format.", Snackbar.LENGTH_SHORT);
+                                Toasty.warning(getApplicationContext(), "Wrong format.", Toast.LENGTH_SHORT).show();
                             }else {
                                 new Control().wakeOnLan(ip, mac);
                             }
@@ -455,4 +461,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         compositeDisposable.dispose();
         super.onDestroy();
     }
+
+
 }

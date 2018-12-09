@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.soram.iasbp.R;
 
 import com.example.soram.iasbp.ApiKeys;
@@ -43,7 +45,7 @@ import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.tonnyl.light.Light;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -78,11 +80,10 @@ public class MainFragment extends Fragment {
     @BindView(R.id.devices) TextView devices;
     @BindView(R.id.toggleswitch) ToggleSwitch toggleSwitch;
     @BindView(R.id.toggleswitch2) ToggleSwitch toggleSwitch2;
-    @BindView(R.id.linearLayout) LinearLayout linearLayout;
-    @BindView(R.id.linearLayout2) LinearLayout linearLayout2;
-    @BindView(R.id.linearLayout4) LinearLayout linearLayout3;
-    @BindView(R.id.relatV) RelativeLayout realL;
-    @BindView(R.id.relatV2) RelativeLayout realL2;
+    @BindView(R.id.linearLayout4) LinearLayout linearLayout4;
+    @BindView(R.id.settingsRV) RelativeLayout settingsRV;
+    @BindView(R.id.devicesRel) RelativeLayout devicesRV;
+
     @BindView(R.id.listview) ListView listView;
     @BindView(R.id.circleView) CircleProgressView circleProgressView;
     @BindView(R.id.circleView2) CircleProgressView circleProgressView2;
@@ -93,7 +94,7 @@ public class MainFragment extends Fragment {
     @BindColor(R.color. mainCenter) int  mainCenter;
     @BindColor(R.color.mainCenter2) int mainCenter2;
     @BindColor(R.color.tiles_inactive) int tiles_inactive;
-    @BindColor(R.color.gray) int gray;
+    @BindColor(R.color.white_pressed) int gray;
     @BindColor(R.color.graph_text) int graph_text;
     @BindColor(R.color.greenNavi) int naviGreen;
     @BindColor(R.color.background) int white;
@@ -239,17 +240,9 @@ public class MainFragment extends Fragment {
         animation3.setDuration(2000);
         animation4.setDuration(2500);
         animation5.setDuration(3000);
-        linearLayout3.startAnimation(animation);
-        realL.startAnimation(animation2);
-        textTemp.startAnimation(animation2);
-        linearLayout.startAnimation(animation3);
-        linearLayout2.startAnimation(animation3);
-        heating.startAnimation(animation4);
-        minMax.startAnimation(animation4);
-        humiValues.startAnimation(animation5);
-        humidication.startAnimation(animation5);
-        realL2.startAnimation(animation5);
-        devices.startAnimation(animation5);
+            linearLayout4.startAnimation(animation);
+            settingsRV.startAnimation(animation2);
+            devicesRV.startAnimation(animation3);
 
     }
 
@@ -451,8 +444,7 @@ public class MainFragment extends Fragment {
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> Light.normal(listView,"IP: " +  ips.get(i) + "      Delay: " + result + " ms", Snackbar.LENGTH_SHORT)));
-
+                .subscribe(result -> Toasty.normal(getContext(), "IP: " +  ips.get(i) + "      Delay: " + result + " ms", Toast.LENGTH_SHORT).show()));
     }
 
 }

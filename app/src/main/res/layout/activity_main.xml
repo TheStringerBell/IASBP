@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray"
+
+    android:background="@color/pink"
     tools:context="com.example.soram.iasbp.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -51,6 +52,7 @@
         android:id="@+id/tiles"
         android:layout_width="match_parent"
         android:layout_height="25dp"
+
         app:nts_animation_duration="300"
         app:nts_corners_radius="1.5dp"
         app:nts_factor="2.5"
@@ -76,5 +78,6 @@
             android:layout_height="350dp"/>
 
     </RelativeLayout>
+
 
 </LinearLayout>
