@@ -3,9 +3,9 @@ package com.example.soram.iasbp.fragments;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,9 @@ import com.example.soram.iasbp.ApiKeys;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 
 public class ControlFragment extends Fragment {
@@ -33,8 +36,8 @@ public class ControlFragment extends Fragment {
         view = inflater.inflate(R.layout.test, container, false);
         imageView = view.findViewById(R.id.imageView1);
         imageView2 = view.findViewById(R.id.imageView2);
-        url = new ApiKeys().getIpCam2();
-        url2 = new ApiKeys().getIpCam();
+        url = ApiKeys.ipCam;
+        url2 = ApiKeys.ipCam2;
         return view;
     }
     public void loadCam(){

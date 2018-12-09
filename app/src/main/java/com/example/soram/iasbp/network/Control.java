@@ -14,12 +14,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Control{
 
-    final String URL = new ApiKeys().getLink();
-    final String addition = new ApiKeys().getControltest();
-    final String tempLowMin = new ApiKeys().getTempLowMin();
-    final String humiLowMin = new ApiKeys().getHumiLowMin();
-    final String USERNAME = new ApiKeys().getUsername();
-    final String PASSWORD = new ApiKeys().getPublicKey();
+
+    final String addition = ApiKeys.controltest;
+    final String tempLowMin = ApiKeys.tempLowMin;
+    final String humiLowMin = ApiKeys.humiLowMin;
+    final String USERNAME = ApiKeys.username;
+    final String PASSWORD = ApiKeys.publicKey;
+    final String URL = ApiKeys.link;
     OkHttpClient client;
     RetrofitModel service;
     Observable observable;

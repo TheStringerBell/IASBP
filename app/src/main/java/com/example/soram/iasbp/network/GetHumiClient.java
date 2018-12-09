@@ -18,21 +18,18 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GetHumiClient {
-    ApiKeys apiKeys = new ApiKeys();
 
-    final String URL = apiKeys.getLink();
+    final String USERNAME = ApiKeys.username;
+    final String PASSWORD = ApiKeys.publicKey;
     OkHttpClient client;
     Retrofit retrofit;
-    String USERNAME = apiKeys.getUsername();
-    String PASSWORD =  apiKeys.getPublicKey();
-
-
 
     public GetHumiClient(){
+
         client = new HttpClient(USERNAME,PASSWORD).getDefaultClient();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
+                .baseUrl(ApiKeys.link)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -42,36 +39,38 @@ public class GetHumiClient {
 
     public Single<List<GetHumiData>> getHumiDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .sqlData(apiKeys.getHumiData())
+                .sqlData(ApiKeys.humiData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<List<GetHumiData>> getTempDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .sqlData(apiKeys.getTempData())
+                .sqlData(ApiKeys.tempData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<List<GetEnergyData>> getEnergyDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .energyData(apiKeys.getEnergy())
+                .energyData(ApiKeys.energy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<List<GetInsideData>> getInsideDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .insideData(apiKeys.getInsideData())
+                .insideData(ApiKeys.insideData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<List<GetControlData>> getControlDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .controlData(apiKeys.getControl())
+                .controlData(ApiKeys.control)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
 }

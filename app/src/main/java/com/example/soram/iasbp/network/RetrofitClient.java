@@ -15,11 +15,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RetrofitClient {
-    final String URL = new ApiKeys().getLink();
+
     OkHttpClient client;
     Retrofit retrofit;
-    String USERNAME = new ApiKeys().getUsername();
-    String PASSWORD =  new ApiKeys().getPublicKey();
+    final String USERNAME = ApiKeys.username;
+    final String PASSWORD = ApiKeys.publicKey;
+    final String URL = ApiKeys.link;
+
 
 
     public RetrofitModel getRetrofitClient(String mode, String mode2){
@@ -45,7 +47,7 @@ public class RetrofitClient {
 
     public Single<List<GetHumiData>> getHumiDataSingle (){
         return retrofit.create(RetrofitModel.class)
-                .sqlData(new ApiKeys().getHumiData())
+                .sqlData(ApiKeys.humiData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

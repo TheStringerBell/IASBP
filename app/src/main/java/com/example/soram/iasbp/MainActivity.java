@@ -1,27 +1,32 @@
 package com.example.soram.iasbp;
 import android.content.DialogInterface;
 
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.tonnyl.light.Light;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
+import io.reactivex.disposables.CompositeDisposable;
+
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
@@ -31,13 +36,8 @@ import com.example.soram.iasbp.fragments.GraphFragment;
 import com.example.soram.iasbp.fragments.MainFragment;
 import com.example.soram.iasbp.network.Control;
 import com.example.soram.iasbp.network.GetHumiClient;
-import com.example.soram.iasbp.network.RetrofitClient;
-import com.example.soram.iasbp.network.RetrofitModel;
-import com.example.soram.iasbp.pojo.GetControlData;
-import com.example.soram.iasbp.pojo.GetEnergyData;
-import com.example.soram.iasbp.pojo.GetHumiData;
-import com.example.soram.iasbp.pojo.GetInsideData;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.android.material.snackbar.Snackbar;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
@@ -64,29 +64,24 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     Integer cont = 0;
     Boolean humiOrTemp = false;
     Bundle bundle;
-    NavigationTabStrip tiles;
-    String HOST_URL;
-    String USERNAME;
-    String PASSWORD;
     String HUMIDATA;
-    String TEMPDATA;
-    String CONTROL;
-    String INSIDEDATA;
-    String GETTOKEN;
-    String ENERGYDATA;
     int whichSide;
     boolean confirmed;
     String emptyTag;
-    PatternLockView patternLockView;
     String PATTERNSTRING;
-    Toolbar toolbar;
-    ImageView iasLogo;
-    ImageView menu;
     List<MenuObject> menuObjects;
     MenuParams menuParams;
     ContextMenuDialogFragment mMenuDialogFragment;
     FragmentManager fragmentManager;
-    RetrofitModel retrofitModel;
+    GetHumiClient getHumiClient;
+    CompositeDisposable compositeDisposable;
+
+    @BindView(R.id.tiles) NavigationTabStrip tiles;
+    @BindView(R.id.pattern_lock_view) PatternLockView patternLockView;
+    @BindView(R.id.IAS) ImageView iasLogo;
+    @BindView(R.id.menu) ImageView menu;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
 
 
@@ -94,11 +89,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tiles = findViewById(R.id.tiles);
-        patternLockView = findViewById(R.id.pattern_lock_view);
-        toolbar = findViewById(R.id.toolbar);
-        iasLogo = findViewById(R.id.IAS);
-        menu = findViewById(R.id.menu);
+        ButterKnife.bind(this);
+
         menu.setClickable(false);
         fragmentManager = getSupportFragmentManager();
         getValues();
@@ -108,27 +100,23 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         patternLockView.addPatternLockListener(new PatternLockViewListener() {
             @Override
             public void onStarted() {
-
-
             }
-
             @Override
             public void onProgress(List<PatternLockView.Dot> progressPattern) {
-
             }
 
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern){
                 if (pattern.toString().equals(PATTERNSTRING)){
-                    Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT).show();
+                    Light.success(patternLockView, "Correct.", Snackbar.LENGTH_SHORT);
                     patternLockView.setVisibility(View.INVISIBLE);
                     menu.setClickable(true);
                     tiles.setTabIndex(0, true);
                     confirmed = true;
 //                    client = new HttpClient(USERNAME,PASSWORD, emptyTag, emptyTag).getClient();
-                    getHumiData(HUMIDATA);
+                    getHumiData();
                 }else {
-                    Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT).show();
+                    Light.warning(patternLockView, "Wrong password.", Snackbar.LENGTH_SHORT);
                 }
 
             }
@@ -138,13 +126,14 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
             }
         });
-        menu.setOnClickListener(view -> mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG));
+        menu.setOnClickListener(view ->  mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG));
 
     }
 
-    public void getHumiData(String url) {
+    public void getHumiData() {
+        compositeDisposable.add(
 
-        GetHumiClient getHumiClient = new GetHumiClient();
+
         getHumiClient.getHumiDataSingle()
                 .flatMap(getHumiData -> {
 
@@ -216,7 +205,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
                     bundle.putStringArrayList("EnergyTime", energyTime);
                     bundle.putStringArrayList("EnergyValue", energyValue);
                     loadFragment(new MainFragment(), bundle, R.anim.from_right, R.anim.to_left);
-                });
+                })
+        );
 
     }
 
@@ -249,38 +239,17 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setElevation(0);
-//        toolbar.setLogo(R.mipmap.ic_logo);
-//        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.mipmap.ic_refresh));
 
-
-
-//        actionBar = getSupportActionBar();
-//        actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO);
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setLogo(R.mipmap.ic_logo);
-//        actionBar.setDisplayUseLogoEnabled(true);
-//        actionBar = getSupportActionBar();
-//        actionBar.setElevation(0);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        actionBar.setTitle("");
     }
 
-    // generate credentials
+
     public void getValues(){
-        ApiKeys apiKeys = new ApiKeys();
+        getHumiClient = new GetHumiClient();
         emptyTag = "";
         confirmed = false;
-        HUMIDATA = apiKeys.getHumiData();
-        HOST_URL = apiKeys.getLink();
-        TEMPDATA = apiKeys.getTempData();
-        CONTROL  = apiKeys.getControl();
-        ENERGYDATA = apiKeys.getEnergy();
-        INSIDEDATA = apiKeys.getInsideData();
-        GETTOKEN = apiKeys.getGetToken();
-        USERNAME = apiKeys.getUsername();
-        PASSWORD = apiKeys.getPublicKey();
-        PATTERNSTRING = apiKeys.getPatternString();
-        retrofitModel = new RetrofitClient().getRetrofitClient(emptyTag, emptyTag);
+        PATTERNSTRING = ApiKeys.patternString;
+
+        compositeDisposable = new CompositeDisposable();
 
         MenuObject first = new MenuObject();
         first.setMenuTextAppearanceStyle(R.style.TextViewStyle);
@@ -314,10 +283,9 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         menuParams.setMenuObjects(menuObjects);
         menuParams.setClosableOutside(true);
 
-
-
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
         mMenuDialogFragment.setItemClickListener(this);
+
 
 
     }
@@ -334,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
             @Override
             public void onStartTabSelected(String title, int index) {
                 if (!confirmed){
-                    Light.warning(patternLockView, "Please enter password", Snackbar.LENGTH_SHORT).show();
+                    Light.warning(patternLockView, "Please enter password", Snackbar.LENGTH_SHORT);
                 }else {
                     switch (title){
                         case "STATS":  if (whichSide == 0){
@@ -381,8 +349,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         controlLowMin.clear();
         controlStatus.clear();
 //                generatePrivateToken();
-        if (retrofitModel != null){
-            getHumiData(HUMIDATA);
+        if (getHumiClient != null){
+            getHumiData();
         }
 
         tiles.setTabIndex(0, true);
@@ -440,16 +408,11 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
                             }else {
                             if (ip.isEmpty() || mac.isEmpty()){
-                                Light.warning(patternLockView, "Wrong format.", Snackbar.LENGTH_SHORT).show();
+                                Light.warning(patternLockView, "Wrong format.", Snackbar.LENGTH_SHORT);
                             }else {
                                 new Control().wakeOnLan(ip, mac);
                             }
-
                         }
-
-
-
-
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -472,9 +435,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         title.setPadding(10, 10, 10, 10);
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
-
         String[] list = {"Home PC", "Acer Laptop", "Lenovo Laptop", "Custom"};
-
 
         alertDialog.setItems(list, (dialogInterface, i) -> {
             switch (i){
@@ -485,12 +446,13 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
 
             }
         });
-
         AlertDialog dialog = alertDialog.create();
-
         dialog.show();
-
-
     }
 
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
+    }
 }

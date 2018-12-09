@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.Nullable;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,24 +22,35 @@ import android.widget.TextView;
 import com.example.soram.iasbp.R;
 
 import com.example.soram.iasbp.ApiKeys;
+import com.example.soram.iasbp.db.GetDatabase;
+import com.example.soram.iasbp.db.UpdateTable;
+import com.example.soram.iasbp.db.model.Connections;
 import com.example.soram.iasbp.utils.CustomAdapter;
 import com.example.soram.iasbp.network.Control;
 import com.example.soram.iasbp.pojo.ListModel;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.stealthcopter.networktools.Ping;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
+
+import androidx.fragment.app.Fragment;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.tonnyl.light.Light;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class MainFragment extends Fragment{
+public class MainFragment extends Fragment {
     View view;
     ArrayList<String> HumiValues;
     ArrayList<String> HumiTime;
@@ -49,8 +60,6 @@ public class MainFragment extends Fragment{
     ArrayList<String> inside;
     ArrayList<String> controlLowMax;
     ArrayList<String> controlHighMin;
-    CircleProgressView circleProgressView;
-    CircleProgressView circleProgressView2;
     Float maxValue;
     Float maxValue2;
     Float maxValue3;
@@ -60,45 +69,55 @@ public class MainFragment extends Fragment{
     String lowMin2;
     String raspberryPi;
     String ipCam;
-    TextView minMax;
-    TextView textTemp;
-    TextView humiValues;
-    TextView heating;
-    TextView humidication;
-    TextView devices;
-    ToggleSwitch toggleSwitch;
-    ToggleSwitch toggleSwitch2;
+
+    @BindView(R.id.minMax) TextView minMax;
+    @BindView(R.id.textTemp) TextView textTemp;
+    @BindView(R.id.humiValues) TextView humiValues;
+    @BindView(R.id.heating) TextView heating;
+    @BindView(R.id.humiditySettings) TextView humidication;
+    @BindView(R.id.devices) TextView devices;
+    @BindView(R.id.toggleswitch) ToggleSwitch toggleSwitch;
+    @BindView(R.id.toggleswitch2) ToggleSwitch toggleSwitch2;
+    @BindView(R.id.linearLayout) LinearLayout linearLayout;
+    @BindView(R.id.linearLayout2) LinearLayout linearLayout2;
+    @BindView(R.id.linearLayout4) LinearLayout linearLayout3;
+    @BindView(R.id.relatV) RelativeLayout realL;
+    @BindView(R.id.relatV2) RelativeLayout realL2;
+    @BindView(R.id.listview) ListView listView;
+    @BindView(R.id.circleView) CircleProgressView circleProgressView;
+    @BindView(R.id.circleView2) CircleProgressView circleProgressView2;
+    @BindView(R.id.floatbut) FloatingActionButton floatbut;
+
+    @BindColor(R.color.mainPink) int mainPink;
+    @BindColor(R.color.mainGray) int mainGray;
+    @BindColor(R.color. mainCenter) int  mainCenter;
+    @BindColor(R.color.mainCenter2) int mainCenter2;
+    @BindColor(R.color.tiles_inactive) int tiles_inactive;
+    @BindColor(R.color.gray) int gray;
+    @BindColor(R.color.graph_text) int graph_text;
+    @BindColor(R.color.greenNavi) int naviGreen;
+    @BindColor(R.color.background) int white;
+    @BindColor(R.color.greenNavi2) int naviGreen2;
+    @BindColor(R.color.mainCenter3) int mainCenter3;
+
     ArrayList<String> labels;
-    LinearLayout linearLayout;
-    LinearLayout linearLayout2;
-    LinearLayout linearLayout3;
-    RelativeLayout realL;
-    RelativeLayout realL2;
     Animation animation;
     Animation animation2;
     Animation animation3;
     Animation animation4;
     Animation animation5;
-    int mainPink;
-    int mainGray;
-    int mainCenter;
-    int mainCenter2;
-    int tiles_inactive;
-    int gray;
-    int graph_text;
-    int naviGreen;
-    int white;
-    int naviGreen2;
-    int mainCenter3;
+
     Handler handler = new Handler();
     Runnable runnable;
     ArrayAdapter<String> adapter;
     ArrayList<ListModel> listModel;
-    ListView listView;
     ArrayList<String> arrayList;
     ArrayList<String> ips;
     ArrayList<String> names;
-    FloatingActionButton floatbut;
+
+    GetDatabase db;
+    List<Connections> connections;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
 
@@ -107,38 +126,7 @@ public class MainFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.main_fragment, container, false);
-        devices = view.findViewById(R.id.devices);
-        listView = view.findViewById(R.id.listview);
-        floatbut = view.findViewById(R.id.floatbut);
-
-
-        humiValues = view.findViewById(R.id.humiValues);
-        toggleSwitch = view.findViewById(R.id.toggleswitch);
-        toggleSwitch2 = view.findViewById(R.id.toggleswitch2);
-        textTemp = view.findViewById(R.id.textTemp);
-        circleProgressView  = view.findViewById(R.id.circleView);
-        circleProgressView2 = view.findViewById(R.id.circleView2);
-        minMax = view.findViewById(R.id.minMax);
-        heating = view.findViewById(R.id.heating);
-        humidication = view.findViewById(R.id.humiditySettings);
-        linearLayout = view.findViewById(R.id.linearLayout);
-        linearLayout2 = view.findViewById(R.id.linearLayout2);
-        linearLayout3 = view.findViewById(R.id.linearLayout4);
-        realL = view.findViewById(R.id.relatV);
-        realL2 = view.findViewById(R.id.relatV2);
-
-        // COLORS
-        mainPink = getResources().getColor(R.color.mainPink);
-        mainGray = getResources().getColor(R.color.mainGray);
-        mainCenter =getResources().getColor( R.color.mainCenter);
-        mainCenter2 =getResources().getColor( R.color.mainCenter2);
-        tiles_inactive =getResources().getColor( R.color.tiles_inactive);
-        gray = getResources().getColor(R.color.gray);
-        graph_text = getResources().getColor( R.color.graph_text);
-        naviGreen = getResources().getColor(R.color.greenNavi);
-        white = getResources().getColor(R.color.background);
-        naviGreen2 = getResources().getColor(R.color.greenNavi2);
-        mainCenter3 = getResources().getColor(R.color.mainCenter3);
+        ButterKnife.bind(this, view);
 
         setAnimation();
         getValues();
@@ -157,7 +145,6 @@ public class MainFragment extends Fragment{
         date = getArguments().getStringArrayList("Date");
         mode = getArguments().getStringArrayList("Mode");
         inside = getArguments().getStringArrayList("Inside");
-
 
         maxValue = Float.parseFloat(HumiValues.get(HumiValues.size()-1));
         maxValue2 = Float.parseFloat(TempValues.get(TempValues.size()-1));
@@ -221,7 +208,6 @@ public class MainFragment extends Fragment{
         circleProgressView.setTextMode(TextMode.VALUE);
         circleProgressView.setValueAnimated(maxValue3);
 
-
         circleProgressView2.setMaxValue(100);
         circleProgressView2.setValue(0);
         circleProgressView2.setBarColor(mainCenter);
@@ -237,7 +223,6 @@ public class MainFragment extends Fragment{
         circleProgressView2.setDecimalFormat(new DecimalFormat("#.#"));
         circleProgressView2.setTextMode(TextMode.VALUE);
         circleProgressView2.setValueAnimated(maxValue4);
-
 
         floatbut.setOnClickListener(view1 -> addAddressDialog());
 
@@ -258,12 +243,9 @@ public class MainFragment extends Fragment{
         realL.startAnimation(animation2);
         textTemp.startAnimation(animation2);
         linearLayout.startAnimation(animation3);
-
         linearLayout2.startAnimation(animation3);
-
         heating.startAnimation(animation4);
         minMax.startAnimation(animation4);
-
         humiValues.startAnimation(animation5);
         humidication.startAnimation(animation5);
         realL2.startAnimation(animation5);
@@ -305,23 +287,22 @@ public class MainFragment extends Fragment{
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = first.getText().toString();
                         String ip = second.getText().toString();
-//                        arrayList.add("");
-//                        arrayList2.add("");
                         listModel.add(new ListModel("", ""));
                         names.add(name);
                         ips.add(ip);
-
-
+                        compositeDisposable.add(
+                                Observable.just(db)
+                                        .subscribeOn(Schedulers.io())
+                                        .subscribe(getDatabase -> UpdateTable.populateDb(db, name, ip)
+                                        ));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 })
                 .show();
-
     }
 
     public void openDialog(String tit, final String def, final String def2, final int in){
@@ -370,20 +351,15 @@ public class MainFragment extends Fragment{
                         }else {
                             new Control().generatePrivateToken(one, two, 2);
                         }
-
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 })
                 .show();
-
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -407,55 +383,46 @@ public class MainFragment extends Fragment{
     @Override
     public void onDetach() {
         handler.removeCallbacks(runnable);
+        compositeDisposable.dispose();
         super.onDetach();
     }
 
     public void pingList(){
-
         if (getContext() != null) {
-
             CustomAdapter customAdapter = new CustomAdapter(getContext(), R.layout.listview_layout, listModel);
             adapter = new ArrayAdapter<>(getContext(), R.layout.simple_row, arrayList);
             listView.setAdapter(customAdapter);
         }
 
-
-
     }
     public void getValues(){
 
-        raspberryPi = new ApiKeys().getRaspberryPi();
-        ipCam = new ApiKeys().getIpCamIP();
+        raspberryPi = ApiKeys.raspberryPi;
+        ipCam = ApiKeys.ipCamIP;
         listModel = new ArrayList<>();
-//        listModel.add(new ListModel("RaspBerry Pi", raspberryPi));
-//        listModel.add(new ListModel("IP Cam", ipCam));
-//        listModel.add(new ListModel("LM UNIZA", "158.193.254.60"));
-//        listModel.add(new ListModel("Google DNS", "8.8.8.8"));
-
-        names = new ArrayList<>();
-        names.add("RaspBerry Pi");
-        names.add("IP Cam");
-        names.add("Home PC");
-        names.add("Smart TV");
-
         ips = new ArrayList<>();
-        ips.add(raspberryPi);
-        ips.add(ipCam);
-        ips.add("8.8.4.4");
-        ips.add("8.8.8.8");
-        for (int i = 0; i < names.size(); i++){
-//            arrayList.add("");
-//            arrayList2.add("");
-                    listModel.add(new ListModel("", ""));
-        }
+        names = new ArrayList<>();
+        db = GetDatabase.getAppDatabase(getContext());
+        compositeDisposable.add(
+        Observable.just(db)
+                .subscribeOn(Schedulers.io())
+                .subscribe(getDatabase ->
+                {
+                    connections =  getDatabase.testDao().getAll();
+                    if (connections != null){
+                        for (int i = 0; i < connections.size(); i++){
+                            listModel.add(new ListModel("", ""));
+                            names.add(connections.get(i).getHostname());
+                            ips.add(connections.get(i).getIp());
+                        }
+                    }
+
+                }));
 
     }
 
     public void pingIt(int i ,String name, String url){
-
-
-
-
+        compositeDisposable.add(
         Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
@@ -466,20 +433,16 @@ public class MainFragment extends Fragment{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     if (result){
-//                        arrayList.set(i, name);
-//                        arrayList2.set(i, "  |   ONLINE");
                         listModel.set(i, new ListModel(name , "  |   ONLINE"));
-
                     }
                     else {
-//                        arrayList.set(i, name);
-//                        arrayList2.set(i, "  |  OFFLINE");
                         listModel.set(i, new ListModel(name , "  |   OFFLINE"));
                     }
-                });
+                }));
 
     }
     public void pingTime(int i){
+        compositeDisposable.add(
         Observable.fromCallable(new Callable<Float>() {
             @Override
             public Float call() throws Exception {
@@ -488,9 +451,7 @@ public class MainFragment extends Fragment{
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> Light.normal(listView,"IP: " +  ips.get(i) + "      Delay: " + result + " ms", Snackbar.LENGTH_SHORT).show());
-
-
+                .subscribe(result -> Light.normal(listView,"IP: " +  ips.get(i) + "      Delay: " + result + " ms", Snackbar.LENGTH_SHORT)));
 
     }
 

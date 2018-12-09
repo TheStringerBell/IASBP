@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 public class AESDecrypt {
-    String keygen = new ApiKeys().getKeygen();
+    String keygen = ApiKeys.keygen;
 
     public String Decrypt(String response) throws Exception{
         byte[] bytes = keygen.getBytes();
