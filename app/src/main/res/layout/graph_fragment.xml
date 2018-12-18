@@ -5,6 +5,7 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
+    android:clipToPadding="false"
     android:orientation="vertical"
     android:padding="15dp">
 
@@ -14,26 +15,23 @@
         android:layout_height="215dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
+        android:elevation="3dp"
+        android:background="@drawable/rounderd_layout"
         android:layout_gravity="center" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/relatV"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/chart2"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_gradient"
-        >
-    </RelativeLayout>
+
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart1"
-        android:layout_width="330dp"
+
+
+        android:elevation="3dp"
+        android:background="@drawable/rounderd_layout"
         android:layout_centerInParent="true"
+        android:layout_width="330dp"
         android:layout_height="215dp"
-        android:layout_below="@id/relatV"
+        android:layout_below="@id/chart2"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
 
         />
 

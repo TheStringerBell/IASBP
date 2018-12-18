@@ -6,6 +6,7 @@
     android:focusableInTouchMode="true"
     android:layout_centerVertical="true"
     android:focusable="true"
+    android:clipToPadding="false"
     android:layout_gravity="center"
     android:padding="15dp">
 
